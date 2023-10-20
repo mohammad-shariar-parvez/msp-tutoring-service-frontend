@@ -1,0 +1,31 @@
+.social_icons a{
+    font-size: 28px;
+    margin: 15px 3px;
+    color: #000;
+}
+
+.menu_items a{
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    white-space: nowrap;
+	display: flex;
+	align-items: center;
+	width: 100%;
+   
+}
+.menu_items {
+padding-left: 5px;
+white-space: nowrap;
+}
+
+.line{
+    height: 5px;
+    margin: 10px 0;
+    background: #2c2c2c;
+}
+
+.allLink{
+    margin-left: 60px;
+}
