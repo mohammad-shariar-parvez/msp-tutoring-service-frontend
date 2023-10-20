@@ -1,0 +1,56 @@
+  .bannerClass {
+
+  	width: 100%;
+  	position: fixed;
+  	top: 0;
+  	z-index: 999;
+  	height: "130px";
+  	padding: 0 40px;
+
+
+  	/* Add any other styles for large devices here */
+  }
+
+  /* .responsiveInput {
+  	width: '40%';
+  	background: #000;
+
+  } */
+
+  @media (max-width: 768px) {}
+
+  @media (min-width: 768px) {
+  	.your-banner-class {
+
+  		width: '100%';
+  		position: fixed;
+  		top: 0;
+  		z-index: 999;
+  		height: "130px";
+  		padding: 0 40px;
+
+
+  		/* Add any other styles for large devices here */
+  	}
+
+
+  }
+
+  /* For small devices (screen width < 768px) */
+  @media (max-width: 767px) {
+  	.your-banner-class {
+
+  		width: 100%;
+  		position: fixed;
+  		top: 0;
+  		z-index: 999;
+  		height: "130px";
+  		background-color: rgb(140, 199, 249);
+
+  		/* Add any other styles for small devices here */
+  	}
+
+  	.responsiveInput {
+  		width: 100%;
+  	}
+  }

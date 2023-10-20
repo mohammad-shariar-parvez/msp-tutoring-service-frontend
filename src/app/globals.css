@@ -1,0 +1,513 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+.main-banner {
+  background-color: aqua;
+
+}
+
+.bnr-cnt-area {
+  margin-top: 125px;
+}
+
+.sg-title-txt span {
+  color: tomato;
+}
+
+.sg-title-txt {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 15px 0;
+  color: #092847;
+  line-height: 55px;
+}
+
+.sg-title-sub-tx {
+  font-size: 16px;
+  color: #858585;
+  margin-bottom: 25px;
+}
+
+.sg-hero-img-cont {
+  margin-top: 100px
+}
+
+.column-banner {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* seatch box */
+.search-box {
+  background: #fff;
+  padding: 5px 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 0;
+  justify-content: space-between;
+  box-shadow: 0px 2px 4px 3px #dfdfdf;
+  margin-bottom: 70px;
+}
+
+.search-box .form-control {
+  background: transparent;
+  width: 100%;
+  padding: 13px 13px;
+  border-radius: 0px;
+  border: none;
+  outline: none;
+}
+
+.f-pin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.f-pin::before {
+  content: "";
+  width: 1px;
+  height: 30px;
+  background: #9ca0a5;
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* button */
+.find-btn {
+  background: #092847 !important;
+  padding: 9px 15px;
+  color: #f3f3f3 !important;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  transition: all 0.7s;
+  border: none;
+  border-radius: 7px;
+}
+
+.f-subject {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* @media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+ */
+/* Banner Footer Information  */
+.sg-bnr-info {
+  background: #f8fbff;
+}
+
+.sg-bnr-info-itm {
+  padding: 40px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.sg-bnr-info-itm i {
+  font-size: 40px;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.sg-bnr-info-details {
+  margin-left: 5px;
+}
+
+.sg-bnr-info-details h5 {
+  font-size: 26px;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.sg-bnr-info-details p {
+  margin-bottom: 0;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.clr-01 {
+  color: #092847 !important;
+}
+
+.clr-02 {
+  color: #564ffd !important;
+}
+
+.clr-03 {
+  color: #e34444 !important;
+  ;
+}
+
+.clr-04 {
+  color: #1089ff !important;
+}
+
+.icon-size {
+  font-size: 45px !important;
+  display: inline-block !important;
+  margin-right: 8px !important;
+}
+
+/* End Banner Footer Information  */
+
+
+
+/* 
+####################################################
+*/
+
+/* Home Page Demo Section Design  */
+.req-demo-cnt {
+  padding: 60px 0;
+  background: #fbfeff;
+}
+
+.req-demo-info-cnt {
+  padding: 10px;
+}
+
+.req-demo-info-cnt h3 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #10858b;
+  margin-top: 20px;
+}
+
+.req-demo-form {
+  padding: 20px 25px;
+  background: #e6f3f9;
+  border-radius: 10px;
+}
+
+.req-demo-form h3 {
+  margin-bottom: 36px;
+  text-align: center;
+  color: #10858b;
+  font-size: 32px;
+  margin-top: 15px;
+}
+
+.req-demo-info-step {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 37px;
+  margin-top: 25px;
+}
+
+.req-demo-step {
+  padding: 15px;
+  box-shadow: 2px 2px 2px 2px #ddd;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.req-demo-step h4 {
+  text-align: center;
+}
+
+.req-demo-step h4 span {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.req-demo-step h4 small {
+  display: block;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 8px;
+  color: #10858b;
+}
+
+.req-demo-step h6 {
+  text-align: center;
+  margin: 0 auto;
+  font-size: 23px;
+  color: #10858b;
+}
+
+.req-demo-info-img {
+  margin-top: 70px;
+  display: block;
+}
+
+.sg-form-group {
+  display: block;
+  margin-bottom: 15px;
+}
+
+
+.sg-form-label {
+  display: block;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 160%;
+  color: #565656;
+}
+
+.sg-form-control {
+  border: 2px solid #D2D2D2 !important;
+  border-radius: 5px !important;
+  display: block !important;
+  width: 100% !important;
+  padding: 7px !important;
+  margin-bottom: 5px !important;
+}
+
+.text-center {
+  text-align: center !important;
+  margin-bottom: 15px
+}
+
+.sendRequestButton {
+  display: inline-block;
+  background: #274279;
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  margin-top: 1rem !important
+}
+
+/* End Home Page Demo Section Design  */
+
+/* 
+########################################## SERVICES
+*/
+
+.services-info {
+  padding-bottom: 6rem;
+  padding-top: 6rem;
+  opacity: 1;
+  background-color: rgb(251 251 253/var(--tw-bg-opacity));
+}
+
+.personaliseCard {
+  box-shadow: 0px 0px 35px rgba(56, 183, 255, 0.15);
+  border-radius: 20px 30px 20px 20px;
+
+
+}
+
+.stylish-bar {
+  background: linear-gradient(rgb(0, 191, 252), rgb(0, 148, 255));
+}
+
+
+/* 
+############   services  */
+
+.mantine-1lq8d0z {
+  font-family: Poppins;
+  -webkit-tap-highlight-color: transparent;
+  color: inherit;
+  font-size: inherit;
+  line-height: 1.55;
+  text-decoration: none;
+}
+
+.subjectPageCard {
+  width: 349px;
+  /* height: 414px; */
+  box-shadow: 0px 9px 26px rgba(128, 140, 255, 0.15);
+  border-radius: 30px;
+  background-color: white;
+}
+
+.heading {
+
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+
+.mantine-1lq8d0z {
+  font-family: Poppins;
+  -webkit-tap-highlight-color: transparent;
+  color: inherit;
+  font-size: inherit;
+  line-height: 1.55;
+  text-decoration: none;
+}
+
+
+/* 
+---------- COURSE DETAILS
+
+*/
+
+.author-main-area {
+  width: 100%;
+  background: #f3f6fd;
+}
+
+.bk-prv-btn {
+  display: block;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.user-dflt-cnt {
+  background: #fff;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.user-info-flt {
+
+  border-right: 2px solid #ddd;
+}
+
+.auth-pic {
+  width: 130px;
+  height: 130px;
+  background-size: 100%;
+  border-radius: 50%;
+  margin: 0;
+  position: relative;
+  margin-top: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 1px 5px 0px #b5b4b4;
+  vertical-align: middle;
+  border-style: none;
+  margin: auto;
+}
+
+.sgundtls {
+  width: 250px;
+  margin-left: 50px;
+}
+
+
+
+.sgundtls .a-detail-box {
+  margin-top: 17px;
+}
+
+.hg {
+
+  font-size: 26px;
+  display: block;
+  line-height: 17px;
+  margin-bottom: 13px;
+
+}
+
+.hg-p {
+  font-size: 15px;
+  line-height: 20px;
+  display: block;
+  margin-top: 16px;
+}
+
+.buttonCOurse {
+  background: #092847 !important;
+  padding: 5px 10px !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  margin-right: 15px !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  display: inline-block !important;
+
+}
+
+
+@media (min-width: 768px) {
+  .your-banner-class {
+
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    height: "130px";
+    padding: 0 40px;
+    /* Add any other styles for large devices here */
+  }
+
+  .container {
+    max-width: 1140px;
+  }
+
+  .desk-none {
+    display: none !important;
+  }
+}
+
+
+
+/* @media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+} */
+
+/* For small devices (screen width < 768px) */
+@media (max-width: 767px) {
+  .your-banner-class {
+
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    height: "130px";
+    background-color: rgb(140, 199, 249);
+
+    /* Add any other styles for small devices here */
+  }
+
+  .m-none {
+    display: none !important;
+  }
+
+
+}
