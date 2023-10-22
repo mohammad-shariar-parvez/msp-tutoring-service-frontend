@@ -1,54 +1,13 @@
 'use client';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import {
-  Button,
-  Layout,
-  Menu,
-  Dropdown,
-  Space,
-  Input,
-  Row,
-  Col,
-  Divider,
-  Typography,
-} from 'antd';
-import type { MenuProps } from 'antd';
-const { Header, Content, Footer } = Layout;
-import { DownOutlined } from '@ant-design/icons';
-import styles from './styles.module.css';
-import { useDebounced } from '@/redux/hooks';
-import { useServicesQuery } from '@/redux/api/serviceApi';
-import { IService } from '@/types';
 
-const items = [
-  {
-    key: '1',
-    label: <Link href={'/categories/CPU'}>CPU</Link>,
-  },
-  {
-    key: '2',
-    label: <Link href={'/categories/Motherboard'}>Motherboard</Link>,
-  },
-  {
-    key: '3',
-    label: <Link href={'/categories/RAM'}>RAM</Link>,
-  },
-  {
-    key: '4',
-    label: (
-      <Link href={'/categories/Power Supply Unit'}>Power Supply Unit</Link>
-    ),
-  },
-  {
-    key: '5',
-    label: <Link href={'/categories/Storage Device'}>Storage Device</Link>,
-  },
-  {
-    key: '6',
-    label: <Link href={'/categories/Monitor'}>Monitor</Link>,
-  },
-];
+import React, { useState } from 'react';
+import { Button, Layout, Input, Row, Col } from 'antd';
+
+const { Header, Content, Footer } = Layout;
+import { useDebounced } from '@/redux/hooks';
+import { getUserInfo } from '@/services/auth.service';
+import CategoryDropdown from './Dropdown';
+import Link from 'next/link';
 
 const Navbar = () => {
   const query: Record<string, any> = {};
@@ -57,7 +16,7 @@ const Navbar = () => {
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
-
+  const { role } = getUserInfo() as any;
   query['limit'] = size;
   query['page'] = page;
   query['sortBy'] = sortBy;
@@ -67,38 +26,15 @@ const Navbar = () => {
     searchQuery: searchTerm,
     delay: 600,
   });
+  console.log('roel', role);
 
   if (!!debouncedTerm) {
     query['searchTerm'] = debouncedTerm;
   }
-  const { data: servicesData } = useServicesQuery({ ...query });
 
-  const services: IService[] = (servicesData?.services || []) as IService[];
-
-  const items: MenuProps['items'] = services
-    ? services.map((item: { title: string }, index) => {
-        const element = {
-          key: index.toString(),
-          label: item.title,
-        };
-        // @ts-ignore
-        const child = item?.course?.map((ele, courseIndex) => {
-          return {
-            key: index.toString() + courseIndex.toString(),
-            label: <Link href={`/services/course/${ele.id}`}>{ele.title}</Link>,
-          };
-        });
-        // @ts-ignore
-        element['children'] = child;
-
-        return element;
-      })
-    : [];
-
-  // console.log('DATA is', items);
   return (
     <div>
-      <div style={{ padding: '30px 40px', backgroundColor: '#cdecff' }}>
+      <div className='pt-4 border-b-4 shadow-lg '>
         <Row gutter={[8, 8]}>
           <Col md={0} lg={12}></Col>
           <Col md={0} lg={12}>
@@ -126,8 +62,9 @@ const Navbar = () => {
                     borderRadius: '3px',
                     whiteSpace: 'nowrap',
                   }}
+                  className='text-lg font-bold'
                 >
-                  MSP
+                  MSP Tutoring
                 </Link>
               </h2>
             </Row>
@@ -135,17 +72,20 @@ const Navbar = () => {
 
           <Col md={24} lg={16}>
             <Row justify='center'>
-              <Space split={<Divider type='vertical' />} align='start'>
-                <Typography.Link>Link</Typography.Link>
-                <Typography.Link>Link</Typography.Link>
-                <Typography.Link>Link</Typography.Link>
-                <Typography.Link>Link</Typography.Link>
-                <Dropdown menu={{ items }}>
-                  <a onClick={(e) => e.preventDefault()}>
-                    <Space>Cascading menu</Space>
-                  </a>
-                </Dropdown>
-              </Space>
+              <div className='font-bold text-normal flex list-none text-black'>
+                <ul>
+                  <Link
+                    className='text-base font-bold text-black'
+                    href={'/services'}
+                  >
+                    All Services
+                  </Link>
+                </ul>
+
+                {!role ?? <Link href={role}>Dashboard</Link>}
+
+                <CategoryDropdown />
+              </div>
             </Row>
           </Col>
 
