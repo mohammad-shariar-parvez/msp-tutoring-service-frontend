@@ -21,10 +21,7 @@
 }
 
 
-.main-banner {
-  background-color: aqua;
-
-}
+.main-banner {}
 
 .bnr-cnt-area {
   margin-top: 125px;
@@ -65,13 +62,11 @@
   background: #fff;
   padding: 5px 12px;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
   position: relative;
   top: 0;
-  justify-content: space-between;
+
   box-shadow: 0px 2px 4px 3px #dfdfdf;
-  margin-bottom: 70px;
+  margin-bottom: 30px;
 }
 
 .search-box .form-control {
@@ -102,18 +97,18 @@
 }
 
 /* button */
-.find-btn {
+/* .find-btn {
   background: #092847 !important;
   padding: 9px 15px;
   color: #f3f3f3 !important;
-  font-weight: 500;
-  font-size: 15px;
-  cursor: pointer;
-  display: inline-flex;
-  transition: all 0.7s;
-  border: none;
-  border-radius: 7px;
-}
+  font-weight: 500 !important;
+  font-size: 15px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  transition: all 0.7s !important;
+  border: none !important;
+  border-radius: 7px !important;
+} */
 
 .f-subject {
   position: relative;
@@ -124,6 +119,10 @@
 .img-fluid {
   max-width: 100%;
   height: auto;
+}
+
+.search-item {
+  border-bottom: #10858b !important;
 }
 
 /* @media (min-width: 1200px) {
@@ -181,9 +180,9 @@
   ;
 }
 
-.clr-04 {
+/* .clr-04 {
   color: #1089ff !important;
-}
+} */
 
 .icon-size {
   font-size: 45px !important;
@@ -299,10 +298,6 @@
   margin-bottom: 5px !important;
 }
 
-.text-center {
-  text-align: center !important;
-  margin-bottom: 15px
-}
 
 .sendRequestButton {
   display: inline-block;
@@ -482,6 +477,70 @@
     display: none !important;
   }
 }
+
+/* 
+dropdown
+*/
+
+.sub-menu-1 {
+  display: none;
+}
+
+.menu-bar ul li:hover .sub-menu-1 {
+  display: block;
+  position: absolute;
+  margin-top: 18px;
+  margin-left: -15px;
+
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul {
+  display: block;
+  margin: 10px;
+}
+
+
+.menu-bar ul li:hover .sub-menu-1 ul li {
+
+  border-bottom: 1px dotted #fff;
+
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul li:last-child {
+
+  border-bottom: none;
+
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul li a:hover {
+
+  color: yellow;
+
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul li a {
+
+
+  color: white;
+
+}
+
+/* 
+submenu 2
+*/
+.submenu-2 {
+  display: none;
+}
+
+.hover-me:hover .submenu-2 {
+
+  display: block;
+  position: absolute;
+  margin-top: -32px;
+  margin-left: 114px;
+
+}
+
 
 
 

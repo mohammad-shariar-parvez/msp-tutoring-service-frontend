@@ -9,8 +9,21 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        'button-primary': '#092847',
+      },
+    },
+  },
+  variants: {
+    extend: {
+      display: ["group-hover"],
+    },
   },
   plugins: [],
+  corePlugins: {
+    preflight: false,
+  },
+  important: true,
 }
 
