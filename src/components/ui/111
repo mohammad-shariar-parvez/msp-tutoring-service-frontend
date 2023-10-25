@@ -1,0 +1,30 @@
+                  <li className='  sub-menu-1 bg-green-600  '>
+                    <ul className='    mt-4 ml-4 list-none '>
+                      {categories.map((items) => (
+                        <li
+                          key={items.id}
+                          className='  p-4 border-b-1  text-left bg-transparent hover-me'
+                        >
+                          <Link href='/'>
+                            {items.title}
+                            <RightOutlined className='float-right' />
+                            <li className='submenu-2 bg-green-600 '>
+                              <ul className='  mt-4 ml-4 list-none '>
+                                {items?.courses?.map((service: any) => (
+                                  <li
+                                    key={service.key}
+                                    className=' m-4 p-4 border-b-1 b  text-left bg-transparent  '
+                                  >
+                                    <Link href='/'>{service.title}</Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </li>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+
+
+				  

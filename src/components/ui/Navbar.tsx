@@ -1,13 +1,18 @@
 'use client';
-
-import React, { useState } from 'react';
-import { Button, Layout, Input, Row, Col } from 'antd';
-
-const { Header, Content, Footer } = Layout;
-import { useDebounced } from '@/redux/hooks';
-import { getUserInfo } from '@/services/auth.service';
-import CategoryDropdown from './Dropdown';
 import Link from 'next/link';
+import React, { useState } from 'react';
+import { HomeOutlined, RightOutlined, HeartOutlined } from '@ant-design/icons';
+import { Input, Row, Col, Badge, Avatar, Button } from 'antd';
+
+import { useDebounced } from '@/redux/hooks';
+import { DownOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Dropdown, Space } from 'antd';
+import { ICategory } from '@/types';
+import { getUserInfo } from '@/services/auth.service';
+import { useCategoriesQuery } from '@/redux/api/category';
+import CategoryDropdown from './Dropdown';
+import CategorySider from './CategorySider';
 
 const Navbar = () => {
   const query: Record<string, any> = {};
@@ -16,6 +21,7 @@ const Navbar = () => {
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [sideBar, setSideBar] = useState(true);
   const { role } = getUserInfo() as any;
   query['limit'] = size;
   query['page'] = page;
@@ -31,12 +37,35 @@ const Navbar = () => {
   if (!!debouncedTerm) {
     query['searchTerm'] = debouncedTerm;
   }
+  const { data: categoriesData } = useCategoriesQuery({});
+
+  const categories: ICategory[] = (categoriesData?.categories ||
+    []) as ICategory[];
+  const items: MenuProps['items'] = categories
+    ? categories.map((item: { title: string }, index) => {
+        const element = {
+          key: index.toString(),
+          label: item.title,
+        };
+        // @ts-ignore
+        const child = item?.courses?.map((ele, courseIndex) => {
+          return {
+            key: index.toString() + courseIndex.toString(),
+            label: <Link href={`/services/course/${ele.id}`}>{ele.title}</Link>,
+          };
+        });
+        // @ts-ignore
+        element['children'] = child;
+
+        return element;
+      })
+    : [];
 
   return (
     <div>
-      <div className='pt-4 border-b-4 shadow-lg '>
-        <Row gutter={[8, 8]}>
-          <Col md={0} lg={12}></Col>
+      <div className='  bg-white  '>
+        <Row>
+          {/* <Col md={0} lg={12}></Col>
           <Col md={0} lg={12}>
             <Row justify='end'>
               <Input
@@ -44,72 +73,66 @@ const Navbar = () => {
                 size='middle'
                 placeholder='Search...'
                 style={{ width: '40%' }}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                }}
+                // onChange={(e) => {
+                //   // setSearchTerm(e.target.value);
+                // }}
               />
             </Row>
-          </Col>
-          <Col md={24} lg={4}>
-            <Row justify='space-between'>
-              <h2>
-                <Link
-                  href='/'
-                  style={{
-                    color: 'white',
-                    backgroundColor: '#404040',
-                    padding: '5px 10px',
-                    borderRadius: '3px',
-                    whiteSpace: 'nowrap',
-                  }}
-                  className='text-lg font-bold'
-                >
-                  MSP Tutoring
-                </Link>
-              </h2>
-            </Row>
-          </Col>
+          </Col> */}
 
-          <Col md={24} lg={16}>
-            <Row justify='center'>
-              <div className='font-bold text-normal flex list-none text-black'>
-                <ul>
-                  <Link
-                    className='text-base font-bold text-black'
-                    href={'/services'}
+          <Col xs={24} md={24} lg={24}>
+            <CategorySider sidebar={sideBar} />
+          </Col>
+          <Col xs={24} md={24} lg={24} className='bg-white'>
+            <div className=' fixed w-full left-0 right-0 z-50 bg-white shadow-sm '>
+              <div className=' container  flex justify-between items-center   py-4 md:py-0'>
+                <h2>MSP Tutoring</h2>
+                <ul className='flex justify-between items-center w-full list-none fixed bottom-0 md:static z-50  left-0 md:w-auto text-center bg-blue-100 md:bg-inherit  '>
+                  <li className='   md:w-28 p-4   block text-black '>
+                    <Link
+                      className='text-black md:hover:text-slate-400 font-semibold text-base'
+                      href='/'
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li className='   md:w-28 p-4   block '>
+                    <Link
+                      className='text-black md:hover:text-slate-400 font-semibold text-base'
+                      href='/'
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                  <Dropdown
+                    menu={{ items }}
+                    className='rounded-none hidden md:block p-4 '
                   >
-                    All Services
-                  </Link>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space className='bg-red text-black font-semibold text-base'>
+                        Categories
+                      </Space>
+                    </a>
+                  </Dropdown>
+                  <li
+                    onClick={() => setSideBar(!sideBar)}
+                    className='   md:w-28 p-4   block md:hidden'
+                  >
+                    <Link
+                      className='text-black md:hover:text-slate-400 font-semibold text-base'
+                      href='/'
+                    >
+                      Categories
+                    </Link>
+                  </li>
                 </ul>
-
-                {!role ?? <Link href={role}>Dashboard</Link>}
-
-                <CategoryDropdown />
+                <div className='flex items-center space-x-2 font-semibold text-base'>
+                  <Badge count={25} />
+                  <Badge count={25} />
+                  <Button className='font-semibold text-base'>Login</Button>
+                </div>
               </div>
-            </Row>
-          </Col>
-
-          <Col md={24} lg={4}>
-            <Row justify='end'>
-              <Link
-                style={{
-                  textDecoration: 'none',
-                  color: 'white',
-                  fontSize: '16px',
-                }}
-                href='/login'
-              >
-                <Button
-                  style={{
-                    marginLeft: '15px',
-                  }}
-                  type='primary'
-                  ghost
-                >
-                  LOGIN
-                </Button>
-              </Link>
-            </Row>
+            </div>
           </Col>
         </Row>
       </div>

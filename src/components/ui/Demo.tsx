@@ -1,13 +1,25 @@
 'use client';
-import { Col, Input, Row } from 'antd';
+import { Button, Col, Input, Row, message } from 'antd';
 import Image from 'next/image';
 import React from 'react';
 import demo from '../../assets/req-demo-tutor.png';
 import FormTextArea from '../Forms/FormTextArea';
 import Form from '../Forms/Form';
+import FormInput from '../Forms/FormInput';
+import { useAddQuestionMutation } from '@/redux/api/feedback';
 const Demo = () => {
-  const adminOnSubmit = (values: any) => {
+  const [addQuestion] = useAddQuestionMutation();
+  const questionOnSubmit = async (values: any) => {
     console.log('FORM VALUE', values);
+
+    try {
+      const res = await addQuestion(values);
+      if (!!res) {
+        message.success('Question sent successfully!');
+      }
+    } catch (err: any) {
+      message.error(err.message);
+    }
   };
 
   return (
@@ -52,19 +64,19 @@ const Demo = () => {
 
           <Col xs={24} md={12} lg={12}>
             <div className='col-md-6'>
-              <Form submitHandler={adminOnSubmit}>
+              <Form submitHandler={questionOnSubmit}>
                 <div className='req-demo-form '>
-                  <h3>Request For Demo</h3>
+                  <h3>Ask A Question</h3>
                   <div className='sg-form-group'>
                     <label className='sg-form-label'>
                       Name <span className='sg-req'>*</span>
                     </label>
-                    <Input
+
+                    <FormInput
+                      name='name'
+                      size='large'
                       type='text'
-                      name='full_name'
-                      id='full_name'
-                      className='sg-form-control'
-                      placeholder='Full Name'
+                      placeholder='name'
                     />
                   </div>
                   <div className='sg-form-group'>
@@ -72,12 +84,11 @@ const Demo = () => {
                       Phone <span className='sg-req'>*</span>
                     </label>
 
-                    <Input
+                    <FormInput
+                      name='phone'
+                      size='large'
                       type='text'
-                      name='phone_number'
-                      id=''
-                      className='sg-form-control'
-                      placeholder='Mobile'
+                      placeholder='Email/Phone number'
                     />
                   </div>
                   <div className='sg-form-group'>
@@ -85,11 +96,10 @@ const Demo = () => {
                       Location <span className='sg-req'>*</span>
                     </label>
 
-                    <Input
-                      type='text'
+                    <FormInput
                       name='location'
-                      id=''
-                      className='sg-form-control'
+                      size='large'
+                      type='text'
                       placeholder='Location'
                     />
                   </div>
@@ -100,9 +110,12 @@ const Demo = () => {
                     <FormTextArea name='requirement' rows={4} />
                   </div>
                   <div className='sg-form-group text-center'>
-                    <button type='submit' className='sendRequestButton mt-3'>
-                      Send Request
-                    </button>
+                    <Button
+                      htmlType='submit'
+                      className=' bg-button-primary  text-white   px-3  rounded-md  '
+                    >
+                      Send
+                    </Button>
                   </div>
                 </div>
               </Form>

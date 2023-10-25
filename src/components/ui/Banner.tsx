@@ -1,9 +1,43 @@
-import { Col, Input, Row } from 'antd';
+'use client';
+import { Button, Col, Divider, Input, Row } from 'antd';
 import Image from 'next/image';
-import React from 'react';
-import { SearchOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import {
+  SearchOutlined,
+  ArrowRightOutlined,
+  ReloadOutlined,
+} from '@ant-design/icons';
 import heroImage from '../../assets/hero.webp';
+import { useServicesQuery } from '@/redux/api/serviceApi';
+import Form from '../Forms/Form';
+import FormInput from '../Forms/FormInput';
+import { useCoursesQuery } from '@/redux/api/courseApi';
+import Link from 'next/link';
 const Banner = () => {
+  const query: Record<string, any> = { limit: 0 };
+
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm2, setSearchTerm2] = useState<string>('');
+  const [limit, setLimit] = useState<number>(0);
+
+  query['searchTerm'] = searchTerm;
+  query['searchTerm2'] = searchTerm2;
+  query['limit'] = limit;
+
+  const publicOnSubmit = async (values: any) => {
+    console.log(values);
+    setSearchTerm(values.searchTerm);
+    setSearchTerm2(values.searchTerm2);
+    setLimit(15);
+  };
+
+  const { data, isLoading } = useCoursesQuery({ ...query });
+
+  const resetFilters = () => {
+    setSearchTerm('');
+    setSearchTerm2('');
+    setLimit(0);
+  };
   return (
     <div className='main-banner'>
       <div className='container'>
@@ -19,41 +53,75 @@ const Banner = () => {
                 teachers.
                 <a href='https://study-ground.com/join-as'>Connect now!</a>
               </p>
-              <div className='search-box'>
-                {/* <!-- Subject Field  --> */}
-                <div className='autocomplete f-subject'>
-                  <i className='fas fa-book'></i>
-                  <Input
-                    className='form-control'
-                    type='text'
-                    name='search_sub'
-                    id='search_for'
-                    placeholder='Subject/ Class'
-                    bordered={false}
-                  />
-                </div>
-                {/* <!-- Address Field  --> */}
-                <div className='autocomplete f-pin'>
-                  <i className='fas fa-map-marker-alt'></i>
-                  <Input
-                    className='form-control'
-                    type='text'
-                    name='search_loc'
-                    id='search_address'
-                    placeholder='Address/Location'
-                    bordered={false}
-                  />
-                </div>
-                {/* <!-- Find Button  --> */}
-                <div className='f-btn'>
-                  <button name='findbtn' className='find-btn' id='find_btn'>
-                    <span className='m-none'>Find &nbsp;Now</span>
-                    <div className=' desk-none'>
-                      <SearchOutlined />
-                    </div>
-                  </button>
-                </div>
+              <div className='search-box '>
+                <Form submitHandler={publicOnSubmit}>
+                  <div className='flex justify-between items-center w-full space-x-1'>
+                    <FormInput
+                      name='searchTerm2'
+                      size='large'
+                      type='text'
+                      placeholder='Course'
+                    />
+
+                    {/* <!-- Address Field  --> */}
+
+                    <FormInput
+                      name='searchTerm'
+                      size='large'
+                      type='text'
+                      placeholder='Location'
+                    />
+                    {/* <!-- Find Button  --> */}
+                    {!!searchTerm2 || !!searchTerm ? (
+                      <Button
+                        onClick={resetFilters}
+                        type='primary'
+                        className='bg-button-primary mx-1'
+                      >
+                        <ReloadOutlined />
+                      </Button>
+                    ) : (
+                      <>
+                        <Button
+                          htmlType='submit'
+                          className='hidden md:block bg-button-primary  text-white   px-3  rounded-md  '
+                        >
+                          Find Now
+                        </Button>
+                        <Button
+                          htmlType='submit'
+                          className=' md:hidden bg-button-primary  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'
+                        >
+                          <SearchOutlined />
+                        </Button>
+                      </>
+                    )}
+                    {/* <Button
+                      htmlType='submit'
+                      className='hidden md:block bg-button-primary  text-white   px-3  rounded-md  '
+                    >
+                      Find Now
+                    </Button> */}
+                    {/* <Button className='hidden find-btn'>Find Now</Button> */}
+                  </div>
+                </Form>
               </div>
+            </div>
+            <div className='  rounded-b-lg p-4 col-span-3  '>
+              {data?.courses?.map((item) => (
+                <div className='' key={item.id}>
+                  <Link href='/'>
+                    <div className='flex justify-between items-center bg-red text-slate-600  '>
+                      <p>{item.title}</p>
+                      <p>
+                        {item?.location} <ArrowRightOutlined className='ps-4' />
+                      </p>
+                    </div>
+                    <Divider className=' my-2' />
+                  </Link>
+                  {/* <hr /> */}
+                </div>
+              ))}
             </div>
           </Col>
           <Col md={24} lg={10} className='column-banner'>
