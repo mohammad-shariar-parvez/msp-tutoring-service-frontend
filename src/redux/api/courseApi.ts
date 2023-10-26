@@ -23,6 +23,7 @@ export const courseApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.course],
     }),
+
     // get single
     course: build.query({
       query: (id: string) => ({
@@ -63,6 +64,7 @@ export const courseApi = baseApi.injectEndpoints({
 export const {
   useCoursesQuery,
   useCourseQuery,
+
   useAddCourseMutation,
   useDeleteCourseMutation,
   useUpdateCourseMutation,

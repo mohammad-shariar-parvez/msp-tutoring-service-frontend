@@ -29,6 +29,22 @@ export const serviceApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.service],
     }),
+    servicesByCategory: build.query({
+      query: (id) => {
+        return {
+          url: `${SERVICE_URL}/${id}/service`,
+          method: "GET",
+
+        };
+      },
+      transformResponse: (response: IService[], meta: IMeta) => {
+        return {
+          services: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.service],
+    }),
 
     // get single department by id
     service: build.query({
@@ -65,5 +81,6 @@ export const {
   useAddServiceMutation,
   useServiceQuery,
   useUpdateServiceMutation,
+  useServicesByCategoryQuery,
   useDeleteServiceMutation,
 } = serviceApi;

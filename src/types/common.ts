@@ -5,8 +5,11 @@ export interface IMeta {
 }
 
 export interface ICategory {
+  [x: string]: any;
   id: string;
   title: string;
+  imageUrl: string;
+  courses: IService[];
   createdAt: string;
   updatedAt: string;
 
@@ -217,6 +220,7 @@ export interface IRoom {
 }
 
 export interface ICourse {
+  location: string;
   id: string;
   title: string;
   code: string;
