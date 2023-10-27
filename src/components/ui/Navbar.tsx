@@ -63,7 +63,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className='  bg-white  '>
+      <div className='  bg-white pb-16 '>
         <Row>
           {/* <Col md={0} lg={12}></Col>
           <Col md={0} lg={12}>

@@ -8,11 +8,11 @@ interface CourseCardProps {
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
-  console.log('Real category is', course);
+  // console.log('Real category is', course);
 
   return (
     <div>
-      <Link href={`/categories/${course?.id}`} className='no-underline'>
+      <Link href={`/categories/${course?.id}`} className='no-underline '>
         <div className='max-w-sm bg-white border border-gray-200 rounded-lg shadow '>
           <Image
             src={course.imageUrl}
@@ -21,13 +21,13 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
             alt='eagle_image'
             className='rounded-t-lg w-full h-36 md:h-48  object-fill '
           />
-          <div className='p-3 md:p-5'>
-            <h5 className='mb-2  text-sm md:text-xl font-bold tracking-tight text-gray-900 '>
+          <div className='p-3 md:p-5 text-black'>
+            <h5 className='mb-2  text-sm md:text-xl font-bold tracking-tight  '>
               {course.title}
             </h5>
 
-            <div className='flex justify-between items-center'>
-              <span>{course.location}</span>
+            <div className='flex justify-between items-center '>
+              <p>{course.location}</p>
             </div>
 
             {/* <p className='font-semibold'>

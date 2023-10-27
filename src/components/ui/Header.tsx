@@ -1,8 +1,8 @@
-import { Avatar, Button, Dropdown, Layout, MenuProps, Row, Space } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { getUserInfo, removeUserInfo } from "@/services/auth.service";
-import { authKey } from "@/constants/storageKey";
-import { useRouter } from "next/navigation";
+import { Avatar, Button, Dropdown, Layout, MenuProps, Row, Space } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { getUserInfo, removeUserInfo } from '@/services/auth.service';
+import { authKey } from '@/constants/storageKey';
+import { useRouter } from 'next/navigation';
 const { Header: AntHeader } = Layout;
 
 const Header = () => {
@@ -10,14 +10,14 @@ const Header = () => {
 
   const logOut = () => {
     removeUserInfo(authKey);
-    router.push("/login");
+    router.push('/login');
   };
 
-  const items: MenuProps["items"] = [
+  const items: MenuProps['items'] = [
     {
-      key: "0",
+      key: '0',
       label: (
-        <Button onClick={logOut} type="text" danger>
+        <Button onClick={logOut} type='text' danger>
           Logout
         </Button>
       ),
@@ -27,19 +27,19 @@ const Header = () => {
   return (
     <AntHeader
       style={{
-        background: "#fff",
+        background: '#fff',
       }}
     >
       <Row
-        justify="end"
-        align="middle"
+        justify='end'
+        align='middle'
         style={{
-          height: "100%",
+          height: '100%',
         }}
       >
         <p
           style={{
-            margin: "0px 5px",
+            margin: '0px 5px',
           }}
         >
           {role}
@@ -47,7 +47,7 @@ const Header = () => {
         <Dropdown menu={{ items }}>
           <a>
             <Space wrap size={16}>
-              <Avatar size="large" icon={<UserOutlined />} />
+              <Avatar size='large' icon={<UserOutlined />} />
             </Space>
           </a>
         </Dropdown>
