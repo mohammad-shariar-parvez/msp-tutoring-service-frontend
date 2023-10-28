@@ -1,7 +1,8 @@
-import { TimePicker } from "antd";
-import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import dayjs from "dayjs";
+'use client';
+import { TimePicker } from 'antd';
+import React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import dayjs from 'dayjs';
 
 type FormTimePickerProps = {
   name: string;
@@ -18,13 +19,13 @@ export default function FormTimePicker({ name, label }: FormTimePickerProps) {
         control={control}
         render={({ field }) => (
           <TimePicker
-            size="large"
-            defaultValue={dayjs(field.value ? field.value : "00:00", "HH:mm")}
-            format={"HH:mm"}
+            size='large'
+            defaultValue={dayjs(field.value ? field.value : '00:00', 'HH:mm')}
+            format={'HH:mm'}
             onChange={(el, value) => {
               setValue(name, value);
             }}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           />
         )}
       />
