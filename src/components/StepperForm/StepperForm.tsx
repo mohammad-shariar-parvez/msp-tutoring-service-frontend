@@ -31,6 +31,7 @@ const StepperForm = ({
       ? Number(JSON.parse(getFromLocalStorage('step') as string).step)
       : 0
   );
+  console.log(current);
 
   const [savedValues, setSavedValues] = useState(
     !!getFromLocalStorage(persistKey)
@@ -51,12 +52,13 @@ const StepperForm = ({
   };
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
-  console.log('ITERMSS', items);
 
   const methods = useForm({ defaultValues: savedValues });
   const watch = methods.watch();
 
   useEffect(() => {
+    console.log(JSON.stringify(watch));
+
     setToLocalStorage(persistKey, JSON.stringify(watch));
   }, [watch, persistKey, methods]);
 
@@ -67,6 +69,7 @@ const StepperForm = ({
     reset();
     setToLocalStorage('step', JSON.stringify({ step: 0 }));
     setToLocalStorage(persistKey, JSON.stringify({}));
+    setCurrent(0);
     navigateLink && router.push(navigateLink);
   };
 
@@ -77,11 +80,6 @@ const StepperForm = ({
         <form onSubmit={handleSubmit(handleStudentOnSubmit)}>
           <div>{steps[current].content}</div>
           <div style={{ marginTop: 24 }}>
-            {current > 0 && (
-              <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-                Previous
-              </Button>
-            )}
             {current < steps.length - 1 && (
               <Button type='primary' onClick={() => next()}>
                 Next
@@ -94,6 +92,11 @@ const StepperForm = ({
                 onClick={() => message.success('Processing complete!')}
               >
                 Done
+              </Button>
+            )}
+            {current > 0 && (
+              <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+                Previous
               </Button>
             )}
           </div>
