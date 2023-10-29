@@ -1,58 +1,52 @@
+'use client';
 import { CaretRightOutlined } from '@ant-design/icons';
 import type { CSSProperties } from 'react';
 import React from 'react';
 import type { CollapseProps } from 'antd';
 import { Collapse, theme } from 'antd';
-
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
-const getItems: (panelStyle: CSSProperties) => CollapseProps['items'] = (
-  panelStyle
-) => [
-  {
-    key: '1',
-    label: 'This is panel header 1',
-    children: <p>{text}</p>,
-    style: panelStyle,
-  },
-  {
-    key: '2',
-    label: 'This is panel header 2',
-    children: <p>{text}</p>,
-    style: panelStyle,
-  },
-  {
-    key: '3',
-    label: 'This is panel header 3',
-    children: <p>{text}</p>,
-    style: panelStyle,
-  },
-];
+import UMCollapse, { ItemProps } from '@/components/ui/UMCollapse';
+import { useFaqsQuery } from '@/redux/api/faqApi';
 
 const AccordianFAQ: React.FC = () => {
-  const { token } = theme.useToken();
+  const { data } = useFaqsQuery({ limit: 4 });
+  const faqsData = data?.faqs;
+  console.log(faqsData);
+
+  const getItems: (panelStyle: CSSProperties) => CollapseProps['items'] = (
+    panelStyle
+  ) => {
+    const modifiedList = faqsData?.map((item: any, index: string) => ({
+      key: index,
+      label: item?.question,
+      children: (
+        <p className='font-medium text-gray-700 text-base'>{item?.answer}</p>
+      ),
+      style: panelStyle,
+    }));
+
+    return modifiedList;
+  };
 
   const panelStyle: React.CSSProperties = {
     marginBottom: 24,
-    background: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
+    background: '#ffff',
+    borderRadius: '10px',
     border: 'none',
   };
 
   return (
-    <Collapse
-      bordered={false}
-      defaultActiveKey={['1']}
-      expandIcon={({ isActive }) => (
-        <CaretRightOutlined rotate={isActive ? 90 : 0} />
-      )}
-      style={{ background: token.colorBgContainer }}
-      items={getItems(panelStyle)}
-    />
+    <section className='container mb-24 '>
+      <h1 className='sg-title-txt mb-16 text-center'>FAQS</h1>
+      <Collapse
+        bordered={false}
+        defaultActiveKey={['1']}
+        expandIcon={({ isActive }) => (
+          <CaretRightOutlined rotate={isActive ? 90 : 0} />
+        )}
+        items={getItems(panelStyle)}
+        className='p-4 border-none text-lg font-semibold  bg-blue-50'
+      />
+    </section>
   );
 };
 
