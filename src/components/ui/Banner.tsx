@@ -39,7 +39,7 @@ const Banner = () => {
     setLimit(0);
   };
   return (
-    <div className='main-banner'>
+    <div className='main-banner '>
       <div className='container'>
         <Row>
           <Col md={24} lg={14} className='column-banner'>

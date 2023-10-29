@@ -23,7 +23,7 @@ const Demo = () => {
   };
 
   return (
-    <section className='req-demo-cnt'>
+    <section className='req-demo-cnt '>
       <div className='container'>
         <Row>
           <Col xs={24} md={12} lg={12} className='column-banner'>
