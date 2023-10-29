@@ -4,7 +4,7 @@ import purple from '../../assets/08a51d11977fe8e0.png';
 const Info = () => {
   return (
     <div>
-      <div className='bg-sky-100 py-14 '>
+      <div className='bg-sky-100 py-14 mb-24  '>
         <div className='container'>
           <div className=''>
             <div className='text-primary heading text-center mb-8'>
@@ -73,7 +73,7 @@ const Info = () => {
       </div>
       {/* -------------------------- */}
 
-      <div className='bg-lightSkyBlue relative  '>
+      <div className='bg-lightSkyBlue relative mb-24  '>
         <div className='overflow-hidden h-64 '>
           <Image
             src={purple}

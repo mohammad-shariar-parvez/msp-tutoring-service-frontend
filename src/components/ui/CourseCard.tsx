@@ -12,7 +12,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
   return (
     <div>
-      <Link href={`/categories/${course?.id}`} className='no-underline '>
+      <Link href={`/course/${course?.id}`} className='no-underline '>
         <div className='max-w-sm bg-white border border-gray-200 rounded-lg shadow '>
           <Image
             src={course.imageUrl}

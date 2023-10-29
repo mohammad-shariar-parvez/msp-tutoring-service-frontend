@@ -85,7 +85,7 @@ const Navbar = () => {
           </Col>
           <Col xs={24} md={24} lg={24} className='bg-white'>
             <div className=' fixed w-full left-0 right-0 z-50 bg-white shadow-sm '>
-              <div className=' container  flex justify-between items-center   py-4 md:py-0'>
+              <div className=' container  flex justify-between items-center   py-4 md:py-1'>
                 <h2>MSP Tutoring</h2>
                 <ul className='flex justify-between items-center w-full list-none fixed bottom-0 md:static z-50  left-0 md:w-auto text-center bg-blue-100 md:bg-inherit  '>
                   <li className='   md:w-28 p-4   block text-black '>

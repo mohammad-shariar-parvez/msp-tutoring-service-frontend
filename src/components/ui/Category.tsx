@@ -5,12 +5,13 @@ import React from 'react';
 import CategoryCard from './CategoryCard';
 
 const Category = () => {
-  const { data } = useCategoriesQuery({});
+  const { data } = useCategoriesQuery({ limit: 6 });
   console.log('category', data);
   const categoryData = data?.categories;
 
   return (
-    <div className='container'>
+    <div className='container pb-24  '>
+      <h1 className='sg-title-txt mb-20 text-center '>Categories</h1>
       <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
         {categoryData?.map((category: ICategory) => (
           <CategoryCard key={category.id} category={category} />

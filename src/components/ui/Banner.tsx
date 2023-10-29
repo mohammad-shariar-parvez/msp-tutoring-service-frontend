@@ -61,6 +61,7 @@ const Banner = () => {
                       size='large'
                       type='text'
                       placeholder='Course'
+                      bordered={false}
                     />
 
                     {/* <!-- Address Field  --> */}
@@ -70,6 +71,7 @@ const Banner = () => {
                       size='large'
                       type='text'
                       placeholder='Location'
+                      bordered={false}
                     />
                     {/* <!-- Find Button  --> */}
                     {!!searchTerm2 || !!searchTerm ? (

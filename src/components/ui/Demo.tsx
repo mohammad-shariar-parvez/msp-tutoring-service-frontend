@@ -38,7 +38,7 @@ const Demo = () => {
                 </div>
                 <div className='req-demo-step'>
                   <h4>
-                    <span>Get a demo </span>
+                    <span>Schedule </span>
                     <small>Class</small>
                   </h4>
                   <h6>2</h6>
@@ -65,8 +65,10 @@ const Demo = () => {
           <Col xs={24} md={12} lg={12}>
             <div className='col-md-6'>
               <Form submitHandler={questionOnSubmit}>
-                <div className='req-demo-form '>
-                  <h3>Ask A Question</h3>
+                <div className='req-demo-form p-4 '>
+                  <h3 className='mb-9 text-[#10858b] mt-3 text-center text-3xl'>
+                    Ask A Question
+                  </h3>
                   <div className='sg-form-group'>
                     <label className='sg-form-label'>
                       Name <span className='sg-req'>*</span>
