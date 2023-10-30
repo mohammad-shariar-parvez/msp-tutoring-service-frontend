@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Row, Col, Badge, Avatar, Button } from 'antd';
 import { getUserInfo } from '@/services/auth.service';
 import CategorySider from './CategorySider';
+import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
 import NavDropDown from './NavDropDown';
 import { useAppSelector } from '@/redux/hooks';
 
@@ -71,8 +72,16 @@ const Navbar = () => {
                   </li>
                 </ul>
 
-                <div className='flex items-center space-x-2 font-semibold text-base'>
-                  <Badge count={total} />
+                <div className='flex items-center space-x-4 font-semibold text-base'>
+                  <Link href='/wishlist'>
+                    <Badge size='small' count={total}>
+                      <HeartOutlined
+                        className=' text-lg cursor-pointer     p-1 
+                           text-pink-600'
+                      />
+                    </Badge>
+                  </Link>
+
                   <Button className='font-semibold text-base'>Login</Button>
                 </div>
               </div>

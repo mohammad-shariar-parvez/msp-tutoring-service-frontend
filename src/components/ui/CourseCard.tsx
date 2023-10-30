@@ -2,24 +2,47 @@
 import { IService } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
-import { HeartFilled, HeartTwoTone } from '@ant-design/icons';
-import { useAppDispatch } from '@/redux/hooks';
-import { addCourseWishList } from '@/redux/wishList/wishListSlice';
+import React, { useEffect, useState } from 'react';
+import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import {
+  addCourseWishList,
+  removeCourseWishList,
+} from '@/redux/wishList/wishListSlice';
 
 interface CourseCardProps {
   course: IService;
+  isDelete?: boolean;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+const CourseCard: React.FC<CourseCardProps> = ({
+  course,
+  isDelete = false,
+}) => {
+  const { courses: courseData } = useAppSelector((state) => state.wishList);
   const dispatch = useAppDispatch();
   const [isWishList, setIsWishList] = useState(false);
-  // console.log('Real category is', course);
+  // console.log('Real category is', courseData.length);
 
-  const handleWishList = () => {
+  const handleWishList = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     dispatch(addCourseWishList(course));
     setIsWishList(true);
   };
+
+  const removeWishList = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log('removed');
+    dispatch(removeCourseWishList(course));
+  };
+
+  useEffect(() => {
+    // Perform the state update inside the useEffect hook
+    const doesExist = courseData.some(
+      (itemCourse) => itemCourse.id === course.id
+    );
+    setIsWishList(doesExist);
+  }, [course.id, courseData]);
 
   return (
     <div className='relative'>
@@ -32,7 +55,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
             alt='eagle_image'
             className='rounded-t-lg w-full h-36 md:h-48  object-fill '
           />
-          <div className='p-3 md:p-5 text-black'>
+          <div className='p-3 md:p-5 text-black relative'>
             <h5 className='mb-2  text-sm md:text-xl font-bold tracking-tight  '>
               {course.title}
             </h5>
@@ -44,29 +67,26 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
             {/* <p className='font-semibold'>
           Total Course: {category.courses.length}
         </p> */}
+
+            {!!isDelete ? (
+              <button>
+                <DeleteOutlined
+                  onClick={removeWishList}
+                  className='absolute cursor-pointer  right-4  bottom-[90px] p-1 text-red-500 '
+                />
+              </button>
+            ) : (
+              <button disabled={isWishList} onClick={handleWishList}>
+                <HeartOutlined
+                  className={`absolute text-base cursor-pointer  right-4  bottom-[90px] p-1 ${
+                    isWishList ? 'text-gray-300' : 'text-pink-600 '
+                  } `}
+                />
+              </button>
+            )}
           </div>
         </div>
       </Link>
-      {/* <HeartTwoTone
-        onClick={handleWishList}
-        disabled={isWishList}
-        className={`absolute   right-1 bottom-[73px]  ${
-          isWishList ? 'bg-green-300' : ' text-red-500 '
-        }  `}
-      /> */}
-      {isWishList ? (
-        <HeartTwoTone
-          onClick={handleWishList}
-          className='absolute   right-1 bottom-[73px]'
-          twoToneColor='#818c91'
-        />
-      ) : (
-        <HeartTwoTone
-          onClick={handleWishList}
-          className='absolute   right-1 bottom-[73px]'
-          twoToneColor='#eb2f96'
-        />
-      )}
     </div>
   );
 };
