@@ -3,23 +3,24 @@ import { useReviewsQuery } from '@/redux/api/reviewApi';
 import { Pagination, type PaginationProps } from 'antd';
 import CommentsCard from './CommentsCard';
 
-const CommentsSection = () => {
+interface CommentProps {
+  id: string;
+}
+const CommentsSection: React.FC<CommentProps> = ({ id }) => {
   const query: Record<string, any> = {};
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
+  const [courseId, setCourseId] = useState(id);
   query['limit'] = size;
   query['page'] = page;
-  const onPageChange: PaginationProps['onChange'] = (page, pageSize) => {
-    console.log(pageSize);
-    console.log(page);
-    // setSize(pageSize);
+  query['courseId'] = courseId;
 
+  const onPageChange: PaginationProps['onChange'] = (page) => {
     setPage(page);
   };
   const { data } = useReviewsQuery({ ...query });
   const reviewData = data?.reviews;
 
-  console.log('review', reviewData);
   return (
     <div className='p-4 bg-white py-8 my-8'>
       <h1 className='text-lg font-semibold mb-6'>User Reviews</h1>

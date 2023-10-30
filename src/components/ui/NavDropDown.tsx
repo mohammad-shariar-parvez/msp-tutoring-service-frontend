@@ -21,7 +21,7 @@ const NavDropDown = () => {
         const child = item?.courses?.map((ele, courseIndex) => {
           return {
             key: index.toString() + courseIndex.toString(),
-            label: <Link href={`/services/course/${ele.id}`}>{ele.title}</Link>,
+            label: <Link href={`/course/${ele.id}`}>{ele.title}</Link>,
           };
         });
         // @ts-ignore
