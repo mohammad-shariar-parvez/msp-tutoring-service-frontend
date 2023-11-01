@@ -6,10 +6,10 @@ const ScheduleTimePicker = () => {
   return (
     <div className='sg-form-group'>
       <label className='sg-form-label'>
-        Select Date <span className='sg-req'>*</span>
+        Select Time <span className='sg-req'>*</span>
       </label>
 
-      <FormTimePicker name={`startTime`} label='Start time' />
+      <FormTimePicker name={`startTime`} />
     </div>
   );
 };

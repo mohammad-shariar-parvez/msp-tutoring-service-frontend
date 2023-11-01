@@ -9,7 +9,7 @@ const ScheduleDataPicker = () => {
         Select Date <span className='sg-req'>*</span>
       </label>
 
-      <FormDatePicker name='startDate' label='Date of birth' />
+      <FormDatePicker name='startDate' />
     </div>
   );
 };
