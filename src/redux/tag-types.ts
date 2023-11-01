@@ -10,6 +10,8 @@ export enum tagTypes {
   feedback = "feedback",
   faqs = "faqs",
   tutors = "tutors",
+  review = "review",
+  payment = "payment",
 
   faculty = "faculty",
   admin = "admin",
@@ -36,7 +38,9 @@ export const tagTypesList = [
   tagTypes.category,
   tagTypes.blogs,
   tagTypes.questions,
+  tagTypes.payment,
   tagTypes.feedback,
+  tagTypes.review,
   tagTypes.admin,
   tagTypes.student,
   tagTypes.academicFaculty,
