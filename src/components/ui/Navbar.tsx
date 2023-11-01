@@ -1,19 +1,25 @@
 'use client';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Badge, Avatar, Button } from 'antd';
 import { getUserInfo } from '@/services/auth.service';
 import CategorySider from './CategorySider';
 import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
 import NavDropDown from './NavDropDown';
 import { useAppSelector } from '@/redux/hooks';
+import { useSession } from 'next-auth/react';
 
 const Navbar = () => {
   const [sideBar, setSideBar] = useState(true);
   const { total } = useAppSelector((state) => state.wishList);
-  const { role } = getUserInfo() as any;
+  const [userRole, setUserRole] = useState(null);
+  const { data: session, status } = useSession();
+  console.log('session', session);
 
-  console.log('roel', role);
+  // useEffect(() => {
+  //   const { role } = getUserInfo() as any;
+  //   setUserRole(role);
+  // }, [userRole]);
 
   return (
     <div>
@@ -81,8 +87,11 @@ const Navbar = () => {
                       />
                     </Badge>
                   </Link>
-
-                  <Button className='font-semibold text-base'>Login</Button>
+                  {/* {userRole ? (
+                    <Button className='font-semibold text-base'>Login</Button>
+                  ) : (
+                    <Button className='font-semibold text-base'>Logout</Button>
+                  )} */}
                 </div>
               </div>
             </div>

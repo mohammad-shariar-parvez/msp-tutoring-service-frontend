@@ -33,11 +33,14 @@ const NavDropDown = () => {
   return (
     <>
       <Dropdown menu={{ items }} className='rounded-none hidden md:block p-4 '>
-        <a onClick={(e) => e.preventDefault()}>
+        <button
+          onClick={(e) => e.preventDefault()}
+          className='bg-transparent border-none'
+        >
           <Space className='bg-red text-black font-semibold text-base'>
             Categories
           </Space>
-        </a>
+        </button>
       </Dropdown>
     </>
   );
