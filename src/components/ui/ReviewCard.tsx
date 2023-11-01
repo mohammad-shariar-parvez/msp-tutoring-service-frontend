@@ -12,8 +12,6 @@ interface ReviewCardProps {
 }
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ reviewData }) => {
-  console.log(reviewData);
-
   return (
     <div className='  pb-14   flex flex-col items-center py-4    space-y-8 rounded-2xl  '>
       {/* <Image

@@ -15,7 +15,6 @@ const RatingReview: React.FC<RatingReviewProps> = ({ courseId }) => {
   const { userId } = getUserInfo() as any;
   const reviewOnSubmit = async (values: any) => {
     const finalValue = { ...values, rating: value, courseId, userId };
-    console.log(finalValue);
 
     message.loading('Updating...');
     try {

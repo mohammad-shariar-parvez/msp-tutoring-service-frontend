@@ -10,7 +10,6 @@ import { useReviewsQuery } from '@/redux/api/reviewApi';
 export default function Review() {
   const { data } = useReviewsQuery({ limit: 12 });
   const reviewData = data?.reviews;
-  console.log(reviewData);
 
   return (
     <section>
