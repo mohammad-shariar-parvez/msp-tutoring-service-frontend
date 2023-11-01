@@ -31,7 +31,7 @@ const StepperForm = ({
       ? Number(JSON.parse(getFromLocalStorage('step') as string).step)
       : 0
   );
-  console.log(current);
+  // console.log(current);
 
   const [savedValues, setSavedValues] = useState(
     !!getFromLocalStorage(persistKey)
@@ -57,7 +57,7 @@ const StepperForm = ({
   const watch = methods.watch();
 
   useEffect(() => {
-    console.log(JSON.stringify(watch));
+    // console.log(JSON.stringify(watch));
 
     setToLocalStorage(persistKey, JSON.stringify(watch));
   }, [watch, persistKey, methods]);
@@ -70,7 +70,7 @@ const StepperForm = ({
     setToLocalStorage('step', JSON.stringify({ step: 0 }));
     setToLocalStorage(persistKey, JSON.stringify({}));
     setCurrent(0);
-    navigateLink && router.push(navigateLink);
+    // navigateLink && router.push(navigateLink);
   };
 
   return (
@@ -78,25 +78,31 @@ const StepperForm = ({
       <Steps current={current} items={items} />
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleStudentOnSubmit)}>
-          <div>{steps[current].content}</div>
-          <div style={{ marginTop: 24 }}>
+          <div className='py-4'>{steps[current].content}</div>
+          <div className=' space-x-4'>
             {current < steps.length - 1 && (
-              <Button type='primary' onClick={() => next()}>
+              <Button
+                className='bg-button-primary  text-white '
+                onClick={() => next()}
+              >
                 Next
+              </Button>
+            )}
+            {current > 0 && (
+              <Button
+                className='bg-button-primary  text-white '
+                onClick={() => prev()}
+              >
+                Previous
               </Button>
             )}
             {current === steps.length - 1 && (
               <Button
-                type='primary'
+                className='bg-green-600  text-white '
                 htmlType='submit'
                 onClick={() => message.success('Processing complete!')}
               >
                 Done
-              </Button>
-            )}
-            {current > 0 && (
-              <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-                Previous
               </Button>
             )}
           </div>
