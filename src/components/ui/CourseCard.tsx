@@ -32,7 +32,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
 
   const removeWishList = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('removed');
+
     dispatch(removeCourseWishList(course));
   };
 

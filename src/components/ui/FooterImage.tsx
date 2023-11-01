@@ -1,6 +1,9 @@
 import Image from 'next/image';
 
-function FooterImage({ image }) {
+interface FooterImageProps {
+  image: string;
+}
+const FooterImage: React.FC<FooterImageProps> = ({ image }) => {
   return (
     <div className='relative h-20 md:h-24 w-full '>
       <Image
@@ -11,6 +14,6 @@ function FooterImage({ image }) {
       />
     </div>
   );
-}
+};
 
 export default FooterImage;

@@ -5,10 +5,10 @@ import FooterImage from './FooterImage';
 
 function Footer() {
   return (
-    <footer className='bg-footer'>
+    <footer className='bg-[#f9f9f9]'>
       <div className='grid grid-cols-1 gap-x-8 gap-y-10  md:grid-cols-4  text-black  container p-4 py-20  '>
         <div className='space-y-6  '>
-          <h6 className='text-white text-lg leading-normal font-semibold  '>
+          <h6 className=' text-lg leading-normal font-semibold  '>
             MSP Tutoring
           </h6>
 
@@ -22,7 +22,7 @@ function Footer() {
         </div>
 
         <div className=' space-y-6'>
-          <h6 className='text-white text-lg leading-normal font-semibold '>
+          <h6 className=' text-lg leading-normal font-semibold '>
             Office Hours
           </h6>
 
@@ -54,9 +54,7 @@ function Footer() {
           </div>
         </div>
         <div className=' space-y-6'>
-          <h6 className='text-white text-lg leading-normal font-semibold '>
-            Instagram
-          </h6>
+          <h6 className='text-lg leading-normal font-semibold '>Instagram</h6>
           <div className='space-y-1 '>
             <div className='flex flex-col md:flex-row gap-1  '>
               <FooterImage image={'/insta-1.jpg.webp'} />
@@ -71,12 +69,10 @@ function Footer() {
           </div>
         </div>
         <div className=' space-y-6'>
-          <h6 className='text-white text-lg leading-normal font-semibold '>
-            Newsletter
-          </h6>
+          <h6 className=' text-lg leading-normal font-semibold '>Newsletter</h6>
 
           <div className='  '>
-            <small className='text-[#FFFFFFB3] font-normal'>
+            <small className=' font-normal'>
               Lorem ipsum dolor, sit amet consectetur adipisicing
             </small>
 

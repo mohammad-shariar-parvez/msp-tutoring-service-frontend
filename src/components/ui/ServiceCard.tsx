@@ -31,7 +31,7 @@ const ServiceCard: React.FC<CustomCardProps> = ({
           {title}
         </h5>
 
-        <p className='  font-medium text-gray-700 text-base'>{description}</p>
+        <p className=' text-base font-medium  text-gray-700 '>{description}</p>
       </div>
     </div>
   );

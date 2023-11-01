@@ -9,17 +9,17 @@ import {
 const BgIcons = () => {
   return (
     <div className='text-2xl space-x-11  '>
-      <Link className='cursor-pointer ' href=''>
-        <WhatsAppOutlined className='text-[#FFFFFFB3] hover:text-white ' />
+      <Link className='cursor-pointer ' href='/'>
+        <WhatsAppOutlined className='text-[#2a2929b3] hover:text-black ' />
       </Link>
-      <Link className='hover:cursor-pointer' href=''>
-        <FacebookFilled className='text-[#FFFFFFB3] hover:text-white ' />
+      <Link className='hover:cursor-pointer' href='/'>
+        <FacebookFilled className='text-[#2a2929b3] hover:text-black ' />
       </Link>
-      <Link className='hover:cursor-pointer' href=''>
-        <YoutubeFilled className='text-[#FFFFFFB3] hover:text-white ' />
+      <Link className='hover:cursor-pointer' href='/'>
+        <YoutubeFilled className='text-[#2a2929b3] hover:text-black ' />
       </Link>
-      <Link className='hover:cursor-pointer' href=''>
-        <TwitterSquareFilled className='text-[#FFFFFFB3] hover:text-white ' />
+      <Link className='hover:cursor-pointer' href='/'>
+        <TwitterSquareFilled className='text-[#2a2929b3] hover:text-black ' />
       </Link>
     </div>
   );

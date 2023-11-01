@@ -2,6 +2,7 @@
 import { Button, Col, Input, Row, message } from 'antd';
 import loginImage from '../../assets/login-image.png';
 import Image from 'next/image';
+import { GoogleOutlined, GithubOutlined } from '@ant-design/icons';
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import { SubmitHandler } from 'react-hook-form';
@@ -10,6 +11,7 @@ import { storeUserInfo } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '@/schemas/login';
+import { signIn } from 'next-auth/react';
 
 type FormValues = {
   id: string;
@@ -25,7 +27,7 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
-      console.log('res-----', res);
+      // console.log('res-----', res);
       if (res?.accessToken) {
         router.push('/');
         message.success('User logged in successfully!');
@@ -86,6 +88,18 @@ const LoginPage = () => {
           </Form>
         </div>
       </Col>
+      <div>
+        {/* <GoogleOutlined
+          onClick={() =>
+            signIn('google', {
+              callbackUrl:
+                router.query.callbackUrl ||
+                'https://msp-pc-builder.vercel.app/',
+            })
+          }
+        /> */}
+        <GithubOutlined onClick={() => signIn('github')} />
+      </div>
     </Row>
   );
 };

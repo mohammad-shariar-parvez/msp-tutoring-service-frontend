@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 import AccordianFAQ from '@/components/ui/AccordianFaQ';
 import Banner from '@/components/ui/Banner';
 import BannerInfo from '@/components/ui/BannerInfo';

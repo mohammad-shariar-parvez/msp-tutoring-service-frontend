@@ -13,9 +13,9 @@ export default function Review() {
 
   return (
     <section>
-      <div className='container text-center mb-24  '>
-        <h1 className='sg-title-txt mb-16'>User Reviews</h1>
-        <div className=''>
+      <div className='container text-center mb-32 py-12  border border-gray-400 rounded-lg  shadow-xl   '>
+        <h1 className=' sg-title-txt mb-20'>User Reviews</h1>
+        <div className='pb-16'>
           <Swiper
             spaceBetween={30}
             slidesPerView={1}

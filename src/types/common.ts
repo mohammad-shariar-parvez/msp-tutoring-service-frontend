@@ -231,6 +231,17 @@ export interface ICourse {
   prerequisites?: null[] | null;
   prerequisiteFor?: null[] | null;
 }
+export interface IReview {
+  [x: string]: any;
+  imageUrl: string;
+  user: any;
+
+  id: string;
+  review: string;
+  rating: number;
+  courseId: string;
+  userId: string;
+}
 
 export interface IAcademicCoreSemester {
   id: string;

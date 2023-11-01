@@ -13,7 +13,11 @@ module.exports = {
       backgroundColor: {
         'button-primary': '#092847',
       },
+      colors: {
+        footer: "#141313",
+      },
     },
+
   },
   variants: {
     extend: {

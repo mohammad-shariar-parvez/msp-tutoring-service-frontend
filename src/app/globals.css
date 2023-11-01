@@ -2,17 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@100;200;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,700;0,900;1,700&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Teko:wght@400;500;600&display=swap');
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Roboto Condensed', sans-serif;
+
+  font-family: 'Rubik', sans-serif;
+
 }
 
 .footer-small {
-  @apply text-[#FFFFFFB3] font-normal
+  @apply text-[#2a2929b3] font-normal
 }
 
 .container {
@@ -49,17 +51,8 @@
   margin-bottom: 25px;
 }
 
-.sg-hero-img-cont {
-  margin-top: 100px
-}
 
-.column-banner {
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-}
+
 
 /* seatch box */
 .search-box {
@@ -191,14 +184,12 @@
 */
 
 /* Home Page Demo Section Design  */
-.req-demo-cnt {
+/* .req-demo-cnt {
   padding: 60px 0;
   background: #fbfeff;
-}
+} */
 
-.req-demo-info-cnt {
-  padding: 10px;
-}
+
 
 .req-demo-info-cnt h3 {
   text-align: center;
@@ -215,12 +206,7 @@
 }
 
 
-.req-demo-info-step {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 37px;
-  margin-top: 25px;
-}
+
 
 .req-demo-step {
   padding: 15px;
@@ -448,8 +434,6 @@
 
 
 
-
-
 @media (min-width: 768px) {
   .your-banner-class {
 
@@ -457,13 +441,13 @@
     position: fixed;
     top: 0;
     z-index: 999;
-    height: "130px";
+    height: "330px";
     padding: 0 40px;
     /* Add any other styles for large devices here */
   }
 
   .container {
-    max-width: 1140px;
+    max-width: 1152px;
   }
 
   .desk-none {
@@ -557,9 +541,6 @@ submenu 2
     /* Add any other styles for small devices here */
   }
 
-  .m-none {
-    display: none !important;
-  }
 
 
 }

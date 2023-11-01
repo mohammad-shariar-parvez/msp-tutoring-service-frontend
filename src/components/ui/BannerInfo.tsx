@@ -11,8 +11,8 @@ import {
 const BannerInfo = () => {
   return (
     <section>
-      <div className='sg-bnr-info'>
-        <div className='container column-banner'>
+      <div className='bg-[#f8fbff] mb-32'>
+        <div className='container  '>
           <Row>
             <Col xs={12} md={12} lg={6}>
               <div className='sg-bnr-info-itm'>

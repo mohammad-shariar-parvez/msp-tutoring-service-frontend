@@ -9,8 +9,6 @@ interface CommentsCardProps {
 }
 
 const CommentsCard: React.FC<CommentsCardProps> = ({ review }) => {
-  console.log(review);
-
   return (
     <div className='py-4'>
       <div className='flex  justify-between items-start mb-2 '>

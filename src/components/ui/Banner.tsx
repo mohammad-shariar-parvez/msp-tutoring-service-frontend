@@ -25,7 +25,7 @@ const Banner = () => {
   query['limit'] = limit;
 
   const publicOnSubmit = async (values: any) => {
-    console.log(values);
+    // console.log(values);
     setSearchTerm(values.searchTerm);
     setSearchTerm2(values.searchTerm2);
     setLimit(15);
@@ -38,12 +38,13 @@ const Banner = () => {
     setSearchTerm2('');
     setLimit(0);
   };
+
   return (
-    <div className='main-banner '>
+    <div className='main-banner mb-32  '>
       <div className='container'>
         <Row>
           <Col md={24} lg={14} className='column-banner'>
-            <div className='bnr-cnt-area'>
+            <div className='mt-[110px]'>
               <h1 className='sg-title-txt'>
                 <span>Connect</span> with best teachers near you
               </h1>
@@ -51,7 +52,9 @@ const Banner = () => {
                 Study Ground is a platform for highly dedicated teachers and
                 students to fulfill the communication gap between students and
                 teachers.
-                <a href='https://study-ground.com/join-as'>Connect now!</a>
+                <Link href='https://study-ground.com/join-as'>
+                  Connect now!
+                </Link>
               </p>
               <div className='search-box '>
                 <Form submitHandler={publicOnSubmit}>
@@ -126,8 +129,8 @@ const Banner = () => {
               ))}
             </div>
           </Col>
-          <Col md={24} lg={10} className='column-banner'>
-            <div className='sg-hero-img-cont'>
+          <Col md={24} lg={10}>
+            <div className='mt-[100px]'>
               <Image
                 src={heroImage}
                 width={500}

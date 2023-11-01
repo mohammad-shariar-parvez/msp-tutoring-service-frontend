@@ -13,7 +13,7 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ reviewData }) => {
   return (
-    <div className='  pb-14   flex flex-col items-center py-4    space-y-8 rounded-2xl  '>
+    <div className='  py-14   flex flex-col items-center    space-y-8   '>
       {/* <Image
         src={'/person_3.jpg.webp'}
         height={99}

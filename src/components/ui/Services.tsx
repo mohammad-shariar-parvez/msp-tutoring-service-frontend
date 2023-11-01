@@ -11,7 +11,7 @@ import weektest from '../../assets/weektest.jpg';
 import ServiceCard from './ServiceCard';
 const Services = () => {
   return (
-    <div className='bg-lotion pb-24 pt-8'>
+    <div className='bg-lotion pb-32'>
       <div className='container'>
         <div>
           <div className='  text-center '>

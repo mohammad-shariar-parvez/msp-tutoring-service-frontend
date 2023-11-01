@@ -35,7 +35,7 @@ const AccordianFAQ: React.FC = () => {
   };
 
   return (
-    <section className='container mb-24 '>
+    <section className='container mb-32 '>
       <h1 className='sg-title-txt mb-16 text-center'>FAQ</h1>
       <Collapse
         bordered={false}
@@ -44,7 +44,7 @@ const AccordianFAQ: React.FC = () => {
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
         items={getItems(panelStyle)}
-        className='p-4 border-none text-lg font-semibold  bg-blue-50'
+        className='p-4 border-none text-lg font-semibold  bg-[#e6f3f9] '
       />
     </section>
   );

@@ -30,7 +30,7 @@ const BookingFormSection: React.FC<BookingFormProps> = ({ courseId }) => {
     } catch (err: any) {
       console.error(err.message);
     }
-    console.log('STEPPR', values);
+    // console.log('STEPPR', values);
   };
   return (
     <div className='req-demo-form p-4'>
