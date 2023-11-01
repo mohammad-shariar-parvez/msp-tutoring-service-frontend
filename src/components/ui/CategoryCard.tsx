@@ -8,7 +8,7 @@ interface CategoryCardProps {
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
-  console.log('REal categoty is ', category.courses.length);
+  // console.log('REal categoty is ', category.courses.length);
 
   return (
     <>

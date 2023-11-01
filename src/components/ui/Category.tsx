@@ -6,7 +6,7 @@ import CategoryCard from './CategoryCard';
 
 const Category = () => {
   const { data } = useCategoriesQuery({ limit: 8 });
-  console.log('category', data);
+
   const categoryData = data?.categories;
 
   return (

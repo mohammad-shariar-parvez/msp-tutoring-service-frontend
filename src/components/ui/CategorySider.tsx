@@ -33,13 +33,11 @@ interface CategorySiderProps {
   sidebar: boolean;
 }
 const CategorySider: React.FC<CategorySiderProps> = ({ sidebar }) => {
-  console.log(sidebar);
-
   const [openKeys, setOpenKeys] = useState(['sub1']);
 
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    console.log(latestOpenKey);
+    // console.log(latestOpenKey);
 
     if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
       setOpenKeys(keys);
@@ -76,7 +74,7 @@ const CategorySider: React.FC<CategorySiderProps> = ({ sidebar }) => {
         return element;
       })
     : [];
-  console.log(itemss);
+  // console.log(itemss);
 
   const final = [
     {
@@ -101,9 +99,7 @@ const CategorySider: React.FC<CategorySiderProps> = ({ sidebar }) => {
       label: 'Logout',
     },
   ];
-  const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
-  };
+  const onClick: MenuProps['onClick'] = (e) => {};
   return (
     <Menu
       mode='inline'
