@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
-
+import { useRouter } from 'next/navigation';
 import { Button, Input, Modal, message } from 'antd';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -28,8 +28,10 @@ import {
 import FormTimePicker from '@/components/Forms/FormTimePicker';
 import Form from '@/components/Forms/Form';
 import FormDatePicker from '@/components/Forms/FormDatePicker';
+import { useInitialPaymentMutation } from '@/redux/api/paymentApi';
 
 const BookingsPage = () => {
+  const router = useRouter();
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -41,7 +43,7 @@ const BookingsPage = () => {
   const [rowData, setRowData] = useState<any>({});
   const [deleteBooking] = useDeleteBookingMutation();
   const [updateBooking] = useUpdateBookingMutation();
-
+  const [initialPayment] = useInitialPaymentMutation();
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -83,6 +85,29 @@ const BookingsPage = () => {
       }
     } catch (err: any) {
       //   console.error(err.message);
+      message.error(err.message);
+    }
+  };
+  const paymentHandler = async (data: any) => {
+    message.loading('Deleting.....');
+
+    console.log(data);
+
+    try {
+      const res = await initialPayment({
+        total_amount: data?.course?.price,
+        cus_email: data?.user?.email,
+        course_name: data?.course?.title,
+        bookingId: data?.id,
+        userId: data?.userId,
+      }).unwrap();
+      // if (res) {
+      //   message.success('Payment Done successfully');
+      // }
+      console.log(res);
+      router.push(res);
+    } catch (err: any) {
+      console.error(err.message);
       message.error(err.message);
     }
   };
@@ -146,10 +171,22 @@ const BookingsPage = () => {
         );
       },
     },
+    {
+      title: 'Action',
+      render: function (data: any) {
+        return (
+          <>
+            <Button onClick={() => paymentHandler(data)} type='primary' danger>
+              Pay
+            </Button>
+          </>
+        );
+      },
+    },
   ];
 
   const onPaginationChange = (page: number, pageSize: number) => {
-    console.log('Page:', page, 'PageSize:', pageSize);
+    // console.log('Page:', page, 'PageSize:', pageSize);
     setPage(page);
     setSize(pageSize);
   };
