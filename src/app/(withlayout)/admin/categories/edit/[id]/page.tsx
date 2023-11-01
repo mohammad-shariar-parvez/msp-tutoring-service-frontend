@@ -15,8 +15,6 @@ type IDProps = {
 };
 
 const EditCategoryPage = ({ params }: IDProps) => {
-  console.log(params);
-
   const { id } = params;
 
   const { data } = useCategoryQuery(id);

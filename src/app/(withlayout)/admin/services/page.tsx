@@ -58,7 +58,7 @@ const ServicePage = () => {
 
   const courses = data?.services;
   const meta = data?.meta;
-  console.log(courses);
+  // console.log(courses);
 
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');
@@ -118,7 +118,6 @@ const ServicePage = () => {
                 style={{
                   margin: '0px 5px',
                 }}
-                onClick={() => console.log(data)}
                 type='primary'
               >
                 <EditOutlined />

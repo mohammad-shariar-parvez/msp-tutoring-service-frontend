@@ -59,7 +59,7 @@ const ServicePage = () => {
 
   const tutors = data?.tutors;
   const meta = data?.meta;
-  console.log(tutors);
+  // console.log(tutors);
 
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');

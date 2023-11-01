@@ -45,7 +45,7 @@ const EditServicePage = ({ params }: any) => {
     }
   };
 
-  console.log('VALUE UPDATE', serviceData);
+  // console.log('VALUE UPDATE', serviceData);
   const defaultValues = {
     title: serviceData?.title || '',
     price: serviceData?.price || '',

@@ -59,7 +59,7 @@ const ServicePage = () => {
 
   const blogs = data?.blogs;
   const meta = data?.meta;
-  console.log(blogs);
+  // console.log(blogs);
 
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');

@@ -47,8 +47,8 @@ const Services = ({ params }: IDProps) => {
 
   //PAGINATION
   const onPageChange: PaginationProps['onChange'] = (page, pageSize) => {
-    console.log(pageSize);
-    console.log(page);
+    // console.log(pageSize);
+    // console.log(page);
     // setSize(pageSize);
 
     setPage(page);
@@ -89,11 +89,11 @@ const Services = ({ params }: IDProps) => {
 
   const { data } = useServicesQuery({ ...query });
   const coursesData: IService[] = (data?.services || []) as IService[];
-  console.log('HELLLOOOO', coursesData);
-  console.log('META', data?.meta);
+  // console.log('HELLLOOOO', coursesData);
+  // console.log('META', data?.meta);
 
   return (
-    <div className='container  '>
+    <div className='container mt-16 '>
       <div className='grid grid-cols-4 gap-6'>
         <div className='space-y-4'>
           <div className='relative'>

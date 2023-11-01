@@ -54,7 +54,7 @@ const FaqPage = () => {
 
   const faqs = data?.faqs;
   const meta = data?.meta;
-  console.log(faqs);
+  // console.log(faqs);
 
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');

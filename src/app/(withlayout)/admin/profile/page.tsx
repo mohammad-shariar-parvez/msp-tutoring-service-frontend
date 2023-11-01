@@ -64,7 +64,7 @@ const ProfilePage = () => {
             </Card>
             <Card style={{ margin: '10px 5px' }}>{data?.profile?.bio}</Card>
             <Row justify='space-between'>
-              <Link href={`/profile/edit/`}>
+              <Link href='/profile/edit/'>
                 <Button type='primary'> Update Profile</Button>
               </Link>
             </Row>

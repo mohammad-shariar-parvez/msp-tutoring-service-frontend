@@ -63,12 +63,10 @@ const FeedbackPage = () => {
 
   const feedbacks = data?.feedback;
   const meta = data?.meta;
-  console.log(feedbacks);
 
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');
     try {
-      //   console.log(data);
       const res = await deleteFeedback(id);
       if (res) {
         message.success('Blogs Deleted successfully');

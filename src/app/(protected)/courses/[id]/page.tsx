@@ -3,6 +3,7 @@ import { Button, Col, Input, Rate, Row } from 'antd';
 import React, { useState } from 'react';
 import center from '../../../../assets/centre.png';
 import Image from 'next/image';
+import Link from 'next/link';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import Form from '@/components/Forms/Form';
 import BasicInfo from '@/components/UserForms/BasicInfo';
@@ -14,7 +15,7 @@ type IDProps = {
   params: any;
 };
 const ServiceCourse = ({ params }: IDProps) => {
-  console.log('LOG', params);
+  // console.log('LOG', params);
 
   const [value, setValue] = useState(3);
   const steps = [
@@ -32,7 +33,7 @@ const ServiceCourse = ({ params }: IDProps) => {
     },
   ];
   const handleStudentSubmit = async (values: any) => {
-    console.log('STEPPR', values);
+    // console.log('STEPPR', values);
   };
 
   const reviewOnSubmit = async (values: any) => {
@@ -55,10 +56,10 @@ const ServiceCourse = ({ params }: IDProps) => {
       <div className='container'>
         <div className='bg-white p-6'>
           <div>
-            <a href='https://study-ground.com/tutors/ghaziabad'>
+            <Link href='https://study-ground.com/tutors/ghaziabad'>
               <i className='fas fa-chevron-left fa-fw'></i> Back{' '}
               <span>to search results</span>
-            </a>
+            </Link>
           </div>
           <div>
             <Row>

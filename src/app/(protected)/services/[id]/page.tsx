@@ -1,6 +1,7 @@
 'use client';
 import { Button, Col, Input, Rate, Row } from 'antd';
 import React, { useState } from 'react';
+import Link from 'next/link';
 import center from '../../../../assets/centre.png';
 import Image from 'next/image';
 import FormTextArea from '@/components/Forms/FormTextArea';
@@ -27,7 +28,7 @@ const ServiceCourse = () => {
     },
   ];
   const handleStudentSubmit = async (values: any) => {
-    console.log('STEPPR', values);
+    // console.log('STEPPR', values);
   };
 
   const reviewOnSubmit = async (values: any) => {
@@ -50,10 +51,10 @@ const ServiceCourse = () => {
       <div className='container'>
         <div className='bg-white p-6'>
           <div>
-            <a href='https://study-ground.com/tutors/ghaziabad'>
+            <Link href='https://study-ground.com/tutors/ghaziabad'>
               <i className='fas fa-chevron-left fa-fw'></i> Back{' '}
               <span>to search results</span>
-            </a>
+            </Link>
           </div>
           <div>
             <Row>

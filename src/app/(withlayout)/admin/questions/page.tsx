@@ -58,7 +58,6 @@ const QuestionPage = () => {
 
   const questions = data?.question;
   const meta = data?.meta;
-  console.log(data);
 
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');
