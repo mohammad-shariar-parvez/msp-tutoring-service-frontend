@@ -13,7 +13,7 @@ instance.defaults.timeout = 60000;
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
-    console.log("YESSSSSS working");
+
 
     // Do something before request is sent
     const accessToken = getFromLocalStorage(authKey);
@@ -40,6 +40,8 @@ instance.interceptors.response.use(
   },
   async function (error) {
     const config = error?.config;
+    // console.log("ERROR CONFIG", error);
+
     if (error?.response?.status === 403 && !config?.sent) {
       config.sent = true;
       const response = await getNewAccessToken();
@@ -48,15 +50,17 @@ instance.interceptors.response.use(
       setToLocalStorage(authKey, accessToken);
       return instance(config);
     } else {
-      const responseObject: IGenericErrorResponse = {
-        statusCode: error?.response?.data?.statusCode || 500,
-        message: error?.response?.data?.message || "Something went wrong",
-        errorMessages: error?.response?.data?.message,
-      };
-      return responseObject;
+
+      // const responseObject: IGenericErrorResponse = {
+      //   statusCode: error?.response?.status || 500,
+      //   message: error?.response?.data?.message || "Something went wrong",
+      //   errorMessages: error?.response?.data?.message,
+      // };
+
+      return Promise.reject(error);
+
     }
 
-    // return Promise.reject(error);
   }
 );
 
