@@ -2,24 +2,32 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Badge, Avatar, Button } from 'antd';
-import { getUserInfo } from '@/services/auth.service';
+import { getUserInfo, removeUserInfo } from '@/services/auth.service';
 import CategorySider from './CategorySider';
 import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
 import NavDropDown from './NavDropDown';
 import { useAppSelector } from '@/redux/hooks';
 import { useSession } from 'next-auth/react';
+import { authKey } from '@/constants/storageKey';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const [sideBar, setSideBar] = useState(true);
   const { total } = useAppSelector((state) => state.wishList);
   const [userRole, setUserRole] = useState(null);
   const { data: session, status } = useSession();
-  console.log('session', session);
+  const { role } = getUserInfo() as any;
+  console.log('session', role);
+  const router = useRouter();
+  useEffect(() => {
+    const { role } = getUserInfo() as any;
+    setUserRole(role);
+  }, [userRole]);
 
-  // useEffect(() => {
-  //   const { role } = getUserInfo() as any;
-  //   setUserRole(role);
-  // }, [userRole]);
+  const handleLogout = () => {
+    removeUserInfo(authKey);
+    router.push('/login');
+  };
 
   return (
     <div>
@@ -59,7 +67,7 @@ const Navbar = () => {
                   <li className='   md:w-28 p-4   block '>
                     <Link
                       className='text-black md:hover:text-slate-400 font-semibold text-base'
-                      href='/'
+                      href={`/${role}`}
                     >
                       Dashboard
                     </Link>
@@ -87,11 +95,20 @@ const Navbar = () => {
                       />
                     </Badge>
                   </Link>
-                  {/* {userRole ? (
-                    <Button className='font-semibold text-base'>Login</Button>
+                  {userRole ? (
+                    <Link href='/login'>
+                      <Button className='font-semibold text-base'>
+                        Logout
+                      </Button>
+                    </Link>
                   ) : (
-                    <Button className='font-semibold text-base'>Logout</Button>
-                  )} */}
+                    <Button
+                      onClick={handleLogout}
+                      className='font-semibold text-base'
+                    >
+                      Login
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

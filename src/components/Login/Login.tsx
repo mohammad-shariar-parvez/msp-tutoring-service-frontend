@@ -7,7 +7,7 @@ import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import { SubmitHandler } from 'react-hook-form';
 import { useUserLoginMutation } from '@/redux/api/authApi';
-import { storeUserInfo } from '@/services/auth.service';
+import { getUserInfo, storeUserInfo } from '@/services/auth.service';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 // import { useRouter } from 'next/router';
@@ -25,7 +25,6 @@ type FormValues = {
 const LoginPage = () => {
   const callbackUrl = useSearchParams().get('callbackUrl') as string;
   const [call, setCall] = useState(callbackUrl);
-  console.log(call);
 
   const [
     userLogin,
@@ -33,40 +32,36 @@ const LoginPage = () => {
   ] = useUserLoginMutation();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   // Check if there's a previously visited page stored in session storage.
-  //   const previousPage = sessionStorage.getItem('previousPage');
-
-  //   if (previousPage) {
-  //     // Redirect the user to the previous page and remove the stored value from session storage.
-  //     router.push(previousPage);
-  //     sessionStorage.removeItem('previousPage');
-  //   } else {
-  //     // If there's no previous page stored, you can redirect to a default page.
-  //     router.push('/');
-  //   }
-  // }, []);
-
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
-      if (res?.accessToken) {
-        console.log('callbackUrl,', call);
 
-        router.push(call);
+      if (res?.accessToken) {
+        if (!call && res.role == 'admin') {
+          router.push('/admin');
+        } else if (!call && res.role == 'super_admin') {
+          router.push('/super_admin');
+        } else if (!call && res.role == 'user') {
+          router.push('/user');
+        } else {
+          router.push(call);
+        }
+
         message.success('User logged in successfully!');
+        console.log(res);
       }
+      storeUserInfo({ accessToken: res?.accessToken });
     } catch (err: any) {
       message.error(err?.data?.message || 'Network Error');
     }
   };
 
-  const githubHandler = () => {
-    signIn('github', {
-      callbackUrl: callbackUrl || 'https://msp-pc-builder.vercel.app/',
-    });
-    sessionStorage.removeItem('previousPage');
-  };
+  // const githubHandler = () => {
+  //   signIn('github', {
+  //     callbackUrl: callbackUrl || 'https://msp-pc-builder.vercel.app/',
+  //   });
+  //   // sessionStorage.removeItem('previousPage');
+  // };
 
   return (
     <section className='container  flex justify-center items-center h-screen '>
@@ -75,7 +70,7 @@ const LoginPage = () => {
           src={loginImage}
           width={500}
           alt='login image'
-          className='hidden md:block'
+          className='hidden md:block max-h-full'
         />
 
         <div className='mt-8'>
@@ -122,12 +117,12 @@ const LoginPage = () => {
             </Button>
           </Form>
 
-          <Divider className='mt-6 font-medium text-lg' plain>
+          {/* <Divider className='mt-6 font-medium text-lg' plain>
             or
           </Divider>
           <div className='flex justify-center'>
             <GithubOutlined className='text-3xl' onClick={githubHandler} />
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -143,7 +138,7 @@ const LoginPage = () => {
           
         </div>
       </div> */}
-      <div>
+      {/* <div>
         <GoogleOutlined
           onClick={() =>
             signIn('google', {
@@ -153,7 +148,7 @@ const LoginPage = () => {
             })
           }
         />
-      </div>
+      </div> */}
     </section>
   );
 };
