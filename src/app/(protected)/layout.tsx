@@ -7,6 +7,7 @@ import { lStorgeWishList } from '@/redux/wishList/wishListSlice';
 import { isLoggedIn } from '@/services/auth.service';
 import { getFromLocalStorage } from '@/utils/local-storage';
 import { Layout, Row, Space, Spin } from 'antd';
+import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

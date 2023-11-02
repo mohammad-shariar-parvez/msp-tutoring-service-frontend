@@ -1,8 +1,8 @@
-import LoginPage from "@/components/Login/Login";
-import { Metadata } from "next";
+import LoginPage from '@/components/Login/Login';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "UMS | Login",
+  title: 'MSP Tutoring Service | Login',
 };
 
 const Login = () => {

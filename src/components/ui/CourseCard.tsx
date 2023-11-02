@@ -9,6 +9,7 @@ import {
   addCourseWishList,
   removeCourseWishList,
 } from '@/redux/wishList/wishListSlice';
+import { usePathname } from 'next/navigation';
 
 interface CourseCardProps {
   course: IService;
@@ -22,6 +23,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   const { courses: courseData } = useAppSelector((state) => state.wishList);
   const dispatch = useAppDispatch();
   const [isWishList, setIsWishList] = useState(false);
+
   // console.log('Real category is', courseData.length);
 
   const handleWishList = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -42,6 +44,8 @@ const CourseCard: React.FC<CourseCardProps> = ({
       (itemCourse) => itemCourse.id === course.id
     );
     setIsWishList(doesExist);
+
+    // Store the current URL in session storage when the component mounts.
   }, [course.id, courseData]);
 
   return (

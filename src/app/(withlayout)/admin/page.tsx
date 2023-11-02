@@ -3,6 +3,8 @@ import { useBookingsQuery } from '@/redux/api/bookingApi';
 import { useCategoriesQuery } from '@/redux/api/category';
 import { useServicesQuery } from '@/redux/api/serviceApi';
 import { useUsersQuery } from '@/redux/api/userApi';
+import { getUserInfo } from '@/services/auth.service';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   DollarCircleOutlined,
   ShoppingCartOutlined,
@@ -10,6 +12,8 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Col, Row, Card, Button } from 'antd';
+// import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const ProfilePage = () => {
   // const [addProfile] = useAddProfileMutation();
@@ -19,9 +23,14 @@ const ProfilePage = () => {
   //@ts-ignore
   const { data: categories } = useCategoriesQuery({});
 
+  const router = useRouter();
+  const { role } = getUserInfo() as any;
+
   // useEffect(() => {
-  //   addProfile(undefined);
-  // }, [addProfile]);
+  //   const pathname = router.pathname;
+  //   // router.push('/');
+  //   console.log('USER ROLE', pathname);
+  // }, [role, router]);
 
   return (
     <div>

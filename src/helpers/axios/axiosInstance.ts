@@ -56,6 +56,7 @@ instance.interceptors.response.use(
       //   message: error?.response?.data?.message || "Something went wrong",
       //   errorMessages: error?.response?.data?.message,
       // };
+      // console.log(error);
 
       return Promise.reject(error);
 

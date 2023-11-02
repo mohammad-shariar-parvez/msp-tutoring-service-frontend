@@ -16,6 +16,11 @@ module.exports = {
       colors: {
         footer: "#141313",
       },
+      fontFamily: {
+        rubik: ['Rubik', 'sans-serif'],
+
+
+      },
     },
 
   },
