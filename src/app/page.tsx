@@ -13,6 +13,7 @@ import { redirect } from 'next/navigation';
 
 const HomePage = () => {
   // return redirect("/profile");
+
   return (
     <div>
       <Navbar />

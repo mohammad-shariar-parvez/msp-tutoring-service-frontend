@@ -13,16 +13,26 @@ import RatingReview from '@/components/ui/RatingReview';
 import CommentsSection from '@/components/ui/CommentsSection';
 import { useAddBookingMutation } from '@/redux/api/bookingApi';
 import BookingFormSection from '@/components/ui/BookingFormSection';
+import { usePathname } from 'next/navigation';
 
 type IDProps = {
   params: any;
 };
 const ServiceCourse = ({ params }: IDProps) => {
   const { id } = params;
-
+  // const pathname = usePathname();
+  // console.log('PATH !@#', pathname);
   const { data } = useServiceQuery(id);
   const courseData = data;
   // console.log('service', courseData);
+
+  // useEffect(() => {
+  //   // Perform the state update inside the useEffect hook
+  //   // Store the current URL in session storage when the component mounts.
+  //   sessionStorage.setItem('previousPage', pathname);
+  //   const u = sessionStorage.setItem('previousPage', pathname);
+  //   console.log(u);
+  // }, [pathname]);
 
   return (
     <div className=' '>
