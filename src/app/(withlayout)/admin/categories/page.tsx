@@ -76,6 +76,8 @@ const CategoryPage = () => {
       title: 'Title',
       dataIndex: 'title',
       sorter: true,
+
+      // ellipsis: true,
     },
 
     {
@@ -88,9 +90,10 @@ const CategoryPage = () => {
     },
     {
       title: 'Action',
+
       render: function (data: any) {
         return (
-          <>
+          <div className='flex '>
             <Button onClick={() => onDetailsHandler(data)} type='primary'>
               <EyeOutlined />
             </Button>
@@ -113,7 +116,7 @@ const CategoryPage = () => {
             >
               <DeleteOutlined />
             </Button>
-          </>
+          </div>
         );
       },
     },
@@ -225,9 +228,6 @@ const CategoryPage = () => {
         showPagination={true}
       />
       <>
-        <Button type='primary' onClick={showModal}>
-          Open Modal
-        </Button>
         <Modal
           title='Category Details'
           open={isModalOpen}

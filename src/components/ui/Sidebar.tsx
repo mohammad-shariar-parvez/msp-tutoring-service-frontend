@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Layout, Menu } from 'antd';
+import { Button, ConfigProvider, Layout, Menu } from 'antd';
 
 import { sidebarItems } from '@/constants/sidebarItems';
 import { USER_ROLE } from '@/constants/role';
@@ -21,33 +21,40 @@ const SideBar = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
-      width={280}
-      style={{
-        overflow: 'auto',
-        height: '100vh',
-        position: 'sticky',
-        left: 0,
-        top: 0,
-        bottom: 0,
-      }}
+      className={`h-screen sticky left-0 top-0 bottom-0 z-20 w-44 md:w-64 overflow-auto`}
+      // style={{
+      //   overflow: 'auto',
+      //   height: '100vh',
+      //   position: 'sticky',
+      //   left: 0,
+      //   top: 0,
+      //   bottom: 0,
+      // }}
     >
       <div
-        style={{
-          color: 'white',
-          fontSize: '2rem',
-          textAlign: 'center',
-          fontWeight: 'bold',
-          marginBottom: '.5rem',
-          padding: '10px 0px',
-        }}
+        // style={{
+        //   color: 'black',
+        //   fontSize: '1.5rem',
+        //   textAlign: 'center',
+        //   fontWeight: 'bold',
+        //   margin: '.5rem',
+        //   padding: '10px 0px',
+        //   position: 'sticky',
+        //   top: '0px',
+
+        // }}
+        className='text-black font-bold text-3xl  top-0 bg-[#e6f3f9] z-40 my-4 text-center '
       >
-        UMS
+        MSP
       </div>
       <Menu
-        theme='dark'
+        theme='light'
         defaultSelectedKeys={['1']}
         mode='inline'
         items={sidebarItems(role)}
+        style={{
+          height: '100vh ',
+        }}
       />
     </Sider>
   );

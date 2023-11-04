@@ -25,7 +25,9 @@ const CreateFacultyPage = () => {
       if (!!res) {
         message.success('Profile updated successfully!');
       }
-    } catch (err: any) {}
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
   const defaultValues = {
     firstName: data?.profile?.firstName || '',
@@ -91,7 +93,13 @@ const CreateFacultyPage = () => {
           </Row>
         </div>
 
-        <Button htmlType='submit'>submit</Button>
+        <Button
+          size='large'
+          className=' block bg-[#274279] mt-8    text-white    rounded-md  px-6 '
+          htmlType='submit'
+        >
+          submit
+        </Button>
       </Form>
     </>
   );

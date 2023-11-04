@@ -6,21 +6,10 @@ const { Content } = Layout;
 
 const Contents = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Content
-      style={{
-        minHeight: '100vh',
-        color: 'black',
-      }}
-    >
+    <Content className=' m-2 md:m-8 '>
       <Header />
 
-      <div
-        style={{
-          padding: '10px',
-        }}
-      >
-        {children}
-      </div>
+      <div className='mt-20'>{children}</div>
     </Content>
   );
 };

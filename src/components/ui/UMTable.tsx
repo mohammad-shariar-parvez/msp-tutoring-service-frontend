@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Table } from "antd";
+import { Table } from 'antd';
 
 type UMTableProps = {
   loading?: boolean;
@@ -42,6 +42,10 @@ const UMTable = ({
       dataSource={dataSource}
       pagination={paginationConfig}
       onChange={onTableChange}
+      // scroll={{ x: 400 }}
+      scroll={{ x: 10 }}
+      className='rounded-lg'
+      // className=' w-full max-w-full overflow-x-auto'
     />
   );
 };

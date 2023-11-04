@@ -42,79 +42,90 @@ const CreateServicePage = () => {
           { label: 'services', link: `/${base}/services` },
         ]}
       />
-      <h1>Create Service</h1>
+
       <Form submitHandler={adminOnSubmit}>
         <div
           style={{
-            border: '1px solid #d9d9d9',
-            borderRadius: '5px',
             padding: '15px',
             marginBottom: '10px',
           }}
+          className='bg-[#e6f3f9]'
         >
-          <p style={{ fontSize: '18px', fontWeight: '500', margin: '5px 0px' }}>
-            Service information
-          </p>
-          <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormInput name='title' label='Title' size='large' />
-            </Col>
+          <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 mt-3'>
+            Course information
+          </h5>
+          <div className='grid  md:grid-cols-3 gap-4'>
+            <div className='mb-4 space-y-2 md:col-span-1'>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Title
+              </label>
+              <FormInput name='title' size='large' />
+            </div>
 
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormSelectField
-                name='location'
-                label='Location'
-                options={locationOptions}
-              />
-            </Col>
+            <div className='mb-4 space-y-2 md:col-span-1 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Location
+              </label>
+              <FormSelectField name='location' options={locationOptions} />
+            </div>
 
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormInput
-                name='price'
-                label='Price'
-                size='large'
-                type='number'
-              />
-            </Col>
+            <div className='mb-4 space-y-2 md:col-span-1 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Price
+              </label>
+              <FormInput name='price' size='large' type='number' />
+            </div>
 
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormInput
-                name='imageUrl'
-                label='Image Url'
-                size='large'
-                type='url'
-              />
-            </Col>
+            <div className='mb-4 space-y-2 md:col-span-1 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Image Url
+              </label>
+              <FormInput name='imageUrl' size='large' type='url' />
+            </div>
 
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <CategoryField name='serviceId' label='Category' />
-            </Col>
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <TutorField name='courseTutorId' label='Tutor' />
-            </Col>
+            <div className='mb-4 space-y-2 md:col-span-1 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Category
+              </label>
+              <CategoryField name='serviceId' />
+            </div>
 
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormSelectField
-                name='status'
-                label='Status'
-                options={serviceStatus}
-              />
-            </Col>
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormInput
-                name='duration'
-                label='Duration'
-                size='large'
-                type='text'
-              />
-            </Col>
-            <Col span={16} style={{ margin: '10px 0' }}>
-              <FormTextArea name='description' label='Description' rows={4} />
-            </Col>
-          </Row>
+            <div className='mb-4 space-y-2 md:col-span-1 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Tutor
+              </label>
+              <TutorField name='courseTutorId' />
+            </div>
+
+            <div className='mb-4 space-y-2 md:col-span-1 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Status
+              </label>
+              <FormSelectField name='status' options={serviceStatus} />
+            </div>
+
+            <div className='mb-4 space-y-2 md:col-span-1'>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Duration
+              </label>
+              <FormInput name='duration' size='large' type='text' />
+            </div>
+
+            <div className='mb-4 space-y-2 md:col-span-2 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Description
+              </label>
+              <FormTextArea name='description' rows={4} />
+            </div>
+          </div>
+          <Button
+            size='large'
+            className=' block bg-[#274279]     text-white    rounded-md  px-6 '
+            htmlType='submit'
+          >
+            Submit
+          </Button>
         </div>
-
-        <Button htmlType='submit'>submit</Button>
       </Form>
     </>
   );

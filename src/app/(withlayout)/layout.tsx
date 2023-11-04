@@ -2,7 +2,7 @@
 import Contents from '@/components/ui/Contents';
 import SideBar from '@/components/ui/Sidebar';
 import { getUserInfo, isLoggedIn } from '@/services/auth.service';
-import { Layout, Row, Space, Spin } from 'antd';
+import { ConfigProvider, Layout, Row, Space, Spin } from 'antd';
 import { useRouter, usePathname } from 'next/navigation';
 
 import { useEffect, useState, useCallback } from 'react';
@@ -49,10 +49,23 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <Layout hasSider>
-      <SideBar />
-      <Contents>{children}</Contents>
-    </Layout>
+    <ConfigProvider
+      theme={{
+        components: {
+          Layout: {
+            lightTriggerBg: '#ffffff',
+            siderBg: '#e6f3f9',
+            triggerBg: '#e6f3f9',
+            triggerColor: 'black',
+          },
+        },
+      }}
+    >
+      <Layout hasSider className=' '>
+        <SideBar />
+        <Contents>{children}</Contents>
+      </Layout>
+    </ConfigProvider>
   );
 };
 

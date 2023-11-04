@@ -14,6 +14,7 @@ import {
 import { Col, Row, Card, Button } from 'antd';
 // import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import VChart from '@/components/ui/VChart';
 
 const ProfilePage = () => {
   // const [addProfile] = useAddProfileMutation();
@@ -130,6 +131,11 @@ const ProfilePage = () => {
           </Col>
         </Row>
       </div>
+      <Row>
+        <Col xs={24} md={24} lg={12}>
+          {/* <VChart /> */}
+        </Col>
+      </Row>
     </div>
   );
 };

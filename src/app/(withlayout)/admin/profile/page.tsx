@@ -1,7 +1,8 @@
 'use client';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
+import VChart from '@/components/ui/VChart';
 import { useAddProfileMutation, useProfileQuery } from '@/redux/api/profile';
-import { Col, Row, Card, Button } from 'antd';
+import { Col, Row, Card, Button, Empty } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
@@ -27,49 +28,58 @@ const ProfilePage = () => {
       <div className='container'>
         <Row>
           <Col xs={24} md={24} lg={8}>
-            {data?.profile?.profileImage && (
+            {data?.profile?.profileImage ? (
               <Image
                 src={data?.profile?.profileImage}
                 width={500}
                 height={500}
                 alt='eagle_image'
               />
+            ) : (
+              <Empty description='Profile image not updated' />
             )}
           </Col>
           <Col xs={24} md={24} lg={16}>
-            <Card title='Name' style={{ margin: '10px 5px' }}>
-              <Row justify='space-around'>
-                <div>{data?.profile?.firstName}</div>
-                <div>{data?.profile?.middleName}</div>
-                <div>{data?.profile?.lastName}</div>
-              </Row>
+            <Card style={{ margin: '10px 5px' }}>
+              <div>
+                <Row justify='space-between' className='pb-4'>
+                  <strong>Name</strong>
+                  <p>
+                    {data?.profile?.firstName} {data?.profile?.middleName}
+                    {data?.profile?.lastName}
+                  </p>
+                </Row>
+                <Row justify='space-between' className='pb-4'>
+                  <strong>Email</strong>
+                  <p>{data?.profile?.useEmail}</p>
+                </Row>
+                <Row justify='space-between' className='pb-4'>
+                  <strong>Role</strong>
+                  <p>{data?.profile?.role}</p>
+                </Row>
+                <Row justify='space-between' className='pb-4'>
+                  <strong>Contact Info</strong>
+                  <p>{data?.profile?.contactNo}</p>
+                </Row>
+                <Row>
+                  <strong>Bio</strong>
+                  <p>{data?.profile?.bio}</p>
+                </Row>
+              </div>
             </Card>
 
-            <Card title='Email' bordered={false} style={{ margin: '10px 5px' }}>
-              <Row justify='space-between'>
-                <div>{data?.profile?.useEmail}</div>
-                <div>ID: {data?.profile?.id}</div>
-              </Row>
-            </Card>
-            <Card title='Role' bordered={false} style={{ margin: '10px 5px' }}>
-              {data?.profile?.role}
-            </Card>
-
-            <Card
-              title='Contact Info'
-              bordered={false}
-              style={{ margin: '10px 5px' }}
-            >
-              {data?.profile?.contactNo}
-            </Card>
-            <Card style={{ margin: '10px 5px' }}>{data?.profile?.bio}</Card>
             <Row justify='space-between'>
-              <Link href='/profile/edit/'>
-                <Button type='primary'> Update Profile</Button>
+              <Link href='/admin/profile/edit/'>
+                <Button
+                  className=' block bg-[#274279] mt-6    text-white   '
+                  type='primary'
+                >
+                  {' '}
+                  Update Profile
+                </Button>
               </Link>
             </Row>
           </Col>
-          <div></div>
         </Row>
       </div>
     </div>

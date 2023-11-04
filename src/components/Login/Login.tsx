@@ -42,7 +42,7 @@ const LoginPage = () => {
         } else if (!call && res.role == 'super_admin') {
           router.push('/super_admin');
         } else if (!call && res.role == 'user') {
-          router.push('/user');
+          router.push('/');
         } else {
           router.push(call);
         }

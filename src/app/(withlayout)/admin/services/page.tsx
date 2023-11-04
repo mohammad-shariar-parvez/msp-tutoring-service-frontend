@@ -8,7 +8,7 @@ import {
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
 
-import { Button, Input, Modal, message } from 'antd';
+import { Button, Empty, Input, Modal, message } from 'antd';
 import Link from 'next/link';
 import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
@@ -19,6 +19,7 @@ import {
   useServicesQuery,
 } from '@/redux/api/serviceApi';
 import Image from 'next/image';
+import ActionButtons from '@/components/ui/ActionButtons';
 
 const ServicePage = () => {
   const query: Record<string, any> = {};
@@ -31,10 +32,6 @@ const ServicePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [details, setDetails] = useState<any>({});
   const [deleteCourse] = useDeleteServiceMutation();
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -60,25 +57,22 @@ const ServicePage = () => {
   const meta = data?.meta;
   // console.log(courses);
 
-  const deleteHandler = async (id: string) => {
-    message.loading('Deleting.....');
-    try {
-      //   console.log(data);
-      const res = await deleteCourse(id);
-      if (res) {
-        message.success('Course Deleted successfully');
-      }
-    } catch (err: any) {
-      //   console.error(err.message);
-      message.error(err.message);
-    }
-  };
-
   const columns = [
     {
       title: 'Title',
       dataIndex: 'title',
       sorter: true,
+      render: (text: string) => (
+        <div
+          style={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {text}
+        </div>
+      ),
     },
     {
       title: 'Location',
@@ -109,47 +103,61 @@ const ServicePage = () => {
       title: 'Action',
       render: function (data: any) {
         return (
-          <>
-            <Button onClick={() => onDetailsHandler(data)} type='primary'>
-              <EyeOutlined />
-            </Button>
-            <Link href={`/admin/services/edit/${data?.id}`}>
-              <Button
-                style={{
-                  margin: '0px 5px',
-                }}
-                type='primary'
-              >
-                <EditOutlined />
-              </Button>
-            </Link>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
-          </>
+          <ActionButtons
+            data={data}
+            onDetailsHandler={onDetailsHandler}
+            deleteHandler={deleteHandler}
+            editUrl={'/admin/services/edit/'}
+          />
+          // <div className='flex space-x-1'>
+          //   <Button onClick={() => onDetailsHandler(data)} type='primary'>
+          //     <EyeOutlined />
+          //   </Button>
+          //   <Link href={`/admin/services/edit/${data?.id}`}>
+          //     <Button
+          //       style={{
+          //         margin: '0px ',
+          //       }}
+          //       type='primary'
+          //     >
+          //       <EditOutlined />
+          //     </Button>
+          //   </Link>
+          //   <Button
+          //     onClick={() => deleteHandler(data?.id)}
+          //     type='primary'
+          //     danger
+          //   >
+          //     <DeleteOutlined />
+          //   </Button>
+          // </div>
         );
       },
     },
   ];
-  const onDetailsHandler = (values: any) => {
-    // console.log('Values', values);
 
+  const deleteHandler = async (id: string) => {
+    message.loading('Deleting.....');
+    try {
+      const res = await deleteCourse(id);
+      if (res) {
+        message.success('Course Deleted successfully');
+      }
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  };
+
+  const onDetailsHandler = (values: any) => {
     setIsModalOpen(true);
     setDetails(values);
-    // console.log(values);
   };
   const onPaginationChange = (page: number, pageSize: number) => {
-    // console.log('Page:', page, 'PageSize:', pageSize);
     setPage(page);
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
     const { order, field } = sorter;
-    // console.log(order, field);
     setSortBy(field as string);
     setSortOrder(order === 'ascend' ? 'asc' : 'desc');
   };
@@ -176,24 +184,20 @@ const ServicePage = () => {
           type='text'
           size='large'
           placeholder='Search...'
-          style={{
-            width: '20%',
-          }}
           value={searchTerm}
+          className='w-64'
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
         />
-        <div>
+        <div className='flex space-x-1 '>
           <Link href='/admin/services/create'>
-            <Button type='primary'>Create</Button>
+            <Button className='block bg-[#274279]     text-white '>
+              Create
+            </Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              onClick={resetFilters}
-              type='primary'
-              style={{ margin: '0px 5px' }}
-            >
+            <Button onClick={resetFilters} type='primary'>
               <ReloadOutlined />
             </Button>
           )}
@@ -212,43 +216,51 @@ const ServicePage = () => {
         showPagination={true}
       />
       <>
-        <Button type='primary' onClick={showModal}>
-          Open Modal
-        </Button>
-        <Modal
-          title='Category Details'
-          open={isModalOpen}
-          onCancel={handleCancel}
-          footer={null}
-        >
-          <div className='flex flex-col gap-4 divide-y'>
-            <Image
-              src={details.imageUrl}
-              height={100}
-              width={100}
-              alt='details category'
-            />
+        <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
+          <div className='flex flex-col gap-4 '>
+            {details?.imageUrl ? (
+              <Image
+                src={details.imageUrl}
+                height={100}
+                width={100}
+                alt='details category'
+              />
+            ) : (
+              <Empty description='Image not available' />
+            )}
 
-            <h1 className='font-semibold text-lg'>{details?.title}</h1>
-            <div className='flex items-center'>
-              <h1 className='font-medium text-base mr-auto'>Service</h1>
-
-              <h1 className='font-normal text-base '>
-                {details?.service?.title}
-              </h1>
+            <div>
+              <strong className=' w-[30%] inline-block'>Title</strong>
+              <span>{details?.title}</span>
             </div>
-            <div className='flex items-center'>
-              <h1 className='font-medium text-base mr-auto'>Tutor</h1>
 
-              <h1 className='font-normal text-base '>
-                {details?.courseTutor?.firstName}
+            <div>
+              <strong className=' w-[30%] inline-block'>Service</strong>
+              <span>{details?.service?.title}</span>
+            </div>
+            <div>
+              <strong className=' w-[30%] inline-block'>Tutor</strong>
+              <span>
+                {details?.courseTutor?.firstName}{' '}
                 {details?.courseTutor?.lastName}
-              </h1>
+              </span>
             </div>
-            <h1 className='font-normal text-base'>{details?.location}</h1>
-            <h1 className='font-normal text-base'>{details?.duration}</h1>
-            <h1 className='font-normal text-base'>{details?.price}</h1>
-            <h1 className='font-light text-sm pt-2'>{details?.description}</h1>
+            <div>
+              <strong className=' w-[30%] inline-block'>Location</strong>
+              <span>{details?.location}</span>
+            </div>
+            <div>
+              <strong className=' w-[30%] inline-block'>Duration</strong>
+              <span>{details?.duration}</span>
+            </div>
+            <div>
+              <strong className=' w-[30%] inline-block'>Price</strong>
+              <span>{details?.price}</span>
+            </div>
+            <div>
+              <strong className=' w-[30%] block mb-2'>Description</strong>
+              <span>{details?.description}</span>
+            </div>
           </div>
         </Modal>
       </>

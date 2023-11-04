@@ -3,7 +3,7 @@ import { useTutorsQuery } from '@/redux/api/tutorApi';
 
 type ServiceFieldProps = {
   name: string;
-  label: string;
+  label?: string;
 };
 
 const TutorField = ({ name, label }: ServiceFieldProps) => {

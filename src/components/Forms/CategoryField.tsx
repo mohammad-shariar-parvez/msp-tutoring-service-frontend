@@ -4,7 +4,7 @@ import { ICategory } from '@/types';
 
 type ServiceFieldProps = {
   name: string;
-  label: string;
+  label?: string;
 };
 
 const CategoryField = ({ name, label }: ServiceFieldProps) => {
