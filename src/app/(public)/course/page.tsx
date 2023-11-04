@@ -1,17 +1,13 @@
 import React from 'react';
-type IDProps = {
-  params: any;
-};
-const Services = ({ params }: IDProps) => {
-  const { id } = params;
 
+const Courses = () => {
   return (
     <div className=' flex items-center'>
       <div className='bg-mintCream py-8 w-full h-full '>
         <div className='px-8 max-w-[1440px] mx-auto'>
           <div className='p-22'>
             <div className=' sg-title-txt text-center py-4 '>
-              <div className=''>All courses-------</div>
+              <div className=''>Subjects</div>
             </div>
 
             <div className='flex flex-wrap gap-10 justify-center   pt-[55px] '>
@@ -239,4 +235,4 @@ const Services = ({ params }: IDProps) => {
   );
 };
 
-export default Services;
+export default Courses;

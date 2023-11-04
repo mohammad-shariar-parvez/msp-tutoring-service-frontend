@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Services = () => {
+const Courses = () => {
   return (
     <div className=' flex items-center'>
       <div className='bg-mintCream py-8 w-full h-full '>
@@ -235,4 +235,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Courses;

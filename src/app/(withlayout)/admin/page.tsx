@@ -1,7 +1,7 @@
 'use client';
 import { useBookingsQuery } from '@/redux/api/bookingApi';
 import { useCategoriesQuery } from '@/redux/api/category';
-import { useServicesQuery } from '@/redux/api/serviceApi';
+
 import { useUsersQuery } from '@/redux/api/userApi';
 import { getUserInfo } from '@/services/auth.service';
 import { useRouter, usePathname } from 'next/navigation';
@@ -15,12 +15,13 @@ import { Col, Row, Card, Button } from 'antd';
 // import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import VChart from '@/components/ui/VChart';
+import { useCoursesQuery } from '@/redux/api/courseApi';
 
 const ProfilePage = () => {
   // const [addProfile] = useAddProfileMutation();
   const { data: bookings } = useBookingsQuery({});
   const { data: users } = useUsersQuery({ role: 'user' });
-  const { data: services } = useServicesQuery({});
+  const { data: courses } = useCoursesQuery({});
   //@ts-ignore
   const { data: categories } = useCategoriesQuery({});
 
@@ -78,7 +79,7 @@ const ProfilePage = () => {
                   Total Services
                 </p>
                 <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900'>
-                  {services?.meta?.total}
+                  {courses?.meta?.total}
                 </h5>
               </div>
             </div>

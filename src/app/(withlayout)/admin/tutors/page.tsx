@@ -14,10 +14,7 @@ import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
-import {
-  useDeleteServiceMutation,
-  useServicesQuery,
-} from '@/redux/api/serviceApi';
+
 import Image from 'next/image';
 import { useDeleteTutorMutation, useTutorsQuery } from '@/redux/api/tutorApi';
 
@@ -25,7 +22,7 @@ const ServicePage = () => {
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
-  const [size, setSize] = useState<number>(10);
+  const [size, setSize] = useState<number>(5);
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -77,8 +74,8 @@ const ServicePage = () => {
 
   const columns = [
     {
-      title: 'First Name',
-      dataIndex: 'firstName',
+      title: ' Name',
+      dataIndex: 'lastName',
     },
     {
       title: 'Gender',
@@ -164,7 +161,7 @@ const ServicePage = () => {
         ]}
       />
 
-      <ActionBar title='Course List'>
+      <ActionBar title='Tutor List'>
         <Input
           type='text'
           size='large'

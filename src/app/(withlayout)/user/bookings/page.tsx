@@ -15,11 +15,7 @@ import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
-import {
-  useDeleteServiceMutation,
-  useServicesQuery,
-  useUpdateServiceMutation,
-} from '@/redux/api/serviceApi';
+
 import {
   useBookingsQuery,
   useDeleteBookingMutation,
@@ -129,7 +125,7 @@ const BookingsPage = () => {
 
   const columns = [
     {
-      title: 'Service',
+      title: 'Course',
       dataIndex: 'course',
       render: function (data: any) {
         return data?.title;

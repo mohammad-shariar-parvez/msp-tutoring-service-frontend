@@ -5,7 +5,7 @@ import FormInput from '@/components/Forms/FormInput';
 import FormSelectField from '@/components/Forms/FormSelectField';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import { genderOptions } from '@/constants/global';
+import { genderOptions, locationOptions } from '@/constants/global';
 
 import { useAddTutorMutation } from '@/redux/api/tutorApi';
 import { Button, Col, Row, message } from 'antd';
@@ -79,6 +79,14 @@ const CreateTutor = () => {
                 label='Gender'
                 placeholder='Select'
               />
+            </Col>
+            <Col span={8} style={{ margin: '10px 0' }}>
+              <div className='mb-4 space-y-2 md:col-span-1 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Location
+                </label>
+                <FormSelectField name='location' options={locationOptions} />
+              </div>
             </Col>
 
             <Col span={16} style={{ margin: '10px 0' }}>

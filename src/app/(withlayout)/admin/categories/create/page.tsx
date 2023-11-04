@@ -41,6 +41,9 @@ const CreateCategoryPage = () => {
               />
             </div>
             <div className='mb-2'>
+              <FormInput name='slug' label='Slug' size='large' type='text' />
+            </div>
+            <div className='mb-2'>
               <FormInput
                 name='imageUrl'
                 label='Image Url'
@@ -51,7 +54,7 @@ const CreateCategoryPage = () => {
           </Col>
         </Row>
         <Button type='primary' htmlType='submit'>
-          add
+          Add
         </Button>
       </Form>
     </div>

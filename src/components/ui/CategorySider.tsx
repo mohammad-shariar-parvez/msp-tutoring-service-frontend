@@ -64,7 +64,7 @@ const CategorySider: React.FC<CategorySiderProps> = ({ sidebar }) => {
           return {
             key: `${ele.title}`,
             label: (
-              <Link href={`/services/course/${ele.id}`}> {ele.title} </Link>
+              <Link href={`/courses/course/${ele.id}`}> {ele.title} </Link>
             ),
           };
         });

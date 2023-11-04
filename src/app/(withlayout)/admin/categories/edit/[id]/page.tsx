@@ -54,7 +54,7 @@ const EditCategoryPage = ({ params }: IDProps) => {
             <div className='mb-4'>
               <FormInput
                 name='title'
-                label='Service Name'
+                label='Category Name'
                 size='large'
                 type='text'
               />
@@ -62,7 +62,7 @@ const EditCategoryPage = ({ params }: IDProps) => {
             <div className='mb-2'>
               <FormInput
                 name='imageUrl'
-                label='Service Url'
+                label='Category Url'
                 size='large'
                 type='url'
               />

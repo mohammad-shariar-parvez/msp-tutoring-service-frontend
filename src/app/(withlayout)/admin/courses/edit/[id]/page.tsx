@@ -8,18 +8,15 @@ import FormSelectField from '@/components/Forms/FormSelectField';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import TutorField from '@/components/Forms/TutorField';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import { locationOptions, serviceStatus } from '@/constants/global';
-import {
-  useServiceQuery,
-  useUpdateServiceMutation,
-} from '@/redux/api/serviceApi';
+import { locationOptions, courseStatus } from '@/constants/global';
+import { useCourseQuery, useUpdateCourseMutation } from '@/redux/api/courseApi';
 
 import { Button, Col, Row, message } from 'antd';
 
 const EditServicePage = ({ params }: any) => {
-  const { data: serviceData, isLoading: loading } = useServiceQuery(params?.id);
-  //   console.log(serviceData);
-  const [updateService] = useUpdateServiceMutation();
+  const { data: courseData, isLoading: loading } = useCourseQuery(params?.id);
+  //   console.log(courseData);
+  const [updateCourse] = useUpdateCourseMutation();
 
   //@ts-ignore
 
@@ -32,30 +29,30 @@ const EditServicePage = ({ params }: any) => {
     };
 
     try {
-      const res = await updateService({
+      const res = await updateCourse({
         id: params?.id,
         body: updatedValues,
       }).unwrap();
       // console.log(res);
       if (res?.id) {
-        message.success('Service Successfully Updated!');
+        message.success('Course Successfully Updated!');
       }
     } catch (err: any) {
       console.error(err.message);
     }
   };
 
-  // console.log('VALUE UPDATE', serviceData);
+  // console.log('VALUE UPDATE', courseData);
   const defaultValues = {
-    title: serviceData?.title || '',
-    price: serviceData?.price || '',
-    imageUrl: serviceData?.imageUrl || '',
-    description: serviceData?.description || '',
-    duration: serviceData?.duration || '',
-    courseTutorId: serviceData?.courseTutor?.id,
-    serviceId: serviceData?.serviceId || '',
-    status: serviceData?.status || '',
-    location: serviceData?.location || '',
+    title: courseData?.title || '',
+    price: courseData?.price || '',
+    imageUrl: courseData?.imageUrl || '',
+    description: courseData?.description || '',
+    duration: courseData?.duration || '',
+    courseTutorId: courseData?.courseTutor?.id,
+    courseId: courseData?.courseId || '',
+    status: courseData?.status || '',
+    location: courseData?.location || '',
   };
 
   return (
@@ -67,14 +64,14 @@ const EditServicePage = ({ params }: any) => {
             link: '/admin',
           },
           {
-            label: 'services',
-            link: '/admin/services',
+            label: 'courses',
+            link: '/admin/courses',
           },
         ]}
       />
 
       <>
-        <h1>Create Service</h1>
+        <h1>Edit Course</h1>
         <Form submitHandler={onSubmit} defaultValues={defaultValues}>
           <div
             style={{
@@ -87,7 +84,7 @@ const EditServicePage = ({ params }: any) => {
             <p
               style={{ fontSize: '18px', fontWeight: '500', margin: '5px 0px' }}
             >
-              Service information
+              Course information
             </p>
             <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
               <Col span={8} style={{ margin: '10px 0' }}>
@@ -121,7 +118,7 @@ const EditServicePage = ({ params }: any) => {
               </Col>
 
               <Col span={8} style={{ margin: '10px 0' }}>
-                <CategoryField name='serviceId' label='Category' />
+                <CategoryField name='courseId' label='Category' />
               </Col>
               <Col span={8} style={{ margin: '10px 0' }}>
                 <TutorField name='courseTutorId' label='Tutor' />
@@ -131,7 +128,7 @@ const EditServicePage = ({ params }: any) => {
                 <FormSelectField
                   name='status'
                   label='Status'
-                  options={serviceStatus}
+                  options={courseStatus}
                 />
               </Col>
               <Col span={8} style={{ margin: '10px 0' }}>

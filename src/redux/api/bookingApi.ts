@@ -1,10 +1,10 @@
-import { IService, IMeta, BookingResponse } from "@/types";
+import { IMeta, BookingResponse } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
 const BOOKINGS_URL = "/bookings";
 
-export const serviceApi = baseApi.injectEndpoints({
+export const bookingApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
 		bookings: build.query({
 			query: (arg: Record<string, any>) => ({
@@ -68,4 +68,4 @@ export const {
 	useUpdateBookingMutation,
 	useDeleteBookingMutation
 
-} = serviceApi;
+} = bookingApi;

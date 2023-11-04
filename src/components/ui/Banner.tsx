@@ -8,7 +8,6 @@ import {
   ReloadOutlined,
 } from '@ant-design/icons';
 import heroImage from '../../assets/hero.webp';
-import { useServicesQuery } from '@/redux/api/serviceApi';
 import Form from '../Forms/Form';
 import FormInput from '../Forms/FormInput';
 import { useCoursesQuery } from '@/redux/api/courseApi';

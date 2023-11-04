@@ -25,12 +25,12 @@ const CategoryDropdown = () => {
 
               <li className='submenu-2 bg-red-600  '>
                 <ul className=' list-none '>
-                  {items?.courses?.map((service: any) => (
+                  {items?.courses?.map((course: any) => (
                     <li
-                      key={service.key}
+                      key={course.key}
                       className='  p-4    text-left bg-transparent  '
                     >
-                      <Link href='/'>{service.title}</Link>
+                      <Link href='/'>{course.title}</Link>
                     </li>
                   ))}
                 </ul>

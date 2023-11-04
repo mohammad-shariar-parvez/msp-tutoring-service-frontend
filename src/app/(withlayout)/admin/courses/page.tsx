@@ -14,12 +14,13 @@ import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
-import {
-  useDeleteServiceMutation,
-  useServicesQuery,
-} from '@/redux/api/serviceApi';
+
 import Image from 'next/image';
 import ActionButtons from '@/components/ui/ActionButtons';
+import {
+  useCoursesQuery,
+  useDeleteCourseMutation,
+} from '@/redux/api/courseApi';
 
 const ServicePage = () => {
   const query: Record<string, any> = {};
@@ -31,7 +32,7 @@ const ServicePage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [details, setDetails] = useState<any>({});
-  const [deleteCourse] = useDeleteServiceMutation();
+  const [deleteCourse] = useDeleteCourseMutation();
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -51,9 +52,9 @@ const ServicePage = () => {
   if (!!debouncedTerm) {
     query['searchTerm'] = debouncedTerm;
   }
-  const { data, isLoading } = useServicesQuery({ ...query });
+  const { data, isLoading } = useCoursesQuery({ ...query });
 
-  const courses = data?.services;
+  const courses = data?.courses;
   const meta = data?.meta;
   // console.log(courses);
 
@@ -86,7 +87,7 @@ const ServicePage = () => {
     },
     {
       title: 'Category',
-      dataIndex: 'service',
+      dataIndex: 'category',
       render: function (data: any) {
         return data.title;
       },
@@ -107,30 +108,8 @@ const ServicePage = () => {
             data={data}
             onDetailsHandler={onDetailsHandler}
             deleteHandler={deleteHandler}
-            editUrl={'/admin/services/edit/'}
+            editUrl={'/admin/cpurses/edit/'}
           />
-          // <div className='flex space-x-1'>
-          //   <Button onClick={() => onDetailsHandler(data)} type='primary'>
-          //     <EyeOutlined />
-          //   </Button>
-          //   <Link href={`/admin/services/edit/${data?.id}`}>
-          //     <Button
-          //       style={{
-          //         margin: '0px ',
-          //       }}
-          //       type='primary'
-          //     >
-          //       <EditOutlined />
-          //     </Button>
-          //   </Link>
-          //   <Button
-          //     onClick={() => deleteHandler(data?.id)}
-          //     type='primary'
-          //     danger
-          //   >
-          //     <DeleteOutlined />
-          //   </Button>
-          // </div>
         );
       },
     },
@@ -192,7 +171,7 @@ const ServicePage = () => {
           }}
         />
         <div className='flex space-x-1 '>
-          <Link href='/admin/services/create'>
+          <Link href='/admin/courses/create'>
             <Button className='block bg-[#274279]     text-white '>
               Create
             </Button>
@@ -236,7 +215,7 @@ const ServicePage = () => {
             </div>
 
             <div>
-              <strong className=' w-[30%] inline-block'>Service</strong>
+              <strong className=' w-[30%] inline-block'>Category</strong>
               <span>{details?.service?.title}</span>
             </div>
             <div>

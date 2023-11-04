@@ -2,9 +2,9 @@ import { ICategory, IMeta } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
-const CATEGORY_URL = "/services";
+const CATEGORY_URL = "/categories";
 
-export const serviceApi = baseApi.injectEndpoints({
+export const categoryApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
 		categories: build.query({
 			query: (arg: Record<string, any>) => ({
@@ -66,4 +66,4 @@ export const {
 	useAddCategoryMutation,
 	useUpdateCategoryMutation,
 	useDeleteCategoryMutation
-} = serviceApi;
+} = categoryApi;

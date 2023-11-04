@@ -6,9 +6,8 @@ import FormInput from '@/components/Forms/FormInput';
 import FormSelectField from '@/components/Forms/FormSelectField';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import { locationOptions, serviceStatus } from '@/constants/global';
+import { locationOptions, courseStatus } from '@/constants/global';
 import { useAddBlogMutation } from '@/redux/api/blogApi';
-import { useAddServiceMutation } from '@/redux/api/serviceApi';
 import { Button, Col, Row, message } from 'antd';
 
 const CreateServicePage = () => {

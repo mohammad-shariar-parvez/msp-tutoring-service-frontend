@@ -4,11 +4,7 @@ import type { RadioChangeEvent } from 'antd';
 import { Button, Empty, Input, Pagination, Radio } from 'antd';
 import CourseCard from '@/components/ui/CourseCard';
 import type { PaginationProps } from 'antd';
-import {
-  useServicesByCategoryQuery,
-  useServicesQuery,
-} from '@/redux/api/serviceApi';
-import { IService } from '@/types';
+
 import { locationOptions } from '@/constants/global';
 import {
   SearchOutlined,
@@ -19,10 +15,12 @@ import {
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import { useDebounced } from '@/redux/hooks';
+import { useCoursesQuery } from '@/redux/api/courseApi';
+import { ICourse } from '@/types';
 type IDProps = {
   params: any;
 };
-const Services = ({ params }: IDProps) => {
+const Courses = ({ params }: IDProps) => {
   const { id } = params;
   const query: Record<string, any> = {};
   const [value, setValue] = useState('');
@@ -35,11 +33,11 @@ const Services = ({ params }: IDProps) => {
   const [maxPrice, setMaxPrice] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<string | undefined>(undefined);
   const [location, setLocation] = useState<string | undefined>(undefined);
-  const [serviceId, setServiceId] = useState(id);
+  const [courseId, setCourseId] = useState(id);
   query['location'] = location;
   query['minPrice'] = minPrice;
   query['maxPrice'] = maxPrice;
-  query['serviceId'] = serviceId;
+  query['courseId'] = courseId;
   query['limit'] = size;
   query['page'] = page;
   query['sortBy'] = sortBy;
@@ -82,15 +80,13 @@ const Services = ({ params }: IDProps) => {
     setLocation(undefined);
     setMaxPrice(undefined);
     setMinPrice(undefined);
-    setServiceId(id);
+    setCourseId(id);
     setValue('');
     setSearchTerm('');
   };
 
-  const { data } = useServicesQuery({ ...query });
-  const coursesData: IService[] = (data?.services || []) as IService[];
-  // console.log('HELLLOOOO', coursesData);
-  // console.log('META', data?.meta);
+  const { data } = useCoursesQuery({ ...query });
+  const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
 
   return (
     <div className='container mt-16 '>
@@ -159,7 +155,7 @@ const Services = ({ params }: IDProps) => {
         <div className='col-span-3'>
           {coursesData?.length > 0 ? (
             <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
-              {coursesData?.map((course: IService) => (
+              {coursesData?.map((course: ICourse) => (
                 <CourseCard key={course.id} course={course} />
               ))}
             </div>
@@ -183,4 +179,4 @@ const Services = ({ params }: IDProps) => {
   );
 };
 
-export default Services;
+export default Courses;

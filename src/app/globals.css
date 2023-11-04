@@ -39,6 +39,15 @@
   @apply text-[#2a2929b3] font-normal
 }
 
+
+
+.button-primary {
+  background-color: #274279 !important;
+  color: white !important;
+}
+
+
+
 .container {
   position: relative;
   width: 100%;

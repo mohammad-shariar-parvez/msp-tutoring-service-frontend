@@ -7,7 +7,6 @@ import {
 } from '@ant-design/icons';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
-
 import { Button, Input, Modal, message } from 'antd';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -15,19 +14,10 @@ import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
 import {
-  useDeleteServiceMutation,
-  useServicesQuery,
-} from '@/redux/api/serviceApi';
-import {
-  useAddCategoryMutation,
   useCategoriesQuery,
   useDeleteCategoryMutation,
-  useUpdateCategoryMutation,
 } from '@/redux/api/category';
-import Form from '@/components/Forms/Form';
-import FormInput from '@/components/Forms/FormInput';
 import Image from 'next/image';
-import next from 'next';
 import ActionButtons from '@/components/ui/ActionButtons';
 
 const CategoryPage = () => {
@@ -41,14 +31,6 @@ const CategoryPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteCategory] = useDeleteCategoryMutation();
   const [details, setDetails] = useState<any>({});
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -184,20 +166,16 @@ const CategoryPage = () => {
             setSearchTerm(e.target.value);
           }}
         />
-        <div>
-          <Link href='/admin/categories/create'>
-            <Button type='primary'>Create</Button>
-          </Link>
-
+        <div className='space-x-2'>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              onClick={resetFilters}
-              type='primary'
-              style={{ margin: '0px 5px' }}
-            >
+            <Button onClick={resetFilters}>
               <ReloadOutlined />
             </Button>
           )}
+
+          <Link href='/admin/categories/create'>
+            <Button className=' button-primary'>Create</Button>
+          </Link>
         </div>
       </ActionBar>
 

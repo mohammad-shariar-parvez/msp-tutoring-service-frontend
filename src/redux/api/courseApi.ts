@@ -32,6 +32,22 @@ export const courseApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.course],
     }),
+    coursesByCategory: build.query({
+      query: (id) => {
+        return {
+          url: `${COURSE_URL}/${id}/category`,
+          method: "GET",
+
+        };
+      },
+      transformResponse: (response: ICourse[], meta: IMeta) => {
+        return {
+          courses: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.course],
+    }),
     // create
     addCourse: build.mutation({
       query: (data) => ({
@@ -64,7 +80,7 @@ export const courseApi = baseApi.injectEndpoints({
 export const {
   useCoursesQuery,
   useCourseQuery,
-
+  useCoursesByCategoryQuery,
   useAddCourseMutation,
   useDeleteCourseMutation,
   useUpdateCourseMutation,

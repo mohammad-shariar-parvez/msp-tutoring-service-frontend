@@ -40,7 +40,7 @@ const CreateUser = () => {
           }}
         >
           <p style={{ fontSize: '18px', fontWeight: '500', margin: '5px 0px' }}>
-            Service information
+            User information
           </p>
           <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
             <Col span={8} style={{ margin: '10px 0' }}>

@@ -8,24 +8,17 @@ import {
 } from '@ant-design/icons';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
-
 import { Button, Input, Modal, message } from 'antd';
-import Link from 'next/link';
 import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
-import {
-  useDeleteServiceMutation,
-  useServicesQuery,
-  useUpdateServiceMutation,
-} from '@/redux/api/serviceApi';
+
 import {
   useBookingsQuery,
   useDeleteBookingMutation,
   useUpdateBookingMutation,
 } from '@/redux/api/bookingApi';
-import FormTimePicker from '@/components/Forms/FormTimePicker';
 import Form from '@/components/Forms/Form';
 import FormDatePicker from '@/components/Forms/FormDatePicker';
 

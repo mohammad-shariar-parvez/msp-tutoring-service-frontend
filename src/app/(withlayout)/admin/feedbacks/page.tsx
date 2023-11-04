@@ -7,19 +7,12 @@ import {
 } from '@ant-design/icons';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
-
 import { Button, Input, Modal, message } from 'antd';
-import Link from 'next/link';
 import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
-import {
-  useDeleteServiceMutation,
-  useServicesQuery,
-} from '@/redux/api/serviceApi';
-import Image from 'next/image';
-import { useBlogsQuery, useDeleteBlogsMutation } from '@/redux/api/blogApi';
+
 import {
   useDeleteFeedbackMutation,
   useFeeedbacksQuery,

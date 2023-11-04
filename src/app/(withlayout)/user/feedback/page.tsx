@@ -2,15 +2,15 @@
 import Form from '@/components/Forms/Form';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import { useAddServiceMutation } from '@/redux/api/serviceApi';
+import { useAddCourseMutation } from '@/redux/api/courseApi';
 import { Button, Col, Row, message } from 'antd';
 
-const CreateServicePage = () => {
-  const [addService] = useAddServiceMutation();
+const CreateFeedbackPage = () => {
+  const [addCourse] = useAddCourseMutation();
 
   const adminOnSubmit = async (values: any) => {
     try {
-      const res = await addService(values);
+      const res = await addCourse(values);
       if (!!res) {
         message.success('Thank You!');
       }
@@ -45,4 +45,4 @@ const CreateServicePage = () => {
   );
 };
 
-export default CreateServicePage;
+export default CreateFeedbackPage;

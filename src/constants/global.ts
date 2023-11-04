@@ -25,7 +25,7 @@ export const locationOptions = [
   },
 ];
 
-export const serviceStatus = [
+export const courseStatus = [
   {
     label: "RUNNING",
     value: "RUNNING",

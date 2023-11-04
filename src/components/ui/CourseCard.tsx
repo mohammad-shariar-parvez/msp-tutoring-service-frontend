@@ -1,5 +1,5 @@
 'use client';
-import { IService } from '@/types';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -10,9 +10,10 @@ import {
   removeCourseWishList,
 } from '@/redux/wishList/wishListSlice';
 import { usePathname } from 'next/navigation';
+import { ICourse } from '@/types';
 
 interface CourseCardProps {
-  course: IService;
+  course: ICourse;
   isDelete?: boolean;
 }
 

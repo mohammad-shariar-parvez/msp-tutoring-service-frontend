@@ -1,26 +1,17 @@
 'use client';
 
-import CategoryField from '@/components/Forms/CategoryField';
 import Form from '@/components/Forms/Form';
-import FormDatePicker from '@/components/Forms/FormDatePicker';
 import FormInput from '@/components/Forms/FormInput';
 import FormSelectField from '@/components/Forms/FormSelectField';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import {
-  genderOptions,
-  locationOptions,
-  serviceStatus,
-} from '@/constants/global';
-import {
-  useServiceQuery,
-  useUpdateServiceMutation,
-} from '@/redux/api/serviceApi';
+import { genderOptions } from '@/constants/global';
+
 import { useTutorQuery, useUpdateTutorMutation } from '@/redux/api/tutorApi';
 
 import { Button, Col, Row, message } from 'antd';
 
-const EditServicePage = ({ params }: any) => {
+const EditTutorPage = ({ params }: any) => {
   const { data: tutorData, isLoading: loading } = useTutorQuery(params?.id);
   //   console.log(tutorData);
   const [updateTutor] = useUpdateTutorMutation();
@@ -119,4 +110,4 @@ const EditServicePage = ({ params }: any) => {
   );
 };
 
-export default EditServicePage;
+export default EditTutorPage;

@@ -2,12 +2,12 @@ import { useCategoriesQuery } from '@/redux/api/category';
 import FormSelectField, { SelectOptions } from './FormSelectField';
 import { ICategory } from '@/types';
 
-type ServiceFieldProps = {
+type CategoryFieldProps = {
   name: string;
   label?: string;
 };
 
-const CategoryField = ({ name, label }: ServiceFieldProps) => {
+const CategoryField = ({ name, label }: CategoryFieldProps) => {
   const { data, isLoading } = useCategoriesQuery({
     limit: 100,
     page: 1,

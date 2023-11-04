@@ -1,6 +1,5 @@
 import GithubProvider from "next-auth/providers/github";
-// import { jwtHelpers } from "@/helpers/jwtHelpers";
-// import { getNewAccessToken } from "@/services/getNewAccessToken";
+
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 

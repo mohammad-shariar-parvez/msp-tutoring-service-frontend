@@ -7,12 +7,13 @@ import FormSelectField from '@/components/Forms/FormSelectField';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import TutorField from '@/components/Forms/TutorField';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import { locationOptions, serviceStatus } from '@/constants/global';
-import { useAddServiceMutation } from '@/redux/api/serviceApi';
+import { locationOptions, courseStatus } from '@/constants/global';
+import { useAddCourseMutation } from '@/redux/api/courseApi';
+
 import { Button, Col, Row, message } from 'antd';
 
 const CreateServicePage = () => {
-  const [addService] = useAddServiceMutation();
+  const [addCourse] = useAddCourseMutation();
 
   const adminOnSubmit = async (values: any) => {
     // console.log(values);
@@ -24,9 +25,9 @@ const CreateServicePage = () => {
     };
 
     try {
-      const res = await addService(updatedValues);
+      const res = await addCourse(updatedValues);
       if (!!res) {
-        message.success('Service created successfully!');
+        message.success('Course created successfully!');
       }
     } catch (err: any) {
       message.error(err.message);
@@ -39,7 +40,7 @@ const CreateServicePage = () => {
       <UMBreadCrumb
         items={[
           { label: `${base}`, link: `/${base}` },
-          { label: 'services', link: `/${base}/services` },
+          { label: 'courses', link: `/${base}/courses` },
         ]}
       />
 
@@ -101,7 +102,7 @@ const CreateServicePage = () => {
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Status
               </label>
-              <FormSelectField name='status' options={serviceStatus} />
+              <FormSelectField name='status' options={courseStatus} />
             </div>
 
             <div className='mb-4 space-y-2 md:col-span-1'>

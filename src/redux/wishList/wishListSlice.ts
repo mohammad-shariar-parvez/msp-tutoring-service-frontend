@@ -1,5 +1,6 @@
 
-import { IService } from "@/types";
+
+import { ICourse } from "@/types";
 import { getFromLocalStorage } from "@/utils/local-storage";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
@@ -14,7 +15,7 @@ const parsedWishList = storedWishList
 	};
 
 interface ICart {
-	courses: IService[];
+	courses: ICourse[];
 	total: number;
 }
 
@@ -24,7 +25,7 @@ const wishListSlice = createSlice({
 	name: "wishList",
 	initialState,
 	reducers: {
-		addCourseWishList: (state, action: PayloadAction<IService>) => {
+		addCourseWishList: (state, action: PayloadAction<ICourse>) => {
 			const existing = state.courses.find(
 				(course) => course?.id === action?.payload?.id,
 			);
@@ -44,7 +45,7 @@ const wishListSlice = createSlice({
 			);
 		},
 
-		removeCourseWishList: (state, action: PayloadAction<IService>) => {
+		removeCourseWishList: (state, action: PayloadAction<ICourse>) => {
 			state.courses = state.courses.filter(
 				(product) => product.id !== action.payload.id,
 			);

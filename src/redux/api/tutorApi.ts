@@ -1,4 +1,4 @@
-import { IService, IMeta, BookingResponse } from "@/types";
+import { IMeta, } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
