@@ -27,6 +27,8 @@ import {
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import Image from 'next/image';
+import next from 'next';
+import ActionButtons from '@/components/ui/ActionButtons';
 
 const CategoryPage = () => {
   const query: Record<string, any> = {};
@@ -93,30 +95,12 @@ const CategoryPage = () => {
 
       render: function (data: any) {
         return (
-          <div className='flex '>
-            <Button onClick={() => onDetailsHandler(data)} type='primary'>
-              <EyeOutlined />
-            </Button>
-
-            <Link href={`/admin/categories/edit/${data?.id}`}>
-              <Button
-                style={{
-                  margin: '0px 5px',
-                }}
-                onClick={() => console.log(data)}
-                type='primary'
-              >
-                <EditOutlined />
-              </Button>
-            </Link>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
-          </div>
+          <ActionButtons
+            data={data}
+            onDetailsHandler={onDetailsHandler}
+            deleteHandler={deleteHandler}
+            editUrl={'/admin/categories/edit/'}
+          />
         );
       },
     },
@@ -128,14 +112,15 @@ const CategoryPage = () => {
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');
     try {
-      //   console.log(data);
       const res = await deleteCategory(id);
-      if (res) {
+      //@ts-ignore
+      if (res?.error) {
+        message.error('Delete Failed');
+      } else {
         message.success('Course Deleted successfully');
       }
     } catch (err: any) {
-      //   console.error(err.message);
-      message.error(err.message);
+      message.error(err?.data?.message || 'Something went wrong');
     }
   };
 

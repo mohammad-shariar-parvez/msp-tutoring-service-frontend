@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, ConfigProvider, Popconfirm, message } from 'antd';
 import React from 'react';
 import {
   DeleteOutlined,
@@ -22,6 +22,10 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   data,
   editUrl,
 }) => {
+  const confirm = () => {
+    deleteHandler?.(data?.id);
+  };
+
   return (
     <div className='flex space-x-1'>
       <Button
@@ -35,12 +39,21 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
           <EditOutlined className='text-slate-900 text-lg' />
         </Button>
       </Link>
-      <Button
-        className='bg-transparent border-none '
-        onClick={() => deleteHandler?.(data?.id)}
+
+      <Popconfirm
+        title='Delete Category ?'
+        onConfirm={confirm}
+        okText='Yes'
+        cancelText='No'
+        okType='danger'
       >
-        <DeleteOutlined className='text-red-500 text-lg ' />
-      </Button>
+        <Button
+          className='bg-transparent border-none '
+          // onClick={() => deleteHandler?.(data?.id)}
+        >
+          <DeleteOutlined className='text-red-500 text-lg ' />
+        </Button>
+      </Popconfirm>
     </div>
   );
 };

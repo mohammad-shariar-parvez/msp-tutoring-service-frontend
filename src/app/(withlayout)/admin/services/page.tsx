@@ -140,6 +140,7 @@ const ServicePage = () => {
     message.loading('Deleting.....');
     try {
       const res = await deleteCourse(id);
+
       if (res) {
         message.success('Course Deleted successfully');
       }
