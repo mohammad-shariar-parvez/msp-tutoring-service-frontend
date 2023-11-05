@@ -18,27 +18,34 @@ import { useDebounced } from '@/redux/hooks';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 import { ICourse } from '@/types';
 import RelatedCourse from '@/components/ui/RelatedCourse';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 type IDProps = {
   params: any;
 };
-const SearchField = ({ params }: IDProps) => {
-  const { id } = params;
+const SearchField = () => {
   const query: Record<string, any> = {};
+
+  const searchParams = useSearchParams();
+  const searchParms = searchParams.get('searchTerm');
   const [value, setValue] = useState('');
-  const [formReset, setFormReset] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(12);
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
-  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(
+    searchParms || undefined
+  );
   const [maxPrice, setMaxPrice] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<string | undefined>(undefined);
   const [location, setLocation] = useState<string | undefined>(undefined);
-  const [categoryId, setCategoryId] = useState(id);
+
   query['location'] = location;
   query['minPrice'] = minPrice;
   query['maxPrice'] = maxPrice;
-  query['categoryId'] = categoryId;
+  query['searchTerm'] = searchTerm;
+
   query['limit'] = size;
   query['page'] = page;
   query['sortBy'] = sortBy;
@@ -46,75 +53,48 @@ const SearchField = ({ params }: IDProps) => {
 
   //PAGINATION
   const onPageChange: PaginationProps['onChange'] = (page, pageSize) => {
-    // console.log(pageSize);
-    // console.log(page);
-    // setSize(pageSize);
-
     setPage(page);
   };
 
   // SEARCHING
-  const debouncedTerm = useDebounced({
-    searchQuery: searchTerm,
-    delay: 600,
-  });
 
-  if (!!debouncedTerm) {
-    query['searchTerm'] = debouncedTerm;
-  }
-
-  const resetSearchFilters = async () => {
-    setSearchTerm('');
-  };
-  console.log('value', value);
+  //   console.log('value', value);
+  //   console.log('max', maxPrice);
+  //   console.log('min', minPrice);
 
   const onChange = (e: RadioChangeEvent) => {
     setLocation(e.target.value);
     setValue(e.target.value);
   };
-  const publicOnSubmit = async (values: any) => {
-    setMinPrice(values.minPrice);
-    setMaxPrice(values.maxPrice);
-  };
 
   const resetFilters = async () => {
-    setFormReset(true);
     setLocation(undefined);
     setMaxPrice(undefined);
     setMinPrice(undefined);
-    setCategoryId(id);
     setValue('');
     setSearchTerm('');
+  };
+
+  const maxValueHandler = (e: {
+    target: { value: React.SetStateAction<string | undefined> };
+  }) => {
+    if (e.target.value === '') {
+      setMaxPrice(undefined);
+      //   console.log(e.target.value);
+    } else {
+      setMaxPrice(e.target.value);
+    }
+    console.log(e.target.value);
   };
 
   const { data } = useCoursesQuery({ ...query });
   const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
 
   return (
-    <div className='container mt-16 '>
-      <div className='grid grid-cols-4 gap-6'>
+    <div className='container mt-8 md:mt-16 '>
+      <div className='md:grid md:grid-cols-4 gap-6 space-y-4'>
         <div className='space-y-4'>
-          <div className='relative'>
-            <Input
-              type='text'
-              size='large'
-              placeholder='Search...'
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-              className='pr-8'
-            />
-            {!!searchTerm && (
-              <Button
-                onClick={resetSearchFilters}
-                type='primary'
-                className='m-0 p-0 bg-transparent shadow-none text-gray-600 absolute right-2 bottom-0'
-              >
-                <CloseOutlined className='text-lg bg-transparent' />
-              </Button>
-            )}
-          </div>
+          <div className='relative'></div>
           <Radio.Group
             onChange={onChange}
             value={value}
@@ -126,33 +106,28 @@ const SearchField = ({ params }: IDProps) => {
               </Radio>
             ))}
           </Radio.Group>
-          <Form submitHandler={publicOnSubmit} noReset={formReset}>
-            <div className='flex justify-between items-center w-full space-x-1 pb-2'>
-              <FormInput
-                name='minPrice'
-                size='small'
-                type='number'
-                placeholder='Min Price'
-              />
 
-              <FormInput
-                name='maxPrice'
-                size='small'
-                type='number'
-                placeholder='Max Price'
-              />
+          <div className='flex justify-between items-center w-full space-x-1 pb-1'>
+            <Input
+              name='minPrice'
+              size='small'
+              type='number'
+              placeholder='Min Price'
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+            />
+            <Input
+              name='maxPrice'
+              size='small'
+              type='number'
+              placeholder='Max Price'
+              value={maxPrice}
+              onChange={maxValueHandler}
+            />
 
-              <Button
-                htmlType='submit'
-                className=' bg-transparent  font-bold text-md p-0 m-0 rounded-md  cursor-pointer transition duration-700 border-0 m '
-              >
-                <SearchOutlined />
-              </Button>
-            </div>
-            <Button onClick={resetFilters} htmlType='submit' className='   '>
-              Reset
-            </Button>
-          </Form>
+            <Link href={`/`}></Link>
+          </div>
+          <Button onClick={resetFilters}>Reset</Button>
         </div>
         <div className='col-span-3'>
           {coursesData?.length > 0 ? (

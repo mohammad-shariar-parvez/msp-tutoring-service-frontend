@@ -18,8 +18,6 @@ const Banner = () => {
   const query: Record<string, any> = { limit: 0 };
   const router = useRouter();
   const [course, setCourse] = useState<string>('');
-  const [location, setLocation] = useState<string>('');
-  console.log(course, location);
 
   const publicOnSubmit = async (values: any) => {
     // console.log(values);
@@ -33,7 +31,6 @@ const Banner = () => {
 
   const resetFilters = () => {
     setCourse('');
-    setLocation('');
   };
 
   return (
@@ -64,23 +61,13 @@ const Banner = () => {
                     bordered={false}
                     onChange={(e) => setCourse(e.target.value)}
                   />
-                  <Input
-                    name='location'
-                    size='large'
-                    type='text'
-                    placeholder='Location'
-                    bordered={false}
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                  />
 
                   <>
                     <Link
                       href={{
                         pathname: '/search',
                         query: {
-                          course: course,
-                          location,
+                          searchTerm: course,
                         },
                       }}
                     >
