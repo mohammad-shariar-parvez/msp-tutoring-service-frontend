@@ -9,6 +9,7 @@ import Info from '@/components/ui/Info';
 import Navbar from '@/components/ui/Navbar';
 import Review from '@/components/ui/Review';
 import Services from '@/components/ui/Services';
+import UpcommingCourse from '@/components/ui/UpcommingCourse';
 import { redirect } from 'next/navigation';
 
 const HomePage = () => {
@@ -22,6 +23,7 @@ const HomePage = () => {
       <Demo />
       <Services />
       <Category />
+      <UpcommingCourse />
       <Info />
       <Review />
       <AccordianFAQ />

@@ -13,7 +13,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
     <>
       <Link href={`/categories/${category?.id}`} className='no-underline'>
-        <div className='max-w-sm bg-white border border-gray-400 rounded-lg  shadow-xl  hover:shadow-2xl  '>
+        <div className='max-w-sm bg-white  rounded-lg     hover:shadow-blue-200  shadow-lg shadow-blue-100  '>
           <Image
             src={category?.imageUrl}
             width={200}
@@ -23,11 +23,11 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
           />
 
           <div className='p-5'>
-            <h5 className='mb-2 text-xl font-bold tracking-tight text-gray-900 '>
+            <h5 className=' mb-2  text-sm md:text-lg font-semibold text-gray-800 '>
               {category.title}
             </h5>
 
-            <p className='font-semibold'>
+            <p className=' text-gray-700'>
               Total Course: {category.courses.length}
             </p>
           </div>

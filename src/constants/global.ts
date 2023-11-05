@@ -3,22 +3,7 @@ export const locationOptions = [
     label: "Natore",
     value: "natore",
   },
-  {
-    label: "Rajshahi",
-    value: "rajshahi",
-  },
-  {
-    label: "Pabna",
-    value: "pabna",
-  },
-  {
-    label: "Bogura",
-    value: "bogura",
-  },
-  {
-    label: "Dhaka",
-    value: "dhaka",
-  },
+
   {
     label: "Gazipur",
     value: "gazipur",

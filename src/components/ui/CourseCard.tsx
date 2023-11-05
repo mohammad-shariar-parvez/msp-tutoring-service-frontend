@@ -52,7 +52,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   return (
     <div className='relative'>
       <Link href={`/course/${course?.id}`} className='no-underline '>
-        <div className='max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:shadow-2xl  '>
+        <div className='max-w-sm bg-white   rounded-lg hover:shadow-blue-200  shadow-lg shadow-blue-100 border-2  '>
           <Image
             src={course.imageUrl}
             width={200}
@@ -60,12 +60,12 @@ const CourseCard: React.FC<CourseCardProps> = ({
             alt='eagle_image'
             className='rounded-t-lg w-full h-36 md:h-48  object-fill '
           />
-          <div className='p-3 md:p-5 text-black relative'>
-            <h5 className='mb-2  text-sm md:text-xl font-bold tracking-tight  '>
+          <div className='p-3 md:p-5  '>
+            <h5 className='mb-2  text-sm md:text-lg font-semibold text-gray-800   '>
               {course.title}
             </h5>
 
-            <div className='flex justify-between items-center  '>
+            <div className='flex justify-between items-center text-gray-700  '>
               <p>{course.location}</p>
             </div>
 
@@ -77,14 +77,16 @@ const CourseCard: React.FC<CourseCardProps> = ({
               <button>
                 <DeleteOutlined
                   onClick={removeWishList}
-                  className='absolute cursor-pointer  right-4  bottom-[90px] p-1 text-red-500 '
+                  className='absolute cursor-pointer  text-lg top-0 right-0 hover:text-red-700  m-2 text-red-500 '
                 />
               </button>
             ) : (
               <button disabled={isWishList} onClick={handleWishList}>
                 <HeartOutlined
-                  className={`absolute text-base cursor-pointer  right-4  bottom-[90px] p-1 ${
-                    isWishList ? 'text-gray-300' : 'text-pink-600 '
+                  className={`absolute text-lg cursor-pointer hover:text-red-700  top-0 right-0 m-2 ${
+                    isWishList
+                      ? 'text-gray-300 hover:text-gray-300'
+                      : 'text-red-500 '
                   } `}
                 />
               </button>

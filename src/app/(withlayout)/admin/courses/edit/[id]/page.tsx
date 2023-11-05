@@ -42,15 +42,16 @@ const EditServicePage = ({ params }: any) => {
     }
   };
 
-  // console.log('VALUE UPDATE', courseData);
+  console.log('VALUE UPDATE', courseData);
   const defaultValues = {
+    slug: courseData?.slug,
     title: courseData?.title || '',
     price: courseData?.price || '',
     imageUrl: courseData?.imageUrl || '',
     description: courseData?.description || '',
-    duration: courseData?.duration || '',
-    courseTutorId: courseData?.courseTutor?.id,
-    courseId: courseData?.courseId || '',
+    duration: courseData?.duration || null,
+    courseTutorId: courseData?.courseTutorId,
+    categoryId: courseData?.categoryId || '',
     status: courseData?.status || '',
     location: courseData?.location || '',
   };
@@ -90,6 +91,12 @@ const EditServicePage = ({ params }: any) => {
               <Col span={8} style={{ margin: '10px 0' }}>
                 <FormInput name='title' label='Title' size='large' />
               </Col>
+              <div className='mb-4 space-y-2 md:col-span-1'>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Slug
+                </label>
+                <FormInput name='slug' size='large' />
+              </div>
 
               <Col span={8} style={{ margin: '10px 0' }}>
                 <FormSelectField
@@ -118,7 +125,11 @@ const EditServicePage = ({ params }: any) => {
               </Col>
 
               <Col span={8} style={{ margin: '10px 0' }}>
-                <CategoryField name='courseId' label='Category' />
+                <CategoryField
+                  name='categoryId'
+                  label='Category'
+                  defaultValue={defaultValues?.categoryId}
+                />
               </Col>
               <Col span={8} style={{ margin: '10px 0' }}>
                 <TutorField name='courseTutorId' label='Tutor' />

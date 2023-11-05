@@ -78,8 +78,8 @@ const ServicePage = () => {
       dataIndex: 'lastName',
     },
     {
-      title: 'Gender',
-      dataIndex: 'gender',
+      title: 'Location',
+      dataIndex: 'location',
     },
     {
       title: 'Experience',

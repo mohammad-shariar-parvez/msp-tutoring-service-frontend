@@ -11,17 +11,20 @@ import { locationOptions, courseStatus } from '@/constants/global';
 import { useAddCourseMutation } from '@/redux/api/courseApi';
 
 import { Button, Col, Row, message } from 'antd';
+import { useState } from 'react';
 
 const CreateServicePage = () => {
   const [addCourse] = useAddCourseMutation();
+  const [locateTutor, setLocateSutor] = useState<string>();
+  console.log(locateTutor);
 
   const adminOnSubmit = async (values: any) => {
-    // console.log(values);
+    console.log(values);
     const price = parseFloat(values.price);
-
     const updatedValues = !isNaN(price) && {
       ...values,
       price,
+      location: locateTutor,
     };
 
     try {
@@ -33,6 +36,9 @@ const CreateServicePage = () => {
       message.error(err.message);
     }
   };
+
+  if (!!locateTutor) {
+  }
 
   const base = 'admin';
   return (
@@ -62,12 +68,22 @@ const CreateServicePage = () => {
               </label>
               <FormInput name='title' size='large' />
             </div>
+            <div className='mb-4 space-y-2 md:col-span-1'>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Slug
+              </label>
+              <FormInput name='slug' size='large' />
+            </div>
 
             <div className='mb-4 space-y-2 md:col-span-1 '>
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Location
               </label>
-              <FormSelectField name='location' options={locationOptions} />
+              <FormSelectField
+                name='location'
+                options={locationOptions}
+                handleChange={(el) => setLocateSutor(el)}
+              />
             </div>
 
             <div className='mb-4 space-y-2 md:col-span-1 '>
@@ -88,14 +104,17 @@ const CreateServicePage = () => {
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Category
               </label>
-              <CategoryField name='serviceId' />
+              <CategoryField name='categoryId' />
             </div>
 
             <div className='mb-4 space-y-2 md:col-span-1 '>
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Tutor
               </label>
-              <TutorField name='courseTutorId' />
+              <TutorField
+                name='courseTutorId'
+                locateTutor={locateTutor ? locateTutor : ''}
+              />
             </div>
 
             <div className='mb-4 space-y-2 md:col-span-1 '>

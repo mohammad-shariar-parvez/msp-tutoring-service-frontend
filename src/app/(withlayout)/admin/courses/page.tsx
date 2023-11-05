@@ -91,6 +91,7 @@ const ServicePage = () => {
       render: function (data: any) {
         return data.title;
       },
+      sorter: true,
     },
     {
       title: 'CreatedAt',
@@ -108,7 +109,7 @@ const ServicePage = () => {
             data={data}
             onDetailsHandler={onDetailsHandler}
             deleteHandler={deleteHandler}
-            editUrl={'/admin/cpurses/edit/'}
+            editUrl={'/admin/courses/edit/'}
           />
         );
       },

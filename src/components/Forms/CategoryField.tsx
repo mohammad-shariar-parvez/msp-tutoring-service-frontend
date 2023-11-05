@@ -5,9 +5,10 @@ import { ICategory } from '@/types';
 type CategoryFieldProps = {
   name: string;
   label?: string;
+  defaultValue?: SelectOptions;
 };
 
-const CategoryField = ({ name, label }: CategoryFieldProps) => {
+const CategoryField = ({ name, label, defaultValue }: CategoryFieldProps) => {
   const { data, isLoading } = useCategoriesQuery({
     limit: 100,
     page: 1,
@@ -26,6 +27,7 @@ const CategoryField = ({ name, label }: CategoryFieldProps) => {
       name={name}
       label={label}
       options={categoryList as SelectOptions[]}
+      defaultValue={defaultValue}
     />
   );
 };

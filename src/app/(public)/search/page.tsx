@@ -21,7 +21,7 @@ import RelatedCourse from '@/components/ui/RelatedCourse';
 type IDProps = {
   params: any;
 };
-const Courses = ({ params }: IDProps) => {
+const SearchField = ({ params }: IDProps) => {
   const { id } = params;
   const query: Record<string, any> = {};
   const [value, setValue] = useState('');
@@ -181,4 +181,4 @@ const Courses = ({ params }: IDProps) => {
   );
 };
 
-export default Courses;
+export default SearchField;

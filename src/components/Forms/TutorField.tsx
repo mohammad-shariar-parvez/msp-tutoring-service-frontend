@@ -4,12 +4,16 @@ import { useTutorsQuery } from '@/redux/api/tutorApi';
 type ServiceFieldProps = {
   name: string;
   label?: string;
+  locateTutor?: string;
 };
 
-const TutorField = ({ name, label }: ServiceFieldProps) => {
+const TutorField = ({ name, label, locateTutor }: ServiceFieldProps) => {
+  // console.log(locateTutor);
+
   const { data, isLoading } = useTutorsQuery({
     limit: 100,
     page: 1,
+    location: locateTutor,
   });
   const tutors = data?.tutors;
   //@ts-ignore

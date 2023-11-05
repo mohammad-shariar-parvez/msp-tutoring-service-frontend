@@ -12,30 +12,28 @@ import Form from '../Forms/Form';
 import FormInput from '../Forms/FormInput';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 const Banner = () => {
   const query: Record<string, any> = { limit: 0 };
-
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [searchTerm2, setSearchTerm2] = useState<string>('');
-  const [limit, setLimit] = useState<number>(0);
-
-  query['searchTerm'] = searchTerm;
-  query['searchTerm2'] = searchTerm2;
-  query['limit'] = limit;
+  const router = useRouter();
+  const [course, setCourse] = useState<string>('');
+  const [location, setLocation] = useState<string>('');
+  console.log(course, location);
 
   const publicOnSubmit = async (values: any) => {
     // console.log(values);
-    setSearchTerm(values.searchTerm);
-    setSearchTerm2(values.searchTerm2);
-    setLimit(15);
+    // setSearchTerm(values.searchTerm);
+    // setSearchTerm2(values.searchTerm2);
+    // setLimit(15);
   };
 
   const { data, isLoading } = useCoursesQuery({ ...query });
+  console.log(data);
 
   const resetFilters = () => {
-    setSearchTerm('');
-    setSearchTerm2('');
-    setLimit(0);
+    setCourse('');
+    setLocation('');
   };
 
   return (
@@ -56,59 +54,50 @@ const Banner = () => {
                 </Link>
               </p>
               <div className='search-box '>
-                <Form submitHandler={publicOnSubmit}>
-                  <div className='flex justify-between items-center w-full space-x-1'>
-                    <FormInput
-                      name='searchTerm2'
-                      size='large'
-                      type='text'
-                      placeholder='Course'
-                      bordered={false}
-                    />
+                <div className='flex justify-between items-center w-full space-x-1'>
+                  <Input
+                    name='course'
+                    size='large'
+                    type='text'
+                    placeholder='Course'
+                    value={course}
+                    bordered={false}
+                    onChange={(e) => setCourse(e.target.value)}
+                  />
+                  <Input
+                    name='location'
+                    size='large'
+                    type='text'
+                    placeholder='Location'
+                    bordered={false}
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                  />
 
-                    {/* <!-- Address Field  --> */}
-
-                    <FormInput
-                      name='searchTerm'
-                      size='large'
-                      type='text'
-                      placeholder='Location'
-                      bordered={false}
-                    />
-                    {/* <!-- Find Button  --> */}
-                    {!!searchTerm2 || !!searchTerm ? (
+                  <>
+                    <Link
+                      href={{
+                        pathname: '/search',
+                        query: {
+                          course: course,
+                          location,
+                        },
+                      }}
+                    >
                       <Button
                         onClick={resetFilters}
-                        type='primary'
-                        className='bg-button-primary mx-1'
+                        className='hidden md:block bg-button-primary  text-white   px-3  rounded-md  '
                       >
-                        <ReloadOutlined />
+                        Find Now
                       </Button>
-                    ) : (
-                      <>
-                        <Button
-                          htmlType='submit'
-                          className='hidden md:block bg-button-primary  text-white   px-3  rounded-md  '
-                        >
-                          Find Now
-                        </Button>
-                        <Button
-                          htmlType='submit'
-                          className=' md:hidden bg-button-primary  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'
-                        >
-                          <SearchOutlined />
-                        </Button>
-                      </>
-                    )}
-                    {/* <Button
-                      htmlType='submit'
-                      className='hidden md:block bg-button-primary  text-white   px-3  rounded-md  '
-                    >
-                      Find Now
-                    </Button> */}
-                    {/* <Button className='hidden find-btn'>Find Now</Button> */}
-                  </div>
-                </Form>
+                    </Link>
+                    <Link href={`/search`}>
+                      <Button className=' md:hidden bg-button-primary  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'>
+                        <SearchOutlined />
+                      </Button>
+                    </Link>
+                  </>
+                </div>
               </div>
             </div>
             <div className='  rounded-b-lg p-4 col-span-3  '>

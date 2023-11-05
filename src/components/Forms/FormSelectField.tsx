@@ -12,7 +12,7 @@ type SelectFieldProps = {
   options: SelectOptions[];
   name: string;
   size?: 'large' | 'small';
-  value?: string | string[] | undefined;
+  myValue?: string | string[] | undefined;
   placeholder?: string;
   label?: string;
   defaultValue?: SelectOptions;
@@ -22,7 +22,7 @@ type SelectFieldProps = {
 const FormSelectField = ({
   name,
   size = 'large',
-  value,
+  myValue,
   placeholder = 'select',
   options,
   label,
@@ -37,16 +37,22 @@ const FormSelectField = ({
       <Controller
         control={control}
         name={name}
-        render={({ field: { value, onChange } }) => (
-          <Select
-            onChange={handleChange ? handleChange : onChange}
-            size={size}
-            options={options}
-            value={value}
-            style={{ width: '100%' }}
-            placeholder={placeholder}
-          />
-        )}
+        render={({ field: { value, onChange } }) => {
+          console.log(value);
+          console.log(myValue);
+
+          return (
+            <Select
+              onChange={handleChange ? handleChange : onChange}
+              size={size}
+              options={options}
+              value={myValue ? myValue : value}
+              style={{ width: '100%' }}
+              placeholder={placeholder}
+              defaultValue={defaultValue}
+            />
+          );
+        }}
       />
     </>
   );
