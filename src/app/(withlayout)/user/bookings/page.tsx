@@ -67,6 +67,7 @@ const BookingsPage = () => {
     query['searchTerm'] = debouncedTerm;
   }
   const { data, isLoading } = useBookingsQuery({ ...query });
+  console.log(data);
 
   const bookings = data?.bookings;
   const meta = data?.meta;
@@ -85,7 +86,7 @@ const BookingsPage = () => {
     }
   };
   const paymentHandler = async (data: any) => {
-    message.loading('Deleting.....');
+    message.loading('Payment processing.....');
 
     console.log(data);
 
@@ -156,13 +157,23 @@ const BookingsPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
+            {data?.payment?.paymentStatus === 'PAID' ? (
+              <Button
+                onClick={() => deleteHandler(data?.id)}
+                type='primary'
+                disabled={true}
+              >
+                <DeleteOutlined />
+              </Button>
+            ) : (
+              <Button
+                onClick={() => deleteHandler(data?.id)}
+                type='primary'
+                danger
+              >
+                <DeleteOutlined />
+              </Button>
+            )}
           </>
         );
       },
@@ -172,9 +183,32 @@ const BookingsPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Button onClick={() => paymentHandler(data)} type='primary' danger>
-              Pay
-            </Button>
+            {data?.payment?.paymentStatus === 'PAID' ? (
+              <Button
+                onClick={() => paymentHandler(data)}
+                disabled={true}
+                type='primary'
+                danger
+              >
+                Paid
+              </Button>
+            ) : data?.status === 'CONFIRMED' ? (
+              <Button
+                onClick={() => paymentHandler(data)}
+                type='primary'
+                danger
+              >
+                Pay
+              </Button>
+            ) : (
+              <Button
+                onClick={() => paymentHandler(data)}
+                disabled={true}
+                danger
+              >
+                Pay
+              </Button>
+            )}
           </>
         );
       },

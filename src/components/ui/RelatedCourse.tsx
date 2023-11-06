@@ -15,7 +15,7 @@ const RelatedCourse: React.FC<RelatedCourseProps> = ({
 }) => {
   const { data } = useCoursesQuery({ limit: 4, categoryId, location });
   const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
-  console.log(coursesData);
+  //   console.log(coursesData);
 
   return (
     <div>

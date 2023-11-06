@@ -135,7 +135,7 @@ const BookingsPage = () => {
               onClick={() =>
                 updateBooking({
                   id: data?.id,
-                  body: { status: 'BOOKED' },
+                  body: { status: 'CONFIRMED' },
                 })
               }
               type='primary'

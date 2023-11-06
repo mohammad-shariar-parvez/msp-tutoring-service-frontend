@@ -92,7 +92,7 @@ const SearchField = () => {
 
   return (
     <div className='container mt-8 md:mt-16 '>
-      <div className='md:grid md:grid-cols-4 gap-6 space-y-4'>
+      <div className='md:grid md:grid-cols-4 gap-6 space-y-4 md:space-y-0'>
         <div className='space-y-4'>
           <div className='relative'></div>
           <Radio.Group
@@ -124,8 +124,6 @@ const SearchField = () => {
               value={maxPrice}
               onChange={maxValueHandler}
             />
-
-            <Link href={`/`}></Link>
           </div>
           <Button onClick={resetFilters}>Reset</Button>
         </div>

@@ -86,13 +86,23 @@ const Courses = ({ params }: IDProps) => {
     setValue('');
     setSearchTerm('');
   };
-
+  const maxValueHandler = (e: {
+    target: { value: React.SetStateAction<string | undefined> };
+  }) => {
+    if (e.target.value === '') {
+      setMaxPrice(undefined);
+      //   console.log(e.target.value);
+    } else {
+      setMaxPrice(e.target.value);
+    }
+    console.log(e.target.value);
+  };
   const { data } = useCoursesQuery({ ...query });
   const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
 
   return (
-    <div className='container mt-16 '>
-      <div className='grid grid-cols-4 gap-6'>
+    <div className='container mt-8 md:mt-16 '>
+      <div className='md:grid md:grid-cols-4 gap-6 space-y-4 md:space-y-0'>
         <div className='space-y-4'>
           <div className='relative'>
             <Input
@@ -115,44 +125,40 @@ const Courses = ({ params }: IDProps) => {
               </Button>
             )}
           </div>
-          <Radio.Group
-            onChange={onChange}
-            value={value}
-            className=' flex flex-col gap-2'
-          >
-            {locationOptions.map((location, index) => (
-              <Radio key={index} value={location.value}>
-                {location.label}
-              </Radio>
-            ))}
-          </Radio.Group>
-          <Form submitHandler={publicOnSubmit} noReset={formReset}>
-            <div className='flex justify-between items-center w-full space-x-1 pb-2'>
-              <FormInput
+          <div className='space-y-4'>
+            <div className='relative'></div>
+            <Radio.Group
+              onChange={onChange}
+              value={value}
+              className=' flex flex-col gap-2'
+            >
+              {locationOptions.map((location, index) => (
+                <Radio key={index} value={location.value}>
+                  {location.label}
+                </Radio>
+              ))}
+            </Radio.Group>
+
+            <div className='flex justify-between items-center w-full space-x-1 pb-1'>
+              <Input
                 name='minPrice'
                 size='small'
                 type='number'
                 placeholder='Min Price'
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
               />
-
-              <FormInput
+              <Input
                 name='maxPrice'
                 size='small'
                 type='number'
                 placeholder='Max Price'
+                value={maxPrice}
+                onChange={maxValueHandler}
               />
-
-              <Button
-                htmlType='submit'
-                className=' bg-transparent  font-bold text-md p-0 m-0 rounded-md  cursor-pointer transition duration-700 border-0 m '
-              >
-                <SearchOutlined />
-              </Button>
             </div>
-            <Button onClick={resetFilters} htmlType='submit' className='   '>
-              Reset
-            </Button>
-          </Form>
+            <Button onClick={resetFilters}>Reset</Button>
+          </div>
         </div>
         <div className='col-span-3'>
           {coursesData?.length > 0 ? (

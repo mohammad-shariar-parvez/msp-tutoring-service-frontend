@@ -35,11 +35,11 @@ const ServiceCourse = ({ params }: IDProps) => {
           <Row>
             <Col xs={24} md={24} lg={4}>
               <Image
-                src={center}
+                src={data?.courseTutor?.imageUrl}
                 width={150}
                 height={150}
                 alt='eagle_image'
-                className='rounded-full block mx-auto '
+                className='rounded-full block mx-auto mt-5 '
               />
             </Col>
 

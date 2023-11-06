@@ -38,6 +38,19 @@ export const bookingApi = baseApi.injectEndpoints({
 			}),
 			providesTags: [tagTypes.booking],
 		}),
+		bookingByCourseId: build.query({
+			query: (id) => ({
+				url: `${BOOKINGS_URL}/${id}/course`,
+				method: "GET",
+			}),
+			transformResponse: (response: BookingResponse, meta: IMeta) => {
+				return {
+					courseBooking: response,
+					meta,
+				};
+			},
+			providesTags: [tagTypes.booking],
+		}),
 
 		// update single department by id
 		updateBooking: build.mutation({
@@ -66,6 +79,7 @@ export const {
 	useBookingsQuery,
 	useAddBookingMutation,
 	useUpdateBookingMutation,
-	useDeleteBookingMutation
+	useDeleteBookingMutation,
+	useBookingByCourseIdQuery
 
 } = bookingApi;

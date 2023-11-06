@@ -14,7 +14,7 @@ const CreateTutor = () => {
   const [addTutor] = useAddTutorMutation();
 
   const adminOnSubmit = async (values: any) => {
-    // console.log(values);
+    console.log(values);
 
     try {
       const res = await addTutor(values);

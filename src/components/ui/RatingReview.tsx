@@ -4,6 +4,7 @@ import FormTextArea from '../Forms/FormTextArea';
 import { Button, Rate, message } from 'antd';
 import { useAddReviewMutation } from '@/redux/api/reviewApi';
 import { getUserInfo } from '@/services/auth.service';
+import { useBookingByCourseIdQuery } from '@/redux/api/bookingApi';
 
 interface RatingReviewProps {
   courseId: string;
@@ -26,20 +27,32 @@ const RatingReview: React.FC<RatingReviewProps> = ({ courseId }) => {
       console.error(err.message);
     }
   };
+  console.log(courseId);
+
+  const { data } = useBookingByCourseIdQuery(courseId);
+  //@ts-ignore
+  const courseBookingData = data?.courseBooking?.data?.id;
+  console.log(courseBookingData);
+
   return (
-    <div className='py-4 bg-sky-50'>
+    <div className={`py-4 bg-sky-50 `}>
       <Form submitHandler={reviewOnSubmit}>
         <FormTextArea name='review' rows={4} />
         <div className='flex justify-between items-center space-y-3 '>
           <Button
             htmlType='submit'
-            className=' bg-button-primary  text-white   px-3 mt-3  rounded-md  '
+            disabled={!courseBookingData && true}
+            className=' bg-button-primary  text-white   px-3 mt-3  rounded-md   '
           >
-            Send Review
+            {!courseBookingData ? 'Pay First to Review' : 'Send Review'}
           </Button>
 
           <div>
-            <Rate onChange={setValue} value={value} />
+            <Rate
+              disabled={!courseBookingData && true}
+              onChange={setValue}
+              value={value}
+            />
           </div>
         </div>
       </Form>
