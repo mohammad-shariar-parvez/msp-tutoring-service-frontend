@@ -14,6 +14,15 @@ export interface ICategory {
   updatedAt: string;
 
 }
+export interface IBlogs {
+
+  id: string;
+  title: string;
+  contents: string;
+  imageUrl: string;
+
+
+}
 export interface ICourse {
   id: string;
   title: string;

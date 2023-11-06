@@ -14,20 +14,9 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  // const dispatch = useAppDispatch();
   const userLoggedIn = isLoggedIn();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  // const storedWishList = getFromLocalStorage('wishList');
-
-  // const parsedWishList = storedWishList
-  //   ? JSON.parse(storedWishList)
-  //   : {
-  //       courses: [],
-  //       total: 0,
-  //     };
-  // dispatch(lStorgeWishList(parsedWishList));
 
   useEffect(() => {
     setIsLoading(true);
@@ -50,7 +39,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className='author-main-area'>
+    <div className='main-area'>
       <Navbar />
       <>{children}</>
       <Footer />

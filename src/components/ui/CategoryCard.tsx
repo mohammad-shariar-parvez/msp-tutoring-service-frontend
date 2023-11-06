@@ -5,11 +5,10 @@ import React from 'react';
 
 interface CategoryCardProps {
   category: ICategory;
+  details: boolean;
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
-  // console.log('REal categoty is ', category.courses.length);
-
+const CategoryCard: React.FC<CategoryCardProps> = ({ category, details }) => {
   return (
     <>
       <Link href={`/categories/${category?.id}`} className='no-underline'>
@@ -27,9 +26,11 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
               {category.title}
             </h5>
 
-            <p className=' text-gray-700'>
-              Total Course: {category.courses.length}
-            </p>
+            {!details ? (
+              <p className=' text-gray-700'>
+                Total Course: {category.courses.length}
+              </p>
+            ) : null}
           </div>
         </div>
       </Link>

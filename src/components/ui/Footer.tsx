@@ -2,6 +2,12 @@
 
 import BgIcons from './BgIcons';
 import FooterImage from './FooterImage';
+import insta1 from '../../assets/insta1.jpg';
+import insta2 from '../../assets/insta2.jpg';
+import insta3 from '../../assets/insta3.jpg';
+import insta4 from '../../assets/insta4.jpg';
+import insta5 from '../../assets/insta5.jpg';
+import insta6 from '../../assets/insta6.jpg';
 
 function Footer() {
   return (
@@ -56,15 +62,16 @@ function Footer() {
         <div className=' space-y-6'>
           <h6 className='text-lg leading-normal font-semibold '>Instagram</h6>
           <div className='space-y-1 '>
-            <div className='flex flex-col md:flex-row gap-1  '>
-              <FooterImage image={'/insta-1.jpg.webp'} />
-              <FooterImage image={'/insta-2.jpg.webp'} />
-              <FooterImage image={'/insta-3.jpg.webp'} />
+            <div className='flex flex-row  gap-1  '>
+              {/* <FooterImage image={insta1} /> */}
+              <FooterImage image={insta1} />
+              <FooterImage image={insta2} />
+              <FooterImage image={insta3} />
             </div>
             <div className='flex flex-row gap-1'>
-              <FooterImage image={'/insta-2.jpg.webp'} />
-              <FooterImage image={'/insta-3.jpg.webp'} />
-              <FooterImage image={'/insta-4.jpg.webp'} />
+              <FooterImage image={insta4} />
+              <FooterImage image={insta5} />
+              <FooterImage image={insta6} />
             </div>
           </div>
         </div>

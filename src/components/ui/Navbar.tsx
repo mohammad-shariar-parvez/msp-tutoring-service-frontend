@@ -17,7 +17,7 @@ const Navbar = () => {
   const [userRole, setUserRole] = useState(null);
   const { data: session, status } = useSession();
   const { role } = getUserInfo() as any;
-  console.log('session', role);
+  console.log('session---', role);
   const router = useRouter();
   useEffect(() => {
     const { role } = getUserInfo() as any;
@@ -72,6 +72,7 @@ const Navbar = () => {
                       Dashboard
                     </Link>
                   </li>
+
                   <NavDropDown />
                   <li
                     onClick={() => setSideBar(!sideBar)}
@@ -82,6 +83,14 @@ const Navbar = () => {
                       href='/'
                     >
                       Categories
+                    </Link>
+                  </li>
+                  <li className='   md:w-28 p-4   block '>
+                    <Link
+                      className='text-black md:hover:text-slate-400 font-semibold text-base'
+                      href='/blogs'
+                    >
+                      Blogs
                     </Link>
                   </li>
                 </ul>

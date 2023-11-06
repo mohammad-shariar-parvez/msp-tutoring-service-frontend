@@ -78,24 +78,21 @@ const CategorySider: React.FC<CategorySiderProps> = ({ sidebar }) => {
 
   const final = [
     {
-      key: '0',
+      key: '1',
       label: 'Home',
     },
     {
-      key: '0',
+      key: '2',
       label: 'Catogory',
       children: itemss,
     },
     {
-      key: '0',
+      key: '3',
       label: 'About',
     },
+
     {
-      key: '0',
-      label: 'Dashboard',
-    },
-    {
-      key: '0',
+      key: '4',
       label: 'Logout',
     },
   ];

@@ -1,5 +1,7 @@
 'use client';
-
+import React, { useState, useRef, useMemo } from 'react';
+import JoditEditor from 'jodit-react';
+import HTMLReactParser from 'html-react-parser';
 import CategoryField from '@/components/Forms/CategoryField';
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
@@ -12,12 +14,22 @@ import { Button, Col, Row, message } from 'antd';
 
 const CreateServicePage = () => {
   const [addBlog] = useAddBlogMutation();
+  const editor = useRef(null);
+  const [content, setContent] = useState('');
+
+  const config = {
+    placeholder: 'Start Typing',
+  };
+
+  console.log(content);
 
   const adminOnSubmit = async (values: any) => {
     // console.log(values);
 
     try {
-      const res = await addBlog(values);
+      console.log({ ...values, ...{ content } });
+
+      const res = await addBlog({ ...values, ...{ content } });
       if (!!res) {
         message.success('Blog created successfully!');
       }
@@ -61,14 +73,32 @@ const CreateServicePage = () => {
                 type='url'
               />
             </Col>
+            <JoditEditor
+              ref={editor}
+              value={content}
+              //   tabIndex={1} // tabIndex of textarea
+              onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+              onChange={(newContent) => setContent(newContent)}
+            />
 
-            <Col span={16} style={{ margin: '10px 0' }}>
+            {/* <Col span={16} style={{ margin: '10px 0' }}>
               <FormTextArea name='content' label='Content' rows={4} />
-            </Col>
+            </Col> */}
           </Row>
           <Button htmlType='submit'>Create</Button>
         </div>
       </Form>
+      {/* <JoditEditor
+        ref={editor}
+        value={content}
+        //   tabIndex={1} // tabIndex of textarea
+        onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+        onChange={(newContent) => setContent(newContent)}
+      /> */}
+      {/* <div className='bg-white'>
+        <h1 className='my-4 text-center'>DEMO</h1>
+        <div>{HTMLReactParser(content)}</div>
+      </div> */}
     </>
   );
 };
