@@ -32,6 +32,7 @@ const LoginPage = () => {
   ] = useUserLoginMutation();
   const router = useRouter();
 
+  console.log(call);
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
@@ -44,6 +45,8 @@ const LoginPage = () => {
         } else if (!call && res.role == 'user') {
           router.push('/');
         } else {
+          console.log(call);
+
           router.push(call);
         }
 

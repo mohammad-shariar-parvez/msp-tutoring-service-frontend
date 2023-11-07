@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import StepperForm from '../StepperForm/StepperForm';
 import { useAddBookingMutation } from '@/redux/api/bookingApi';

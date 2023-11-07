@@ -1,29 +1,14 @@
 'use client';
-import React, { useState, useRef, useMemo } from 'react';
-import JoditEditor from 'jodit-react';
-import HTMLReactParser from 'html-react-parser';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../lib/AuthOptions';
 
-const Example = () => {
-  const editor = useRef(null);
-  const [content, setContent] = useState('');
-
-  const config = {
-    placeholder: 'Start Typing',
-  };
-
-  console.log(content);
+const Example = async () => {
+  const session: any = await getServerSession(authOptions);
+  console.log(session);
 
   return (
     <div>
-      <JoditEditor
-        ref={editor}
-        value={content}
-        //   tabIndex={1} // tabIndex of textarea
-        onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-        onChange={(newContent) => setContent(newContent)}
-      />
       <button>Submit</button>
-      <div>{HTMLReactParser(content)}</div>
     </div>
   );
 };

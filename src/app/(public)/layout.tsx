@@ -2,6 +2,7 @@
 import Contents from '@/components/ui/Contents';
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/Navbar';
+import PublicContents from '@/components/ui/PublicContents';
 import SideBar from '@/components/ui/Sidebar';
 import { useAppDispatch } from '@/redux/hooks';
 import { lStorgeWishList } from '@/redux/wishList/wishListSlice';
@@ -13,38 +14,16 @@ import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  const userLoggedIn = isLoggedIn();
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-  }, [router, isLoading, userLoggedIn]);
-
-  if (!isLoading) {
-    return (
-      <Row
-        justify='center'
-        align='middle'
-        style={{
-          height: '100vh',
-        }}
-      >
-        <Space>
-          <Spin tip='Loading' size='large'></Spin>
-        </Space>
-      </Row>
-    );
-  }
-
+const PublicLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='main-area'>
-      <Navbar />
-      <>{children}</>
-      <Footer />
+    <div>
+      <div className='main-area'>
+        <Navbar />
+        {children}
+        <Footer />
+      </div>
     </div>
   );
 };
 
-export default DashboardLayout;
+export default PublicLayout;

@@ -10,6 +10,7 @@ import {
 import { getUserInfo, removeUserInfo } from '@/services/auth.service';
 import { authKey } from '@/constants/storageKey';
 import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 const { Header: AntHeader } = Layout;
 
@@ -25,7 +26,7 @@ const Header = () => {
     {
       key: '0',
       label: (
-        <Button onClick={logOut} type='text' danger>
+        <Button onClick={() => signOut()} type='text' danger>
           Logout
         </Button>
       ),

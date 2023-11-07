@@ -10,14 +10,13 @@ import { useAppSelector } from '@/redux/hooks';
 import { useSession } from 'next-auth/react';
 import { authKey } from '@/constants/storageKey';
 import { useRouter } from 'next/navigation';
-
 const Navbar = () => {
   const [sideBar, setSideBar] = useState(true);
   const { total } = useAppSelector((state) => state.wishList);
   const [userRole, setUserRole] = useState(null);
   const { data: session, status } = useSession();
   const { role } = getUserInfo() as any;
-  console.log('session---', role);
+  console.log('role---', role);
   const router = useRouter();
   useEffect(() => {
     const { role } = getUserInfo() as any;
@@ -25,6 +24,8 @@ const Navbar = () => {
   }, [userRole]);
 
   const handleLogout = () => {
+    console.log('yuyppppp');
+
     removeUserInfo(authKey);
     router.push('/login');
   };
@@ -106,17 +107,15 @@ const Navbar = () => {
                   </Link>
                   {userRole ? (
                     <Link href='/login'>
-                      <Button className='font-semibold text-base'>
+                      <Button
+                        onClick={handleLogout}
+                        className='font-semibold text-base'
+                      >
                         Logout
                       </Button>
                     </Link>
                   ) : (
-                    <Button
-                      onClick={handleLogout}
-                      className='font-semibold text-base'
-                    >
-                      Login
-                    </Button>
+                    <Button className='font-semibold text-base'>Login</Button>
                   )}
                 </div>
               </div>

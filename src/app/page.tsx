@@ -7,6 +7,7 @@ import Demo from '@/components/ui/Demo';
 import Footer from '@/components/ui/Footer';
 import Info from '@/components/ui/Info';
 import Navbar from '@/components/ui/Navbar';
+import PublicContents from '@/components/ui/PublicContents';
 import Review from '@/components/ui/Review';
 import Services from '@/components/ui/Services';
 import UpcommingCourse from '@/components/ui/UpcommingCourse';
@@ -16,19 +17,19 @@ const HomePage = () => {
   // return redirect("/profile");
 
   return (
-    <div>
-      <Navbar />
-      <Banner />
-      <BannerInfo />
-      <Demo />
-      <Services />
-      <Category />
-      <UpcommingCourse />
-      <Info />
-      <Review />
-      <AccordianFAQ />
-      <Footer />
-    </div>
+    <PublicContents>
+      <div>
+        <Banner />
+        <BannerInfo />
+        <Demo />
+        <Services />
+        <Category />
+        <UpcommingCourse />
+        <Info />
+        <Review />
+        <AccordianFAQ />
+      </div>
+    </PublicContents>
   );
 };
 

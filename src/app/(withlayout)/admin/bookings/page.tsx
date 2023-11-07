@@ -234,9 +234,6 @@ const BookingsPage = () => {
       />
 
       <>
-        <Button type='primary' onClick={showModal}>
-          Open Modal
-        </Button>
         <Modal
           title='Basic Modal'
           open={isModalOpen}

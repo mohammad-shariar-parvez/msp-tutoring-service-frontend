@@ -1,29 +1,38 @@
 'use client';
 import { Button, Col, Row, message } from 'antd';
 import React, { useEffect, useState } from 'react';
-import center from '../../../../assets/centre.png';
+
 import Image from 'next/image';
-import BasicInfo from '@/components/UserForms/BasicInfo';
-import ScheduleDataPicker from '@/components/UserForms/ScheduleDataPicker';
-import ScheduleTimePicker from '@/components/UserForms/ScheduleTimePicker';
-import StepperForm from '@/components/StepperForm/StepperForm';
 
 import RatingReview from '@/components/ui/RatingReview';
 import CommentsSection from '@/components/ui/CommentsSection';
-import { useAddBookingMutation } from '@/redux/api/bookingApi';
+
 import BookingFormSection from '@/components/ui/BookingFormSection';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCourseQuery } from '@/redux/api/courseApi';
 import RelatedCourse from '@/components/ui/RelatedCourse';
-import Footer from '@/components/ui/Footer';
-
+import { useSession } from 'next-auth/react';
+import { getUserInfo, isLoggedIn } from '@/services/auth.service';
 type IDProps = {
   params: any;
 };
 const ServiceCourse = ({ params }: IDProps) => {
   const { id } = params;
+  const userLoggedIn = isLoggedIn();
+  const da = getUserInfo() as any;
+  const router = useRouter();
 
-  const { data } = useCourseQuery(id);
+  useEffect(() => {
+    console.log(userLoggedIn);
+    if (!userLoggedIn) {
+      router.push('/login');
+    }
+  }, []);
+
+  // const { data: session, status } = useSession();
+  // console.log(session);
+
+  const { data, isLoading } = useCourseQuery(id);
   console.log(data);
 
   const courseData = data;
@@ -113,7 +122,7 @@ const ServiceCourse = ({ params }: IDProps) => {
           </Col>
           {/* Stepper */}
           <Col xs={24} md={24} lg={10}>
-            <BookingFormSection courseId={id} />
+            {!isLoading ? <BookingFormSection courseId={id} /> : null}
           </Col>
         </Row>
         {/* Comments */}
