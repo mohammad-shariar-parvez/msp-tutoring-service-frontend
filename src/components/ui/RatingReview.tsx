@@ -27,12 +27,12 @@ const RatingReview: React.FC<RatingReviewProps> = ({ courseId }) => {
       console.error(err.message);
     }
   };
-  console.log(courseId);
+  // console.log(courseId);
 
   const { data } = useBookingByCourseIdQuery(courseId);
   //@ts-ignore
   const courseBookingData = data?.courseBooking?.data?.id;
-  console.log(courseBookingData);
+  // console.log(courseBookingData);
 
   return (
     <div className={`py-4 bg-sky-50 `}>

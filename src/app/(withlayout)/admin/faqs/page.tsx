@@ -155,17 +155,8 @@ const FaqPage = () => {
       <ActionBar title='FAQ List'>
         <div className='ml-auto pr-4'>
           <Link href='/admin/faqs/create'>
-            <Button type='primary'>Create</Button>
+            <Button className=' button-primary'>Create</Button>
           </Link>
-          {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              onClick={resetFilters}
-              type='primary'
-              style={{ margin: '0px 5px' }}
-            >
-              <ReloadOutlined />
-            </Button>
-          )}
         </div>
       </ActionBar>
 

@@ -13,7 +13,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   // const role = USER_ROLE.ADMIN;
   const pathname = usePathname();
-  console.log('pathnaem', pathname);
+
   const { role } = getUserInfo() as any;
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       router.push('/');
     }
     if (role === 'admin' && pathname?.startsWith('/user')) {
-      router.push('/');
+      router.push(`/admin${pathname}`);
     }
     setIsLoading(true);
   }, [router, isLoading, userLoggedIn, role, pathname]);

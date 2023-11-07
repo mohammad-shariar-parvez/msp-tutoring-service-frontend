@@ -23,7 +23,7 @@ const ServiceCourse = ({ params }: IDProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(userLoggedIn);
+    // console.log(userLoggedIn);
     if (!userLoggedIn) {
       router.push('/login');
     }
@@ -33,7 +33,7 @@ const ServiceCourse = ({ params }: IDProps) => {
   // console.log(session);
 
   const { data, isLoading } = useCourseQuery(id);
-  console.log(data);
+  // console.log(data);
 
   const courseData = data;
 

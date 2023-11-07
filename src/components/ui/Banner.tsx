@@ -27,7 +27,7 @@ const Banner = () => {
   };
 
   const { data, isLoading } = useCoursesQuery({ ...query });
-  console.log(data);
+  // console.log(data);
 
   const resetFilters = () => {
     setCourse('');

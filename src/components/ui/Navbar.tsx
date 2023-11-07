@@ -16,7 +16,7 @@ const Navbar = () => {
   const [userRole, setUserRole] = useState(null);
   const { data: session, status } = useSession();
   const { role } = getUserInfo() as any;
-  console.log('role---', role);
+
   const router = useRouter();
   useEffect(() => {
     const { role } = getUserInfo() as any;
@@ -24,7 +24,7 @@ const Navbar = () => {
   }, [userRole]);
 
   const handleLogout = () => {
-    console.log('yuyppppp');
+    // console.log('yuyppppp');
 
     removeUserInfo(authKey);
     router.push('/login');
@@ -115,7 +115,9 @@ const Navbar = () => {
                       </Button>
                     </Link>
                   ) : (
-                    <Button className='font-semibold text-base'>Login</Button>
+                    <Link href='/login'>
+                      <Button className='font-semibold text-base'>Login</Button>
+                    </Link>
                   )}
                 </div>
               </div>

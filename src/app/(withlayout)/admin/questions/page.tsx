@@ -19,6 +19,7 @@ import {
   useFeeedbacksQuery,
   useQuestionsQuery,
 } from '@/redux/api/feedback';
+import ActionButtons from '@/components/ui/ActionButtons';
 
 const QuestionPage = () => {
   const query: Record<string, any> = {};
@@ -105,22 +106,12 @@ const QuestionPage = () => {
       title: 'Action',
       render: function (data: any) {
         return (
-          <>
-            <Button
-              onClick={() => onDetailsHandler(data)}
-              type='primary'
-              className='mr-2'
-            >
-              <EyeOutlined />
-            </Button>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
-          </>
+          <ActionButtons
+            data={data}
+            onDetailsHandler={onDetailsHandler}
+            deleteHandler={deleteHandler}
+            editOption={false}
+          />
         );
       },
     },

@@ -84,7 +84,7 @@ const SearchField = () => {
     } else {
       setMaxPrice(e.target.value);
     }
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   const { data } = useCoursesQuery({ ...query });

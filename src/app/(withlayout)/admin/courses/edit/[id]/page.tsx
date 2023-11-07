@@ -42,7 +42,6 @@ const EditServicePage = ({ params }: any) => {
     }
   };
 
-  console.log('VALUE UPDATE', courseData);
   const defaultValues = {
     slug: courseData?.slug,
     title: courseData?.title || '',

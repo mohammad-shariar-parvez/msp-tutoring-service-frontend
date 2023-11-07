@@ -1,4 +1,4 @@
-import { IMeta, IRoom } from "@/types";
+import { IMeta, } from "@/types";
 import { baseApi } from "./baseApi";
 import { tagTypes } from "../tag-types";
 
@@ -14,7 +14,7 @@ const paymentApi = baseApi.injectEndpoints({
 					params: arg,
 				};
 			},
-			transformResponse: (response: IRoom[], meta: IMeta) => {
+			transformResponse: (response: any[], meta: IMeta) => {
 				return {
 					myPayments: response,
 					meta,

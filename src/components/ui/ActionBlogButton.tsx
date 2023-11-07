@@ -12,23 +12,17 @@ import Link from 'next/link';
 interface ActionButtonsProps {
   onDetailsHandler?: (detailsData: any) => void;
   deleteHandler?: (deleteData: any) => void;
-  onAcceptHandler?: (deleteData: any) => void;
-
   data?: any;
   editUrl?: string;
   editOption?: boolean;
-  acceptBooking?: boolean;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
   onDetailsHandler,
   deleteHandler,
-  onAcceptHandler,
-
   editOption = true,
   data,
   editUrl,
-  acceptBooking,
 }) => {
   const confirm = () => {
     deleteHandler?.(data?.id);
@@ -36,19 +30,6 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 
   return (
     <div className='flex space-x-1'>
-      {!(acceptBooking && data?.status === 'CONFIRMED') ? (
-        <Button
-          className='bg-transparent border-none '
-          onClick={() =>
-            onAcceptHandler?.({
-              id: data?.id,
-              body: { status: 'CONFIRMED' },
-            })
-          }
-        >
-          Accept
-        </Button>
-      ) : null}
       <Button
         className='bg-transparent border-none '
         onClick={() => onDetailsHandler?.(data)}
@@ -62,6 +43,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
           </Button>
         </Link>
       )}
+
       <Popconfirm
         title='Delete Category ?'
         onConfirm={confirm}

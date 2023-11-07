@@ -1,10 +1,5 @@
 'use client';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ReloadOutlined,
-  EyeOutlined,
-} from '@ant-design/icons';
+import { ReloadOutlined } from '@ant-design/icons';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
 
@@ -16,6 +11,8 @@ import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useBlogsQuery, useDeleteBlogsMutation } from '@/redux/api/blogApi';
+import ActionButtons from '@/components/ui/ActionButtons';
+import HTMLReactParser from 'html-react-parser';
 
 const ServicePage = () => {
   const query: Record<string, any> = {};
@@ -26,6 +23,7 @@ const ServicePage = () => {
   const [sortOrder, setSortOrder] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [content, setContent] = useState('');
   const [details, setDetails] = useState<any>({});
   const [deleteBlogs] = useDeleteBlogsMutation();
 
@@ -96,27 +94,23 @@ const ServicePage = () => {
       title: 'Action',
       render: function (data: any) {
         return (
-          <>
-            <Button
-              onClick={() => onDetailsHandler(data)}
-              type='primary'
-              className='mr-2'
-            >
-              <EyeOutlined />
-            </Button>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
-          </>
+          <ActionButtons
+            data={data}
+            onDetailsHandler={onDetailsHandler}
+            deleteHandler={deleteHandler}
+            editOption={false}
+          />
         );
       },
     },
   ];
   const onDetailsHandler = (values: any) => {
+    const parsedContent = values?.content
+      ? HTMLReactParser(values.content)
+      : null;
+    //@ts-ignore
+    setContent(parsedContent);
+
     // console.log('Values', values);
 
     setIsModalOpen(true);
@@ -155,7 +149,7 @@ const ServicePage = () => {
       <ActionBar title='Blogs List'>
         <div className='ml-auto pr-4'>
           <Link href='/admin/blogs/create'>
-            <Button type='primary'>Create</Button>
+            <Button className=' button-primary'>Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
@@ -181,16 +175,13 @@ const ServicePage = () => {
         showPagination={true}
       />
       <>
-        <Button type='primary' onClick={showModal}>
-          Open Modal
-        </Button>
         <Modal
           title='Blog Details'
           open={isModalOpen}
           onCancel={handleCancel}
           footer={null}
         >
-          <div className='flex flex-col gap-4 divide-y items-center'>
+          <div className='flex flex-col gap-4 divide-y items-start'>
             <Image
               src={details.imageUrl}
               height={100}
@@ -199,7 +190,7 @@ const ServicePage = () => {
             />
 
             <h1 className='font-semibold text-lg'>{details?.title}</h1>
-            <h1 className='font-normal text-base'>{details?.content}</h1>
+            {content}
           </div>
         </Modal>
       </>

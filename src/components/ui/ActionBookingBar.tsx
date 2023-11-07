@@ -20,7 +20,7 @@ interface ActionButtonsProps {
   acceptBooking?: boolean;
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({
+const ActionBookingBar: React.FC<ActionButtonsProps> = ({
   onDetailsHandler,
   deleteHandler,
   onAcceptHandler,
@@ -53,15 +53,11 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         className='bg-transparent border-none '
         onClick={() => onDetailsHandler?.(data)}
       >
-        <EyeOutlined className='text-orange-800 text-lg' />
+        <Button className='bg-transparent border-none '>
+          <EditOutlined className='text-slate-900 text-lg' />
+        </Button>
       </Button>
-      {editOption && (
-        <Link href={`${editUrl}/${data?.id}`}>
-          <Button className='bg-transparent border-none '>
-            <EditOutlined className='text-slate-900 text-lg' />
-          </Button>
-        </Link>
-      )}
+
       <Popconfirm
         title='Delete Category ?'
         onConfirm={confirm}
@@ -80,4 +76,4 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   );
 };
 
-export default ActionButtons;
+export default ActionBookingBar;

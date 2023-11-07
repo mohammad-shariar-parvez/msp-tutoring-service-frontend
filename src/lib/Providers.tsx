@@ -11,7 +11,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { role } = getUserInfo() as any;
 
-  console.log(role);
+  // console.log(role);
 
   useEffect(() => {
     // console.log('USER IS', router2.query.callbackUrl);

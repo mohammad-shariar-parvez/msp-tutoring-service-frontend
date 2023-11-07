@@ -17,6 +17,7 @@ import dayjs from 'dayjs';
 
 import Image from 'next/image';
 import { useDeleteTutorMutation, useTutorsQuery } from '@/redux/api/tutorApi';
+import ActionButtons from '@/components/ui/ActionButtons';
 
 const ServicePage = () => {
   const query: Record<string, any> = {};
@@ -98,29 +99,12 @@ const ServicePage = () => {
       title: 'Action',
       render: function (data: any) {
         return (
-          <>
-            <Button onClick={() => onDetailsHandler(data)} type='primary'>
-              <EyeOutlined />
-            </Button>
-            <Link href={`/admin/tutors/edit/${data?.id}`}>
-              <Button
-                style={{
-                  margin: '0px 5px',
-                }}
-                onClick={() => console.log(data)}
-                type='primary'
-              >
-                <EditOutlined />
-              </Button>
-            </Link>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
-          </>
+          <ActionButtons
+            data={data}
+            onDetailsHandler={onDetailsHandler}
+            deleteHandler={deleteHandler}
+            editUrl={'/admin/tutors/edit/'}
+          />
         );
       },
     },
@@ -176,7 +160,9 @@ const ServicePage = () => {
         />
         <div>
           <Link href='/admin/tutors/create'>
-            <Button type='primary'>Create</Button>
+            <Button className='button-primary' type='primary'>
+              Create
+            </Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button

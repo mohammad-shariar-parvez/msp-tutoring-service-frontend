@@ -38,8 +38,8 @@ const FormSelectField = ({
         control={control}
         name={name}
         render={({ field: { value, onChange } }) => {
-          console.log(value);
-          console.log(myValue);
+          // console.log(value);
+          // console.log(myValue);
 
           return (
             <Select

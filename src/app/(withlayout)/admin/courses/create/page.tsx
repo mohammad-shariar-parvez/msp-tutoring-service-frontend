@@ -16,10 +16,8 @@ import { useState } from 'react';
 const CreateServicePage = () => {
   const [addCourse] = useAddCourseMutation();
   const [locateTutor, setLocateSutor] = useState<string>();
-  console.log(locateTutor);
 
   const adminOnSubmit = async (values: any) => {
-    console.log(values);
     const price = parseFloat(values.price);
     const updatedValues = !isNaN(price) && {
       ...values,

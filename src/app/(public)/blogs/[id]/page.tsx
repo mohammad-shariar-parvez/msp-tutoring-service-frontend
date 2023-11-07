@@ -14,9 +14,9 @@ type IDProps = {
 const BlogDetails = ({ params }: IDProps) => {
   const { id } = params;
   const { data, isLoading } = useBlogQuery(id);
-  console.log(data);
+  // console.log(data);
 
-  console.log(isLoading);
+  // console.log(isLoading);
 
   // Check if data and data.content are defined before using HTMLReactParser
   const parsedContent = data?.content ? HTMLReactParser(data.content) : null;

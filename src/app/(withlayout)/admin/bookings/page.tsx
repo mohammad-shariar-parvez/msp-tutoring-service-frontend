@@ -21,6 +21,8 @@ import {
 } from '@/redux/api/bookingApi';
 import Form from '@/components/Forms/Form';
 import FormDatePicker from '@/components/Forms/FormDatePicker';
+import ActionButtons from '@/components/ui/ActionButtons';
+import ActionBookingBar from '@/components/ui/ActionBookingBar';
 
 const BookingsPage = () => {
   const query: Record<string, any> = {};
@@ -32,6 +34,7 @@ const BookingsPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowData, setRowData] = useState<any>({});
+  const [details, setDetails] = useState<any>({});
   const [deleteBooking] = useDeleteBookingMutation();
   const [updateBooking] = useUpdateBookingMutation();
 
@@ -63,6 +66,7 @@ const BookingsPage = () => {
   }
   const { data, isLoading } = useBookingsQuery({ ...query });
 
+  //TODO - enable view booking
   const bookings = data?.bookings;
   const meta = data?.meta;
 
@@ -131,7 +135,7 @@ const BookingsPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Button
+            {/* <Button
               onClick={() =>
                 updateBooking({
                   id: data?.id,
@@ -159,12 +163,27 @@ const BookingsPage = () => {
               danger
             >
               <DeleteOutlined />
-            </Button>
+            </Button> */}
+            <ActionBookingBar
+              data={data}
+              onDetailsHandler={onDetailsHandler}
+              onAcceptHandler={onAcceptHandler}
+              deleteHandler={deleteHandler}
+              acceptBooking
+            />
           </>
         );
       },
     },
   ];
+
+  const onAcceptHandler = (values: any) => {
+    updateBooking(values);
+  };
+  const onDetailsHandler = (values: any) => {
+    setIsModalOpen(true);
+    setDetails(values);
+  };
 
   const onPaginationChange = (page: number, pageSize: number) => {
     // console.log('Page:', page, 'PageSize:', pageSize);
@@ -235,9 +254,9 @@ const BookingsPage = () => {
 
       <>
         <Modal
-          title='Basic Modal'
+          title='Change Date'
           open={isModalOpen}
-          onOk={handleOk}
+          footer={null}
           onCancel={handleCancel}
         >
           <Form submitHandler={dateOnSubmit}>
@@ -249,7 +268,9 @@ const BookingsPage = () => {
               />
               {/* <FormTimePicker name='startDate' label='Start time' /> */}
             </div>
-            <Button htmlType='submit'>submit</Button>
+            <Button className=' button-primary my-4' htmlType='submit'>
+              submit
+            </Button>
           </Form>
         </Modal>
       </>

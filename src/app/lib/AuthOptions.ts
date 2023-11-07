@@ -20,7 +20,7 @@ export const authOptions: AuthOptions = {
 				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials, req) {
-				console.log(credentials);
+				// console.log(credentials);
 				try {
 					const res = await fetch(`http://localhost:5010/api/v1/auth/signin`, {
 						method: "POST",
@@ -32,8 +32,8 @@ export const authOptions: AuthOptions = {
 						data?.accessToken,
 						process.env.JWT_SECRET!
 					);
-					console.log("varified token", verifiedToken);
-					console.log("auth option", data);
+					// console.log("varified token", verifiedToken);
+					// console.log("auth option", data);
 					if (res.ok && data) {
 						console.log("data", data);
 
@@ -43,7 +43,7 @@ export const authOptions: AuthOptions = {
 						};
 					}
 				} catch (error: any) {
-					console.log(error);
+					// console.log(error);
 					throw new Error(error.message);
 				}
 			},
@@ -78,8 +78,8 @@ export const authOptions: AuthOptions = {
 						data?.accessToken,
 						process.env.JWT_SECRET!
 					);
-					console.log("varified token", verifiedToken);
-					console.log("auth option", res);
+					// console.log("varified token", verifiedToken);
+					// console.log("auth option", res);
 					if (res.ok && data) {
 						// console.log("data", data);
 						return {

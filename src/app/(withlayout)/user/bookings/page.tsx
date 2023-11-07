@@ -67,7 +67,7 @@ const BookingsPage = () => {
     query['searchTerm'] = debouncedTerm;
   }
   const { data, isLoading } = useBookingsQuery({ ...query });
-  console.log(data);
+  // console.log(data);
 
   const bookings = data?.bookings;
   const meta = data?.meta;
@@ -88,7 +88,7 @@ const BookingsPage = () => {
   const paymentHandler = async (data: any) => {
     message.loading('Payment processing.....');
 
-    console.log(data);
+    // console.log(data);
 
     try {
       const res = await initialPayment({

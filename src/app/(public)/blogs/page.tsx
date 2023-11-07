@@ -47,7 +47,7 @@ const SearchField = () => {
     setPage(page);
   };
   const { data } = useBlogsQuery({ ...query });
-  console.log(data);
+  // console.log(data);
 
   const blogsData = data?.blogs;
   return (

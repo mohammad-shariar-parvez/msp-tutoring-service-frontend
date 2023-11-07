@@ -66,7 +66,7 @@ const SearchField = ({ params }: IDProps) => {
   const resetSearchFilters = async () => {
     setSearchTerm('');
   };
-  console.log('value', value);
+  // console.log('value', value);
 
   const onChange = (e: RadioChangeEvent) => {
     setLocation(e.target.value);
