@@ -11,7 +11,7 @@ import {
 const BannerInfo = () => {
   return (
     <section>
-      <div className='bg-[#f8fbff] mb-32'>
+      <div className='bg-[#f8fbff] '>
         <div className='container  '>
           <Row>
             <Col xs={12} md={12} lg={6}>

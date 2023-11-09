@@ -3,6 +3,7 @@ import AccordianFAQ from '@/components/ui/AccordianFaQ';
 import Banner from '@/components/ui/Banner';
 import BannerInfo from '@/components/ui/BannerInfo';
 import Category from '@/components/ui/Category';
+import CourseCity from '@/components/ui/CourseByCity';
 import Demo from '@/components/ui/Demo';
 import Footer from '@/components/ui/Footer';
 import Info from '@/components/ui/Info';
@@ -24,6 +25,7 @@ const HomePage = () => {
         <Demo />
         <Services />
         <Category />
+        <CourseCity />
         <UpcommingCourse />
         <Info />
         <Review />

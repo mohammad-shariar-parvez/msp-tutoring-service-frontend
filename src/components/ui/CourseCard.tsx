@@ -77,13 +77,13 @@ const CourseCard: React.FC<CourseCardProps> = ({
               <button>
                 <DeleteOutlined
                   onClick={removeWishList}
-                  className='absolute cursor-pointer  right-4  bottom-[90px] p-1 text-red-500 '
+                  className='absolute cursor-pointer  right-2  bottom-[90px] p-1 text-red-500 '
                 />
               </button>
             ) : (
               <button disabled={isWishList} onClick={handleWishList}>
                 <HeartOutlined
-                  className={`absolute text-base cursor-pointer  right-4  bottom-[90px] p-1 ${
+                  className={`absolute text-base cursor-pointer  right-2 top-1  bottom-[90px] p-1 ${
                     isWishList ? 'text-gray-300' : 'text-pink-600 '
                   } `}
                 />

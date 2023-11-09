@@ -4,7 +4,7 @@ import purple from '../../assets/08a51d11977fe8e0.png';
 const Info = () => {
   return (
     <div>
-      <div className='bg-[#e6f3f9]  py-12 mb-32  '>
+      <div className='bg-[#fbfeff]  py-12 mb-32  '>
         <div className='container'>
           <div className='sg-title-txt mb-12 text-center'>
             Get our help in 4 easy steps!

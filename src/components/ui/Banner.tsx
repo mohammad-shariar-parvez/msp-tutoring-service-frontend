@@ -34,7 +34,7 @@ const Banner = () => {
   };
 
   return (
-    <div className='main-banner mb-32  '>
+    <div className='main-banner mb-32 mt-10  '>
       <div className='container'>
         <Row>
           <Col md={24} lg={14} className='column-banner'>

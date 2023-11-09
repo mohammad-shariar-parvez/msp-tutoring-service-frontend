@@ -21,7 +21,7 @@ const Demo = () => {
   };
 
   return (
-    <section className='bg-[#fbfeff] mb-32 '>
+    <section className='bg-[#fbfeff] mb-16  py-16 '>
       <div className='container'>
         <div className='grid grid-cols-2 gap-10'>
           <div className='  req-demo-info-cnt'>

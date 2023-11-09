@@ -38,9 +38,9 @@ const PublicContents = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <Layout className=' '>
+    <Layout className=' body-color'>
       <Navbar />
-      <>{children}</>
+      {children}
       <Footer />
     </Layout>
   );

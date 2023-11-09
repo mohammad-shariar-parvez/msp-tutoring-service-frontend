@@ -44,7 +44,7 @@ const AccordianFAQ: React.FC = () => {
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
         items={getItems(panelStyle)}
-        className='p-4 border-none text-lg font-semibold  bg-[#e6f3f9] '
+        className='p-4 border-none text-lg font-semibold  bg-[#fbfeff] '
       />
     </section>
   );
