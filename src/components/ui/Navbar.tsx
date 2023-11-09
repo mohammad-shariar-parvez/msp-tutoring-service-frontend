@@ -21,11 +21,10 @@ const Navbar = () => {
   useEffect(() => {
     const { role } = getUserInfo() as any;
     setUserRole(role);
+    console.log(role);
   }, [userRole]);
 
   const handleLogout = () => {
-    // console.log('yuyppppp');
-
     removeUserInfo(authKey);
     router.push('/login');
   };
@@ -65,14 +64,16 @@ const Navbar = () => {
                       Home
                     </Link>
                   </li>
-                  <li className='   md:w-28 p-4   block '>
-                    <Link
-                      className='text-black md:hover:text-slate-400 font-semibold text-base'
-                      href={`/${role}`}
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
+                  {role ? (
+                    <li className='   md:w-28 p-4   block '>
+                      <Link
+                        className='text-black md:hover:text-slate-400 font-semibold text-base'
+                        href={`/${role}`}
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
+                  ) : null}
 
                   <NavDropDown />
                   <li

@@ -22,12 +22,12 @@ const ServiceCourse = ({ params }: IDProps) => {
   const da = getUserInfo() as any;
   const router = useRouter();
 
-  useEffect(() => {
-    // console.log(userLoggedIn);
-    if (!userLoggedIn) {
-      router.push('/login');
-    }
-  }, []);
+  // useEffect(() => {
+  //   // console.log(userLoggedIn);
+  //   if (!userLoggedIn) {
+  //     router.push('/login');
+  //   }
+  // }, []);
 
   // const { data: session, status } = useSession();
   // console.log(session);

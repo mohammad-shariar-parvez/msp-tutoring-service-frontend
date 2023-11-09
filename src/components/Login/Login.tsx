@@ -23,35 +23,36 @@ type FormValues = {
 };
 
 const LoginPage = () => {
-  const callbackUrl = useSearchParams().get('callbackUrl') as string;
-  const [call, setCall] = useState(callbackUrl);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searhParams = useSearchParams().get('redirect');
 
   const [
     userLogin,
     { data, error: responseError, isSuccess, isError, isLoading },
   ] = useUserLoginMutation();
-  const router = useRouter();
 
   // console.log(call);
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
+      console.log('res---f', res);
 
       if (res?.accessToken) {
-        if (!call && res.role == 'admin') {
+        if (res.role == 'admin') {
+          console.log('ADMIN', res.role);
+
           router.push('/admin');
-        } else if (!call && res.role == 'super_admin') {
+        } else if (res.role == 'super_admin') {
           router.push('/super_admin');
-        } else if (!call && res.role == 'user') {
-          router.push('/');
+        } else if (searhParams && res.role == 'user') {
+          console.log(res.role);
+          router.push(`${searhParams}`);
         } else {
-          // console.log(call);
-
-          router.push(call);
+          console.log('ADMIN', res.role);
+          router.push('/');
         }
-
         message.success('User logged in successfully!');
-        // console.log(res);
       }
       storeUserInfo({ accessToken: res?.accessToken });
     } catch (err: any) {

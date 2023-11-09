@@ -25,21 +25,22 @@ const ProfilePage = () => {
           },
         ]}
       />
-      <div className='container'>
-        <Row>
-          <Col xs={24} md={24} lg={8}>
+      <div className='container  '>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+          <div className=''>
             {data?.profile?.profileImage ? (
               <Image
                 src={data?.profile?.profileImage}
-                width={500}
-                height={500}
+                width={300}
+                height={300}
                 alt='eagle_image'
+                className='w-40 h-40 md:w-80 md:h-80  '
               />
             ) : (
-              <Empty description='Profile image not updated' />
+              <Empty description='Profile image not updated w-full' />
             )}
-          </Col>
-          <Col xs={24} md={24} lg={16}>
+          </div>
+          <div className=''>
             <Card style={{ margin: '10px 5px' }}>
               <div>
                 <Row justify='space-between' className='pb-4'>
@@ -61,10 +62,10 @@ const ProfilePage = () => {
                   <strong>Contact Info</strong>
                   <p>{data?.profile?.contactNo}</p>
                 </Row>
-                <Row>
-                  <strong>Bio</strong>
+                <div>
+                  <b className='block mb-2'>Bio</b>
                   <p>{data?.profile?.bio}</p>
-                </Row>
+                </div>
               </div>
             </Card>
 
@@ -74,13 +75,12 @@ const ProfilePage = () => {
                   className=' block bg-[#274279] mt-6    text-white   '
                   type='primary'
                 >
-                  {' '}
                   Update Profile
                 </Button>
               </Link>
             </Row>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -36,11 +36,13 @@ instance.interceptors.response.use(
       data: response?.data?.data,
       meta: response?.data?.meta,
     };
+    console.log("res---", responseObject);
     return responseObject;
   },
   async function (error) {
     const config = error?.config;
-    // console.log("ERROR CONFIG", error);
+    console.log("ERROR CONFIG---", error.esponse?.status);
+    console.log("ERROR CONFIG---", error);
 
     if (error?.response?.status === 403 && !config?.sent) {
       config.sent = true;

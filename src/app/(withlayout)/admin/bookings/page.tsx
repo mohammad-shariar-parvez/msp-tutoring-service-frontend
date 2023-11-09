@@ -73,13 +73,22 @@ const BookingsPage = () => {
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');
     try {
-      //   console.log(data);
       const res = await deleteBooking(id);
-      if (res) {
-        message.success('Booking Deleted successfully');
+      // if (res) {
+      //   console.log('res', res);
+      //   console.log(res);
+
+      //   message.success('Booking Deleted successfully');
+      // }
+      //@ts-ignore
+      if (res?.error) {
+        //@ts-ignore
+        message.error(res?.error?.data.message || res?.error.data);
+      } else {
+        message.success('Booking Deleted successfully ');
       }
     } catch (err: any) {
-      //   console.error(err.message);
+      console.log(err);
       message.error(err.message);
     }
   };
