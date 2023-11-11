@@ -66,7 +66,7 @@ const QuestionPage = () => {
       //   console.log(data);
       const res = await deleteQuestions(id);
       if (res) {
-        message.success('Blogs Deleted successfully');
+        message.success('Question Deleted successfully');
       }
     } catch (err: any) {
       //   console.error(err.message);

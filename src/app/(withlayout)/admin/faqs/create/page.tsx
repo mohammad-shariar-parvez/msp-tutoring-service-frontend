@@ -34,36 +34,39 @@ const CreateFaqPage = () => {
           { label: 'faqs', link: `/${base}/faqs` },
         ]}
       />
-      <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 mt-3'>
-        Create FAQ
-      </h5>
-      <Form submitHandler={adminOnSubmit}>
-        <div
-          style={{
-            border: '1px solid #d9d9d9',
-            borderRadius: '5px',
-            padding: '15px',
-            marginBottom: '10px',
-          }}
-        >
-          <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-            <Col span={16} style={{ margin: '10px 0' }}>
-              <FormInput name='question' label='Question' size='large' />
-            </Col>
 
-            <Col span={16} style={{ margin: '10px 0' }}>
+      <Form submitHandler={adminOnSubmit}>
+        <div className='bg-[#e6f3f9] p-4 my-2'>
+          <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 '>
+            Create FAQS
+          </h5>
+          <div className=' md:w-1/3'>
+            <div className='mb-4 space-y-2 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Question
+              </label>
+
+              <FormInput name='question' size='large' />
+            </div>
+            <div className='mb-4 space-y-2 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Answer
+              </label>
               <FormTextArea
                 maxLength={300}
                 name='answer'
-                label='Answer'
                 rows={4}
                 placeholder={'Max length is 300 character'}
               />
-            </Col>
-          </Row>
-          <Button className=' button-primary' htmlType='submit'>
-            Create
-          </Button>
+            </div>
+            <Button
+              size='large'
+              className=' button-primary block ms-auto    rounded-md  px-6 '
+              htmlType='submit'
+            >
+              Create
+            </Button>
+          </div>
         </div>
       </Form>
     </>

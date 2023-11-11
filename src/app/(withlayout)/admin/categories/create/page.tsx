@@ -28,34 +28,41 @@ const CreateCategoryPage = () => {
           { label: 'Categories', link: `/${base}/categories` },
         ]}
       />
-      <h1>Create Category</h1>
+
       <Form submitHandler={onSubmit}>
-        <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-          <Col span={8} style={{ margin: '10px 0' }}>
-            <div className='mb-4'>
-              <FormInput
-                name='title'
-                label='Category Name'
-                size='large'
-                type='text'
-              />
+        <div className='bg-[#e6f3f9] p-4 my-2'>
+          <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 '>
+            Create Category
+          </h5>
+          <div className=' md:w-1/3'>
+            <div className='mb-4 space-y-2 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Category Name
+              </label>
+              <FormInput name='title' size='large' type='text' />
             </div>
-            <div className='mb-2'>
-              <FormInput name='slug' label='Slug' size='large' type='text' />
+            <div className='mb-4 space-y-2 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Slug
+              </label>
+              <FormInput name='slug' size='large' type='text' />
             </div>
-            <div className='mb-2'>
-              <FormInput
-                name='imageUrl'
-                label='Image Url'
-                size='large'
-                type='url'
-              />
+            <div className='mb-4 space-y-2 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Image Url
+              </label>
+
+              <FormInput name='imageUrl' size='large' type='url' />
             </div>
-          </Col>
-        </Row>
-        <Button type='primary' htmlType='submit'>
-          Add
-        </Button>
+            <Button
+              size='large'
+              className=' button-primary block  ms-auto   rounded-md  px-6 '
+              htmlType='submit'
+            >
+              Create
+            </Button>
+          </div>
+        </div>
       </Form>
     </div>
   );

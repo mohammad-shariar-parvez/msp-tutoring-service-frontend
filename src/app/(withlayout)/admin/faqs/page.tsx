@@ -15,6 +15,7 @@ import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
 import { useDeleteFaqsMutation, useFaqsQuery } from '@/redux/api/faqApi';
+import ActionButtons from '@/components/ui/ActionButtons';
 
 const FaqPage = () => {
   const query: Record<string, any> = {};
@@ -62,7 +63,7 @@ const FaqPage = () => {
       //   console.log(data);
       const res = await deleteFaqs(id);
       if (res) {
-        message.success('Blogs Deleted successfully');
+        message.success('Faqs Deleted successfully');
       }
     } catch (err: any) {
       //   console.error(err.message);
@@ -97,22 +98,28 @@ const FaqPage = () => {
       title: 'Action',
       render: function (data: any) {
         return (
-          <>
-            <Button
-              onClick={() => onDetailsHandler(data)}
-              type='primary'
-              className='mr-2'
-            >
-              <EyeOutlined />
-            </Button>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-            >
-              <DeleteOutlined />
-            </Button>
-          </>
+          // <>
+          //   <Button
+          //     onClick={() => onDetailsHandler(data)}
+          //     type='primary'
+          //     className='mr-2'
+          //   >
+          //     <EyeOutlined />
+          //   </Button>
+          //   <Button
+          //     onClick={() => deleteHandler(data?.id)}
+          //     type='primary'
+          //     danger
+          //   >
+          //     <DeleteOutlined />
+          //   </Button>
+          // </>
+          <ActionButtons
+            data={data}
+            onDetailsHandler={onDetailsHandler}
+            deleteHandler={deleteHandler}
+            editUrl={'/admin/faqs/edit/'}
+          />
         );
       },
     },
@@ -172,12 +179,7 @@ const FaqPage = () => {
         showPagination={true}
       />
       <>
-        <Modal
-          title='FAQ'
-          open={isModalOpen}
-          onCancel={handleCancel}
-          footer={null}
-        >
+        <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
           <div className=''>
             <h1 className='font-semibold text-lg'>{details?.question}</h1>
           </div>

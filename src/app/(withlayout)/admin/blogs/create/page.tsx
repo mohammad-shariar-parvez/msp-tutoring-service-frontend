@@ -36,37 +36,37 @@ const CreateServicePage = () => {
           { label: 'blogs', link: `/${base}/blogs` },
         ]}
       />
-      <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 mt-3'>
-        Create Blog
-      </h5>
+
       <Form submitHandler={adminOnSubmit}>
-        <div
-          style={{
-            border: '1px solid #d9d9d9',
-            borderRadius: '5px',
-            padding: '15px',
-            marginBottom: '10px',
-          }}
-        >
-          <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormInput name='title' label='Title' size='large' />
-            </Col>
-
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormInput
-                name='imageUrl'
-                label='Image Url'
-                size='large'
-                type='url'
-              />
-            </Col>
-
-            <Col span={16} style={{ margin: '10px 0' }}>
-              <FormTextArea name='content' label='Content' rows={4} />
-            </Col>
-          </Row>
-          <Button className=' button-primary' htmlType='submit'>
+        <div className='bg-[#e6f3f9] p-4 my-2'>
+          <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 mt-3'>
+            Create Blog
+          </h5>
+          <div className='grid  md:grid-cols-2 gap-4'>
+            <div className='mb-4 space-y-2 md:col-span-1'>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Title
+              </label>
+              <FormInput name='title' size='large' />
+            </div>
+            <div className='mb-4 space-y-2 md:col-span-1'>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Image Url
+              </label>
+              <FormInput name='imageUrl' size='large' type='url' />
+            </div>
+            <div className='mb-4 space-y-2 md:col-span-3'>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Content
+              </label>
+              <FormTextArea name='content' rows={4} />
+            </div>
+          </div>
+          <Button
+            size='middle'
+            className='flex  button-primary rounded-md  px-6   ms-auto '
+            htmlType='submit'
+          >
             Create
           </Button>
         </div>

@@ -48,7 +48,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         </Link>
       )}
       <Popconfirm
-        title='Delete Category ?'
+        title='Confirm Delete ?'
         onConfirm={confirm}
         okText='Yes'
         cancelText='No'

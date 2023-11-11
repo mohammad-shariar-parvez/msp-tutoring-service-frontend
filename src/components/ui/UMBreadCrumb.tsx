@@ -21,7 +21,7 @@ const UMBreadCrumb = ({
     ...items.map((item) => {
       return {
         title: item.link ? (
-          <Link className='text-blue-500' href={item.link}>
+          <Link className='text-blue-500 ' href={item.link}>
             {item.label}
           </Link>
         ) : (

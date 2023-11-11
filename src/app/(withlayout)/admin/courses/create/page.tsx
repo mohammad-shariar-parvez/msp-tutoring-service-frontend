@@ -49,14 +49,8 @@ const CreateServicePage = () => {
       />
 
       <Form submitHandler={adminOnSubmit}>
-        <div
-          style={{
-            padding: '15px',
-            marginBottom: '10px',
-          }}
-          className='bg-[#e6f3f9]'
-        >
-          <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 mt-3'>
+        <div className='bg-[#e6f3f9] p-4 my-2'>
+          <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 '>
             Course information
           </h5>
           <div className='grid  md:grid-cols-3 gap-4'>
@@ -138,7 +132,7 @@ const CreateServicePage = () => {
           </div>
           <Button
             size='large'
-            className=' block bg-[#274279]     text-white    rounded-md  px-6 '
+            className=' button-primary  block  ms-auto  rounded-md  px-6 '
             htmlType='submit'
           >
             Submit

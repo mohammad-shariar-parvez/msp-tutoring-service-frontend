@@ -62,7 +62,7 @@ const FeedbackPage = () => {
     try {
       const res = await deleteFeedback(id);
       if (res) {
-        message.success('Blogs Deleted successfully');
+        message.success('Feedback Deleted successfully');
       }
     } catch (err: any) {
       //   console.error(err.message);

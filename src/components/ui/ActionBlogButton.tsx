@@ -45,7 +45,7 @@ const ActionBlogButtons: React.FC<ActionButtonsProps> = ({
       )}
 
       <Popconfirm
-        title='Delete Category ?'
+        title='Confirm Delete ?'
         onConfirm={confirm}
         okText='Yes'
         cancelText='No'

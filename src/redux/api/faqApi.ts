@@ -1,4 +1,4 @@
-import { IMeta, BookingResponse } from "@/types";
+import { IMeta } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -30,16 +30,21 @@ export const faqApi = baseApi.injectEndpoints({
 			invalidatesTags: [tagTypes.faqs],
 		}),
 
-		// get single department by id
+
 		faq: build.query({
-			query: (id) => ({
-				url: `${FAQ_URL}/${id}`,
-				method: "GET",
-			}),
+			query: (id) => {
+				console.log(`${FAQ_URL}/${id}`);
+
+				return ({
+
+
+					url: `${FAQ_URL}/${id}`,
+					method: "GET",
+				});
+			},
 			providesTags: [tagTypes.faqs],
 		}),
 
-		// update single department by id
 		updateFaqs: build.mutation({
 			query: (data) => ({
 				url: `${FAQ_URL}/${data.id}`,
@@ -49,7 +54,7 @@ export const faqApi = baseApi.injectEndpoints({
 			invalidatesTags: [tagTypes.faqs],
 		}),
 
-		// delete single department by id
+
 		deleteFaqs: build.mutation({
 			query: (id) => ({
 				url: `${FAQ_URL}/${id}`,

@@ -59,7 +59,7 @@ const ActionBookingBar: React.FC<ActionButtonsProps> = ({
       </Button>
 
       <Popconfirm
-        title='Delete Category ?'
+        title='Confirm Delete ?'
         onConfirm={confirm}
         okText='Yes'
         cancelText='No'
