@@ -1,9 +1,11 @@
 'use client';
 import type { MenuProps } from 'antd';
 import {
-  ProfileOutlined,
   TableOutlined,
   AppstoreOutlined,
+  UserOutlined,
+  UsergroupAddOutlined,
+  NotificationOutlined,
   HomeOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
@@ -13,7 +15,7 @@ export const sidebarItems = (role: string) => {
     {
       label: 'Profile',
       key: 'profile',
-      icon: <ProfileOutlined />,
+      icon: <UserOutlined />,
       children: [
         {
           label: <Link href={`/${role}/profile`}>Account Profile</Link>,
@@ -56,7 +58,7 @@ export const sidebarItems = (role: string) => {
     {
       label: 'Content',
       key: 'content',
-      icon: <AppstoreOutlined />,
+      icon: <NotificationOutlined />,
       children: [
         {
           label: <Link href={`/${role}/blogs`}>Blogs</Link>,
@@ -78,7 +80,7 @@ export const sidebarItems = (role: string) => {
     },
     {
       label: <Link href={`/${role}/manage-users`}>Manage User</Link>,
-      icon: <TableOutlined />,
+      icon: <UsergroupAddOutlined />,
       key: `/${role}/user`,
     },
   ];

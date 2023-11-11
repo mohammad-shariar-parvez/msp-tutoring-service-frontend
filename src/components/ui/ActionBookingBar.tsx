@@ -38,7 +38,7 @@ const ActionBookingBar: React.FC<ActionButtonsProps> = ({
     <div className='flex space-x-1'>
       {!(acceptBooking && data?.status === 'CONFIRMED') ? (
         <Button
-          className='bg-transparent border-none '
+          className='bg-transparent border-none ps-0  '
           onClick={() =>
             onAcceptHandler?.({
               id: data?.id,
@@ -54,7 +54,7 @@ const ActionBookingBar: React.FC<ActionButtonsProps> = ({
         onClick={() => onDetailsHandler?.(data)}
       >
         <Button className='bg-transparent border-none '>
-          <EditOutlined className='text-slate-900 text-lg' />
+          <EditOutlined className='text-slate-900 text-lg hover:text-slate-700' />
         </Button>
       </Button>
 

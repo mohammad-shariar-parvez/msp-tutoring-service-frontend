@@ -18,7 +18,7 @@ const CreateFaqPage = () => {
     try {
       const res = await addFaq(values);
       if (!!res) {
-        message.success('Blog created successfully!');
+        message.success('FAQS created successfully!');
       }
     } catch (err: any) {
       message.error(err.message);
@@ -34,7 +34,9 @@ const CreateFaqPage = () => {
           { label: 'faqs', link: `/${base}/faqs` },
         ]}
       />
-      <h1>Create FAQ</h1>
+      <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 mt-3'>
+        Create FAQ
+      </h5>
       <Form submitHandler={adminOnSubmit}>
         <div
           style={{
@@ -44,19 +46,24 @@ const CreateFaqPage = () => {
             marginBottom: '10px',
           }}
         >
-          <p style={{ fontSize: '18px', fontWeight: '500', margin: '5px 0px' }}>
-            FAQ information
-          </p>
           <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
             <Col span={16} style={{ margin: '10px 0' }}>
               <FormInput name='question' label='Question' size='large' />
             </Col>
 
             <Col span={16} style={{ margin: '10px 0' }}>
-              <FormTextArea name='answer' label='Answer' rows={4} />
+              <FormTextArea
+                maxLength={300}
+                name='answer'
+                label='Answer'
+                rows={4}
+                placeholder={'Max length is 300 character'}
+              />
             </Col>
           </Row>
-          <Button htmlType='submit'>Create</Button>
+          <Button className=' button-primary' htmlType='submit'>
+            Create
+          </Button>
         </div>
       </Form>
     </>

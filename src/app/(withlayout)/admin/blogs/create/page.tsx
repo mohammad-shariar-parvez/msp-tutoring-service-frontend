@@ -36,7 +36,9 @@ const CreateServicePage = () => {
           { label: 'blogs', link: `/${base}/blogs` },
         ]}
       />
-      <h1>Create Service</h1>
+      <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 mt-3'>
+        Create Blog
+      </h5>
       <Form submitHandler={adminOnSubmit}>
         <div
           style={{
@@ -46,9 +48,6 @@ const CreateServicePage = () => {
             marginBottom: '10px',
           }}
         >
-          <p style={{ fontSize: '18px', fontWeight: '500', margin: '5px 0px' }}>
-            Service information
-          </p>
           <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
             <Col span={8} style={{ margin: '10px 0' }}>
               <FormInput name='title' label='Title' size='large' />
@@ -67,7 +66,9 @@ const CreateServicePage = () => {
               <FormTextArea name='content' label='Content' rows={4} />
             </Col>
           </Row>
-          <Button htmlType='submit'>Create</Button>
+          <Button className=' button-primary' htmlType='submit'>
+            Create
+          </Button>
         </div>
       </Form>
     </>

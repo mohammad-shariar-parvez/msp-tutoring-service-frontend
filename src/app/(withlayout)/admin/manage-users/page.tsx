@@ -89,6 +89,8 @@ const ManageUsersPage = () => {
     {
       title: 'Action',
       render: function (data: any) {
+        console.log(data);
+
         return (
           <>
             <Button
@@ -98,6 +100,7 @@ const ManageUsersPage = () => {
                   body: { role: 'admin' },
                 })
               }
+              className=' button-primary '
               type='primary'
             >
               Make Admin
@@ -105,13 +108,9 @@ const ManageUsersPage = () => {
 
             <Button
               onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-              style={{
-                margin: '0px 5px',
-              }}
+              className='bg-transparent border-none '
             >
-              <DeleteOutlined />
+              <DeleteOutlined className='text-red-500 text-lg ' />
             </Button>
           </>
         );
@@ -148,30 +147,23 @@ const ManageUsersPage = () => {
         ]}
       />
 
-      <ActionBar title='Booking List'>
+      <ActionBar title='User List'>
         <Input
           type='text'
           size='large'
           placeholder='Search...'
-          style={{
-            width: '20%',
-          }}
           value={searchTerm}
+          className='w-64'
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
         />
-        <div>
-          <Link href='/admin/manage-users/create'>
-            <Button type='primary'>Create</Button>
+        <div className='flex space-x-1 '>
+          <Link href='/admin/courses/create'>
+            <Button className=' button-primary '>Create</Button>
           </Link>
-
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              onClick={resetFilters}
-              type='primary'
-              style={{ margin: '0px 5px' }}
-            >
+            <Button onClick={resetFilters} type='primary'>
               <ReloadOutlined />
             </Button>
           )}

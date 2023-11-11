@@ -17,7 +17,7 @@ interface ActionButtonsProps {
   editOption?: boolean;
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({
+const ActionBlogButtons: React.FC<ActionButtonsProps> = ({
   onDetailsHandler,
   deleteHandler,
   editOption = true,
@@ -29,12 +29,12 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   };
 
   return (
-    <div className='flex space-x-1'>
+    <div className='flex space-x-1  '>
       <Button
-        className='bg-transparent border-none '
+        className='bg-transparent border-none  ps-0 '
         onClick={() => onDetailsHandler?.(data)}
       >
-        <EyeOutlined className='text-orange-800 text-lg' />
+        <EyeOutlined className='text-orange-800 text-lg hover:text-orange-700 ' />
       </Button>
       {editOption && (
         <Link href={`${editUrl}/${data?.id}`}>
@@ -55,11 +55,11 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
           className='bg-transparent border-none '
           // onClick={() => deleteHandler?.(data?.id)}
         >
-          <DeleteOutlined className='text-red-500 text-lg ' />
+          <DeleteOutlined className='text-red-500 text-lg hover:text-red-400  ' />
         </Button>
       </Popconfirm>
     </div>
   );
 };
 
-export default ActionButtons;
+export default ActionBlogButtons;

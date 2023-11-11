@@ -13,6 +13,7 @@ import Image from 'next/image';
 import { useBlogsQuery, useDeleteBlogsMutation } from '@/redux/api/blogApi';
 import ActionButtons from '@/components/ui/ActionButtons';
 import HTMLReactParser from 'html-react-parser';
+import ActionBlogButtons from '@/components/ui/ActionBlogButton';
 
 const ServicePage = () => {
   const query: Record<string, any> = {};
@@ -94,7 +95,7 @@ const ServicePage = () => {
       title: 'Action',
       render: function (data: any) {
         return (
-          <ActionButtons
+          <ActionBlogButtons
             data={data}
             onDetailsHandler={onDetailsHandler}
             deleteHandler={deleteHandler}

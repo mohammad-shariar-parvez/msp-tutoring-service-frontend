@@ -23,12 +23,10 @@ interface ActionButtonsProps {
 const ActionButtons: React.FC<ActionButtonsProps> = ({
   onDetailsHandler,
   deleteHandler,
-  onAcceptHandler,
 
   editOption = true,
   data,
   editUrl,
-  acceptBooking,
 }) => {
   const confirm = () => {
     deleteHandler?.(data?.id);
@@ -36,29 +34,16 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 
   return (
     <div className='flex space-x-1'>
-      {!(acceptBooking && data?.status === 'CONFIRMED') ? (
-        <Button
-          className='bg-transparent border-none '
-          onClick={() =>
-            onAcceptHandler?.({
-              id: data?.id,
-              body: { status: 'CONFIRMED' },
-            })
-          }
-        >
-          Accept
-        </Button>
-      ) : null}
       <Button
-        className='bg-transparent border-none '
+        className='bg-transparent border-none ps-0 '
         onClick={() => onDetailsHandler?.(data)}
       >
-        <EyeOutlined className='text-orange-800 text-lg' />
+        <EyeOutlined className='text-orange-800 text-lg hover:text-orange-700  ' />
       </Button>
       {editOption && (
         <Link href={`${editUrl}/${data?.id}`}>
           <Button className='bg-transparent border-none '>
-            <EditOutlined className='text-slate-900 text-lg' />
+            <EditOutlined className='text-slate-900 text-lg hover:text-slate-700' />
           </Button>
         </Link>
       )}
@@ -73,7 +58,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
           className='bg-transparent border-none '
           // onClick={() => deleteHandler?.(data?.id)}
         >
-          <DeleteOutlined className='text-red-500 text-lg ' />
+          <DeleteOutlined className='text-red-500 text-lg hover:text-red-400 ' />
         </Button>
       </Popconfirm>
     </div>

@@ -228,21 +228,15 @@ const BookingsPage = () => {
           type='text'
           size='large'
           placeholder='Search...'
-          style={{
-            width: '20%',
-          }}
           value={searchTerm}
+          className='w-64'
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
         />
         <div>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              onClick={resetFilters}
-              type='primary'
-              style={{ margin: '0px 5px' }}
-            >
+            <Button onClick={resetFilters} type='primary'>
               <ReloadOutlined />
             </Button>
           )}

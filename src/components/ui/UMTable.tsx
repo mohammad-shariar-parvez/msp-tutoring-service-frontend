@@ -43,7 +43,7 @@ const UMTable = ({
       pagination={paginationConfig}
       onChange={onTableChange}
       // scroll={{ x: 400 }}
-      scroll={{ x: 10 }}
+      scroll={{ x: 5 }}
       className='rounded-lg'
       // className=' w-full max-w-full overflow-x-auto'
     />

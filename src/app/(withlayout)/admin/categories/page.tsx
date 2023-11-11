@@ -158,15 +158,13 @@ const CategoryPage = () => {
           type='text'
           size='large'
           placeholder='Search...'
-          style={{
-            width: '20%',
-          }}
+          className='w-64'
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
         />
-        <div className='space-x-2'>
+        {/* <div className='space-x-2'>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button onClick={resetFilters}>
               <ReloadOutlined />
@@ -176,6 +174,18 @@ const CategoryPage = () => {
           <Link href='/admin/categories/create'>
             <Button className=' button-primary'>Create</Button>
           </Link>
+        </div> */}
+        <div className='flex space-x-1 '>
+          <Link href='/admin/categories/create'>
+            <Button className='block bg-[#274279]     text-white '>
+              Create
+            </Button>
+          </Link>
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+            <Button onClick={resetFilters} type='primary'>
+              <ReloadOutlined />
+            </Button>
+          )}
         </div>
       </ActionBar>
 

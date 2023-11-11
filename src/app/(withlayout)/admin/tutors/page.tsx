@@ -150,9 +150,7 @@ const ServicePage = () => {
           type='text'
           size='large'
           placeholder='Search...'
-          style={{
-            width: '20%',
-          }}
+          className='w-64'
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
@@ -160,16 +158,10 @@ const ServicePage = () => {
         />
         <div>
           <Link href='/admin/tutors/create'>
-            <Button className='button-primary' type='primary'>
-              Create
-            </Button>
+            <Button className='button-primary'>Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              onClick={resetFilters}
-              type='primary'
-              style={{ margin: '0px 5px' }}
-            >
+            <Button onClick={resetFilters} type='primary'>
               <ReloadOutlined />
             </Button>
           )}

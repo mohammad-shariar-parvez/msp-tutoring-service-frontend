@@ -173,9 +173,7 @@ const ServicePage = () => {
         />
         <div className='flex space-x-1 '>
           <Link href='/admin/courses/create'>
-            <Button className='block bg-[#274279]     text-white '>
-              Create
-            </Button>
+            <Button className=' button-primary '>Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button onClick={resetFilters} type='primary'>
