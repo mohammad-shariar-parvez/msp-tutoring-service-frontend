@@ -10,8 +10,8 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
   const userLoggedIn = isLoggedIn();
-  console.log('router', router);
-  console.log('pathname', pathname);
+  // console.log('router', router);
+  // console.log('pathname', pathname);
 
   // useEffect(() => {
   //   // console.log(userLoggedIn);

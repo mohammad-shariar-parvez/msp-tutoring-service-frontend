@@ -3,26 +3,28 @@ import { store } from '@/redux/store';
 import { Provider } from 'react-redux';
 import StyledComponentsRegistry from './AntdRegistry';
 import { SessionProvider } from 'next-auth/react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, redirect } from 'next/navigation';
 import { getUserInfo } from '@/services/auth.service';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Row, Space, Spin } from 'antd';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { role } = getUserInfo() as any;
 
-  // console.log(role);
-
   useEffect(() => {
-    // console.log('USER IS', router2.query.callbackUrl);
+    if (role === 'user' && pathname.startsWith('/admin')) {
+      redirect('/');
+    }
+    if (role === 'admin' && !pathname.startsWith('/admin')) {
+      redirect('/admin');
+    }
+    if (role === 'super_admin' && !pathname.startsWith('/super_admin')) {
+      redirect('/seper_admin');
+    }
+  }, [pathname, role, router]);
 
-    if (role === 'admin') {
-      router.push('/admin');
-    }
-    if (role === 'super_admin') {
-      router.push('/');
-    }
-  }, []);
   return (
     <SessionProvider>
       <Provider store={store}>

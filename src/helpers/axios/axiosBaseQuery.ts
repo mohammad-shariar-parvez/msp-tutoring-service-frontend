@@ -35,9 +35,9 @@ export const axiosBaseQuery =
         return result;
       } catch (axiosError) {
         let err = axiosError as AxiosError;
-        console.log("AXIOS", err);
-        console.log("AXIOS22", err.response?.data);
-        console.log("AXIOS33", err.message);
+        // console.log("AXIOS", err);
+        // console.log("AXIOS22", err.response?.data);
+        // console.log("AXIOS33", err.message);
 
         return {
           error: {

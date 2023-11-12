@@ -11,7 +11,7 @@ import {
   ShoppingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Col, Row, Card, Button } from 'antd';
+import { Col, Row, Card, Button, Space, Spin } from 'antd';
 // import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import VChart from '@/components/ui/VChart';
@@ -19,15 +19,33 @@ import { useCoursesQuery } from '@/redux/api/courseApi';
 
 const ProfilePage = () => {
   // const [addProfile] = useAddProfileMutation();
-  const { data: bookings } = useBookingsQuery({});
-  const { data: users } = useUsersQuery({ role: 'user' });
-  const { data: courses } = useCoursesQuery({});
+  const { data: bookings, isLoading: bookingLoading } = useBookingsQuery({});
+  const { data: users, isLoading: userLoading } = useUsersQuery({
+    role: 'user',
+  });
+  const { data: courses, isLoading: coursesLoading } = useCoursesQuery({});
   //@ts-ignore
   const { data: categories } = useCategoriesQuery({});
 
   const router = useRouter();
   const { role } = getUserInfo() as any;
 
+  if (bookingLoading || userLoading || coursesLoading) {
+    return (
+      <Row
+        justify='center'
+        align='middle'
+        style={{
+          height: '100vh',
+        }}
+      >
+        <Space>
+          <Spin tip='Loading' size='large'></Spin>
+        </Space>
+      </Row>
+    );
+    console.log('YOOOOOO');
+  }
   // useEffect(() => {
   //   const pathname = router.pathname;
   //   // router.push('/');
