@@ -1,8 +1,10 @@
 'use client';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(0);
+  console.log(isLoading);
+
   useEffect(() => {
     if (isLoading == 0) {
       setIsLoading(isLoading * 10);
