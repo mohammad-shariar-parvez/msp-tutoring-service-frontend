@@ -1,11 +1,16 @@
 'use client';
 
 import { getFromLocalStorage, setToLocalStorage } from '@/utils/local-storage';
-import { Button, message, Steps } from 'antd';
+import { Button, ConfigProvider, message, Steps } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-
+import {
+  LoadingOutlined,
+  SmileOutlined,
+  SolutionOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 interface ISteps {
   title?: string;
   content?: React.ReactElement | React.ReactNode;
@@ -50,8 +55,10 @@ const StepperForm = ({
   const prev = () => {
     setCurrent(current - 1);
   };
+  console.log(steps);
 
-  const items = steps.map((item) => ({ key: item.title, title: item.title }));
+  const items = steps.map((item) => ({ key: item.title, ...item }));
+  console.log(items);
 
   const methods = useForm({ defaultValues: savedValues });
   const watch = methods.watch();
@@ -75,7 +82,19 @@ const StepperForm = ({
 
   return (
     <>
-      <Steps current={current} items={items} />
+      <ConfigProvider
+        theme={{
+          components: {
+            Steps: {
+              colorPrimary: '#274279',
+              /* here is your component tokens */
+            },
+          },
+        }}
+      >
+        <Steps current={current} items={items} />
+      </ConfigProvider>
+
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleStudentOnSubmit)}>
           <div className='py-4'>{steps[current].content}</div>
@@ -98,7 +117,7 @@ const StepperForm = ({
             )}
             {current === steps.length - 1 && (
               <Button
-                className='bg-green-600  text-white '
+                className='bg-[#274279]  text-white '
                 htmlType='submit'
                 onClick={() => message.success('Processing complete!')}
               >

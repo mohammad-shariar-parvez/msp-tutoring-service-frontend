@@ -9,7 +9,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // console.log(pathname);
+  console.log('yo');
 
   useEffect(() => {
     setIsLoading(true);

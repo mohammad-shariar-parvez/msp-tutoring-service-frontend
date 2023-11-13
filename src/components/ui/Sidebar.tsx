@@ -43,7 +43,7 @@ const SideBar = () => {
         //   top: '0px',
 
         // }}
-        className='text-black font-bold text-3xl  top-0 bg-[#e6f3f9] z-40 my-4 text-center '
+        className='text-black font-bold text-3xl  top-0 bg-[#e6f3f9] z-40 my-[14px] text-center '
       >
         MSP
       </div>

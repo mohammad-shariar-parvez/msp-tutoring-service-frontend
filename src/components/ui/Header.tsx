@@ -26,7 +26,12 @@ const Header = () => {
     {
       key: '0',
       label: (
-        <Button onClick={() => logOut()} type='text' danger>
+        <Button
+          className='ps-0 ms-0 font-semibold text-base bg-transparent border-none '
+          onClick={() => logOut()}
+          type='text'
+          danger
+        >
           Logout
         </Button>
       ),
@@ -34,7 +39,7 @@ const Header = () => {
   ];
   const { role } = getUserInfo() as any;
   return (
-    <AntHeader className='bg-white  fixed top-0  w-full left-0 right-0 z-10'>
+    <AntHeader className='bg-white fixed top-0  w-full left-0 right-0 z-10 pr-3  md:pr-7'>
       <Row
         justify='end'
         align='middle'
@@ -52,19 +57,10 @@ const Header = () => {
             height: 64,
           }}
         /> */}
-        <p
-          style={{
-            margin: '0px 5px',
-          }}
-        >
-          {role}
-        </p>
-        <Dropdown menu={{ items }}>
-          <a>
-            <Space wrap size={16}>
-              <Avatar size='large' icon={<UserOutlined />} />
-            </Space>
-          </a>
+        <p className='text-base mr-4'>{role}</p>
+
+        <Dropdown menu={{ items }} className='hover:cursor-pointer'>
+          <Avatar size='default' shape='square' icon={<UserOutlined />} />
         </Dropdown>
       </Row>
     </AntHeader>

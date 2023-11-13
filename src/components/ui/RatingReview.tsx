@@ -35,7 +35,7 @@ const RatingReview: React.FC<RatingReviewProps> = ({ courseId }) => {
   // console.log(courseBookingData);
 
   return (
-    <div className={`py-4 bg-sky-50 `}>
+    <div className={`py-4  `}>
       <Form submitHandler={reviewOnSubmit}>
         <FormTextArea name='review' rows={4} />
         <div className='flex justify-between items-center space-y-3 '>

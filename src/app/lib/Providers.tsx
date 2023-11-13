@@ -5,6 +5,8 @@ import { SessionProvider } from 'next-auth/react';
 import { store } from '@/redux/store';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
+  console.log('yppp');
+
   return (
     <SessionProvider>
       <Provider store={store}>

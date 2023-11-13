@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 	const da = getUserInfo() as any;
 
 	console.log("all info-------------------", response);
-	console.log("all info-++++++++++++",);
+	console.log("all info-++++++++++++", request,);
 
 
 	// console.log("cookieeee", cookie);

@@ -1,7 +1,16 @@
 'use client';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Badge, Avatar, Button } from 'antd';
+import {
+  Row,
+  Col,
+  Badge,
+  Avatar,
+  Button,
+  Dropdown,
+  Space,
+  MenuProps,
+} from 'antd';
 import { getUserInfo, removeUserInfo } from '@/services/auth.service';
 import CategorySider from './CategorySider';
 import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -9,6 +18,13 @@ import NavDropDown from './NavDropDown';
 import { useAppSelector } from '@/redux/hooks';
 import { useSession } from 'next-auth/react';
 import { authKey } from '@/constants/storageKey';
+import {
+  UserOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 const Navbar = () => {
   const [sideBar, setSideBar] = useState(true);
@@ -25,9 +41,32 @@ const Navbar = () => {
   }, [userRole]);
 
   const handleLogout = () => {
+    console.log('handle');
+
     removeUserInfo(authKey);
     router.push('/login');
   };
+
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: userRole ? (
+        <Button
+          onClick={handleLogout}
+          danger
+          className='ps-0 ms-0 font-semibold text-base bg-transparent border-none '
+        >
+          Logout
+        </Button>
+      ) : (
+        <Link href='/login'>
+          <Button className=' ps-0 ms-0 font-semibold text-base border-none bg-transparent'>
+            Login
+          </Button>
+        </Link>
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -97,7 +136,7 @@ const Navbar = () => {
                   </li>
                 </ul>
 
-                <div className='flex items-center space-x-4 font-semibold text-base'>
+                <div className='flex items-center space-x-2 font-semibold text-base'>
                   <Link href='/wishlist'>
                     <Badge size='small' count={total}>
                       <HeartOutlined
@@ -106,7 +145,14 @@ const Navbar = () => {
                       />
                     </Badge>
                   </Link>
-                  {userRole ? (
+                  <Dropdown menu={{ items }} className='hover:cursor-pointer'>
+                    <Avatar
+                      size='default'
+                      shape='square'
+                      icon={<UserOutlined />}
+                    />
+                  </Dropdown>
+                  {/* {userRole ? (
                     <Link href='/login'>
                       <Button
                         onClick={handleLogout}
@@ -119,7 +165,7 @@ const Navbar = () => {
                     <Link href='/login'>
                       <Button className='font-semibold text-base'>Login</Button>
                     </Link>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

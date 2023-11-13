@@ -6,6 +6,7 @@ import {
   SearchOutlined,
   ArrowRightOutlined,
   ReloadOutlined,
+  BookOutlined,
 } from '@ant-design/icons';
 import heroImage from '../../assets/hero.webp';
 import Form from '../Forms/Form';
@@ -46,20 +47,18 @@ const Banner = () => {
                 Study Ground is a platform for highly dedicated teachers and
                 students to fulfill the communication gap between students and
                 teachers.
-                <Link href='https://study-ground.com/join-as'>
-                  Connect now!
-                </Link>
+                <Link href='https://study-ground.com/login'>Connect now!</Link>
               </p>
               <div className='search-box '>
-                <div className='flex justify-between items-center w-full space-x-1'>
+                <div className='flex justify-between items-center  w-full space-x-1'>
                   <Input
                     name='course'
-                    size='large'
                     type='text'
                     placeholder='Course'
                     value={course}
                     bordered={false}
                     onChange={(e) => setCourse(e.target.value)}
+                    className='py-2'
                   />
 
                   <>
@@ -70,16 +69,18 @@ const Banner = () => {
                           searchTerm: course,
                         },
                       }}
+                      className='block py-[6px] '
                     >
                       <Button
                         onClick={resetFilters}
-                        className='hidden md:block bg-button-primary  text-white   px-3  rounded-md  '
+                        value='large'
+                        className='hidden md:block  bg-[#274279]    text-white rounded-md  '
                       >
                         Find Now
                       </Button>
                     </Link>
                     <Link href={`/search`}>
-                      <Button className=' md:hidden bg-button-primary  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'>
+                      <Button className=' md:hidden bg-[#274279]  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'>
                         <SearchOutlined />
                       </Button>
                     </Link>

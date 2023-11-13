@@ -5,7 +5,7 @@ import StyledComponentsRegistry from './AntdRegistry';
 import { SessionProvider } from 'next-auth/react';
 import { useRouter, usePathname, redirect } from 'next/navigation';
 import { getUserInfo } from '@/services/auth.service';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Row, Space, Spin } from 'antd';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
@@ -13,7 +13,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const { role } = getUserInfo() as any;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    console.log(role);
+
     if (role === 'user' && pathname.startsWith('/admin')) {
       redirect('/');
     }
