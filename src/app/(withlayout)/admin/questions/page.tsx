@@ -10,16 +10,21 @@ import UMTable from '@/components/ui/UMTable';
 
 import { Button, Input, Modal, message } from 'antd';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
+import { format, render, cancel, register } from 'timeago.js';
 import {
   useDeleteQuestionsMutation,
   useFeeedbacksQuery,
   useQuestionsQuery,
 } from '@/redux/api/feedback';
 import ActionButtons from '@/components/ui/ActionButtons';
+import socketIO from 'socket.io-client';
+
+const ENDPOINT = 'http://localhost:5010/' || '';
+const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const QuestionPage = () => {
   const query: Record<string, any> = {};
@@ -32,6 +37,27 @@ const QuestionPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [details, setDetails] = useState<any>({});
   const [deleteQuestions] = useDeleteQuestionsMutation();
+  const [sData, setSData] = useState('');
+  const [audio] = useState(
+    new Audio(
+      'https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3'
+    )
+  );
+
+  const playerNotificationSound = () => {
+    console.log('hellooooo');
+
+    audio.play();
+  };
+  console.log('HELLO)', sData);
+
+  useEffect(() => {
+    socketId.on('newNotification', (data) => {
+      setSData(data);
+      console.log('yoo yoooo', data);
+      playerNotificationSound();
+    });
+  }, []);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -164,6 +190,9 @@ const QuestionPage = () => {
             </Button>
           )}
         </div>
+        <p>HI_</p>
+
+        {format('2016-06-12', 'en_US')}
       </ActionBar>
 
       <UMTable

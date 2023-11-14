@@ -7,6 +7,9 @@ import { useRouter, usePathname, redirect } from 'next/navigation';
 import { getUserInfo } from '@/services/auth.service';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Row, Space, Spin } from 'antd';
+import socketIO from 'socket.io-client';
+const ENDPOINT = 'http://localhost:5010/' || '';
+const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -26,6 +29,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       redirect('/seper_admin');
     }
   }, [pathname, role, router]);
+  useEffect(() => {
+    socketId.on('connection', () => {});
+  }, []);
 
   return (
     <SessionProvider>
