@@ -26,6 +26,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
+import Notification from './Notification';
 const Navbar = () => {
   const [sideBar, setSideBar] = useState(true);
   const [navbar, setNavbar] = useState(false);
@@ -150,6 +151,8 @@ const Navbar = () => {
                 </ul>
 
                 <div className='flex items-center space-x-2 font-semibold text-base'>
+                  <Notification />
+
                   <Link href='/wishlist'>
                     <Badge size='small' count={total}>
                       <HeartOutlined

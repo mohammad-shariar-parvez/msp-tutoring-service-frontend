@@ -21,10 +21,10 @@ import {
   useQuestionsQuery,
 } from '@/redux/api/feedback';
 import ActionButtons from '@/components/ui/ActionButtons';
-import socketIO from 'socket.io-client';
+// import socketIO from 'socket.io-client';
 
-const ENDPOINT = 'http://localhost:5010/' || '';
-const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
+// const ENDPOINT = 'http://localhost:5010/' || '';
+// const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const QuestionPage = () => {
   const query: Record<string, any> = {};
@@ -38,26 +38,27 @@ const QuestionPage = () => {
   const [details, setDetails] = useState<any>({});
   const [deleteQuestions] = useDeleteQuestionsMutation();
   const [sData, setSData] = useState('');
-  const [audio] = useState(
-    new Audio(
-      'https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3'
-    )
-  );
 
-  const playerNotificationSound = () => {
-    console.log('hellooooo');
+  // const [audio] = useState(
+  //   new Audio(
+  //     'https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3'
+  //   )
+  // );
 
-    audio.play();
-  };
-  console.log('HELLO)', sData);
+  // const playerNotificationSound = () => {
+  //   console.log('hellooooo');
 
-  useEffect(() => {
-    socketId.on('newNotification', (data) => {
-      setSData(data);
-      console.log('yoo yoooo', data);
-      playerNotificationSound();
-    });
-  }, []);
+  //   audio.play();
+  // };
+  // console.log('HELLO)', sData);
+
+  // useEffect(() => {
+  //   socketId.on('newNotification', (data) => {
+  //     setSData(data);
+  //     console.log('yoo yoooo', data);
+  //     playerNotificationSound();
+  //   });
+  // }, []);
 
   const showModal = () => {
     setIsModalOpen(true);

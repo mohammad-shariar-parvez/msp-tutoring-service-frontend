@@ -23,7 +23,11 @@ import Form from '@/components/Forms/Form';
 import FormDatePicker from '@/components/Forms/FormDatePicker';
 import ActionButtons from '@/components/ui/ActionButtons';
 import ActionBookingBar from '@/components/ui/ActionBookingBar';
+import socketIO from 'socket.io-client';
+import { useAddNotificationMutation } from '@/redux/api/notificationApi';
 
+const ENDPOINT = 'http://localhost:5010/' || '';
+const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 const BookingsPage = () => {
   const query: Record<string, any> = {};
 
@@ -37,6 +41,7 @@ const BookingsPage = () => {
   const [details, setDetails] = useState<any>({});
   const [deleteBooking] = useDeleteBookingMutation();
   const [updateBooking] = useUpdateBookingMutation();
+  const [addNotification] = useAddNotificationMutation();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -66,7 +71,6 @@ const BookingsPage = () => {
   }
   const { data, isLoading } = useBookingsQuery({ ...query });
 
-  //TODO - enable view booking
   const bookings = data?.bookings;
   const meta = data?.meta;
 
@@ -74,12 +78,6 @@ const BookingsPage = () => {
     message.loading('Deleting.....');
     try {
       const res = await deleteBooking(id);
-      // if (res) {
-      //   console.log('res', res);
-      //   console.log(res);
-
-      //   message.success('Booking Deleted successfully');
-      // }
       //@ts-ignore
       if (res?.error) {
         //@ts-ignore
@@ -91,10 +89,6 @@ const BookingsPage = () => {
       console.log(err);
       message.error(err.message);
     }
-  };
-  const editHandlar = async (data: any) => {
-    setRowData(data);
-    setIsModalOpen(true);
   };
 
   const dateOnSubmit = async (values: any) => {
@@ -110,6 +104,48 @@ const BookingsPage = () => {
     } catch (err: any) {
       message.error(err.message);
     }
+  };
+
+  /* SEND notification to socket.io */
+  const onAcceptHandler = (userId: string, course: string, values: any) => {
+    // console.log(userId);
+    // console.log(course);
+    // console.log(values);
+
+    updateBooking(values);
+    const x = addNotification({
+      userId,
+      title: `your ordered - ${course}  course is confirmed .Please pay`,
+    });
+    console.log('check', x);
+
+    socketId.emit('notification', {
+      userId,
+      title: `your ordered - ${course}  course is confirmed .Please pay`,
+    });
+  };
+
+  const onDetailsHandler = (values: any) => {
+    setIsModalOpen(true);
+    setDetails(values);
+  };
+
+  const onPaginationChange = (page: number, pageSize: number) => {
+    // console.log('Page:', page, 'PageSize:', pageSize);
+    setPage(page);
+    setSize(pageSize);
+  };
+  const onTableChange = (pagination: any, filter: any, sorter: any) => {
+    const { order, field } = sorter;
+    // console.log(order, field);
+    setSortBy(field as string);
+    setSortOrder(order === 'ascend' ? 'asc' : 'desc');
+  };
+
+  const resetFilters = () => {
+    setSortBy('');
+    setSortOrder('');
+    setSearchTerm('');
   };
 
   const columns = [
@@ -144,35 +180,6 @@ const BookingsPage = () => {
       render: function (data: any) {
         return (
           <>
-            {/* <Button
-              onClick={() =>
-                updateBooking({
-                  id: data?.id,
-                  body: { status: 'CONFIRMED' },
-                })
-              }
-              type='primary'
-            >
-              Accept
-            </Button>
-
-            <Button
-              style={{
-                margin: '0px 5px',
-              }}
-              onClick={() => editHandlar(data)}
-              type='primary'
-            >
-              <EditOutlined />
-            </Button>
-
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-            >
-              <DeleteOutlined />
-            </Button> */}
             <ActionBookingBar
               data={data}
               onDetailsHandler={onDetailsHandler}
@@ -185,32 +192,6 @@ const BookingsPage = () => {
       },
     },
   ];
-
-  const onAcceptHandler = (values: any) => {
-    updateBooking(values);
-  };
-  const onDetailsHandler = (values: any) => {
-    setIsModalOpen(true);
-    setDetails(values);
-  };
-
-  const onPaginationChange = (page: number, pageSize: number) => {
-    // console.log('Page:', page, 'PageSize:', pageSize);
-    setPage(page);
-    setSize(pageSize);
-  };
-  const onTableChange = (pagination: any, filter: any, sorter: any) => {
-    const { order, field } = sorter;
-    // console.log(order, field);
-    setSortBy(field as string);
-    setSortOrder(order === 'ascend' ? 'asc' : 'desc');
-  };
-
-  const resetFilters = () => {
-    setSortBy('');
-    setSortOrder('');
-    setSearchTerm('');
-  };
 
   return (
     <div>

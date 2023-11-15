@@ -20,6 +20,7 @@ const CommentsSection: React.FC<CommentProps> = ({ id }) => {
   };
   const { data } = useReviewsQuery({ ...query });
   const reviewData = data?.reviews;
+  console.log('YOOOOOOO');
 
   return (
     <div className='p-4 bg-white py-8 my-8'>

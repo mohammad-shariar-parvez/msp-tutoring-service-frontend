@@ -7,10 +7,10 @@ import FormTextArea from '../Forms/FormTextArea';
 import Form from '../Forms/Form';
 import FormInput from '../Forms/FormInput';
 import { useAddQuestionMutation } from '@/redux/api/feedback';
-import socketIO from 'socket.io-client';
+// import socketIO from 'socket.io-client';
 
-const ENDPOINT = 'http://localhost:5010/' || '';
-const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
+// const ENDPOINT = 'http://localhost:5010/' || '';
+// const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 const Demo = () => {
   const [addQuestion] = useAddQuestionMutation();
   const questionOnSubmit = async (values: any) => {
@@ -18,10 +18,10 @@ const Demo = () => {
       const res = await addQuestion(values);
       if (!!res) {
         message.success('Question sent successfully!');
-        socketId.emit('notification', {
-          name: values.name,
-          requirement: values.requirement,
-        });
+        // socketId.emit('notification', {
+        //   name: values.name,
+        //   requirement: values.requirement,
+        // });
       }
     } catch (err: any) {
       message.error(err.message);

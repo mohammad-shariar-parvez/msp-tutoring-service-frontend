@@ -14,6 +14,13 @@ export interface ICategory {
   updatedAt: string;
 
 }
+export interface INotification {
+  id: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+
+}
 export interface IBlogs {
 
   id: string;

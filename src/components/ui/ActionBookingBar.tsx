@@ -12,7 +12,7 @@ import Link from 'next/link';
 interface ActionButtonsProps {
   onDetailsHandler?: (detailsData: any) => void;
   deleteHandler?: (deleteData: any) => void;
-  onAcceptHandler?: (deleteData: any) => void;
+  onAcceptHandler?: (userId: string, course: string, deleteData: any) => void;
 
   data?: any;
   editUrl?: string;
@@ -40,7 +40,7 @@ const ActionBookingBar: React.FC<ActionButtonsProps> = ({
         <Button
           className='bg-transparent border-none ps-0  '
           onClick={() =>
-            onAcceptHandler?.({
+            onAcceptHandler?.(data?.userId, data?.course?.title, {
               id: data?.id,
               body: { status: 'CONFIRMED' },
             })
