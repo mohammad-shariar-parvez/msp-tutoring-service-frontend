@@ -154,7 +154,11 @@ const Navbar = () => {
                   <Notification />
 
                   <Link href='/wishlist'>
-                    <Badge size='small' count={total}>
+                    <Badge
+                      size='small'
+                      count={total}
+                      style={{ padding: '0px 2px', marginRight: '4px' }}
+                    >
                       <HeartOutlined
                         className=' text-lg cursor-pointer     p-1 
                            text-pink-600'

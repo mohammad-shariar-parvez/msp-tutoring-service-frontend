@@ -472,6 +472,23 @@ html {
 }
 
 
+/* 
+notification dropdown
+*/
+
+/* Default max height for small devices */
+.overlay {
+  max-height: 120px;
+  background-color: #564ffd !important;
+}
+
+/* Responsive max height for medium devices (md) */
+@media (min-width: 768px) {
+  .overlay {
+    max-height: 200px;
+  }
+}
+
 
 @media (min-width: 768px) {
   .your-banner-class {
