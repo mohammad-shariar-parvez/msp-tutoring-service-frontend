@@ -15,6 +15,7 @@ instance.defaults.timeout = 60000;
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
+    //
     // Do something before request is sent
     const accessToken = getFromLocalStorage(authKey);
     if (accessToken) {

@@ -11,11 +11,16 @@ import socketIO from 'socket.io-client';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import { INotification } from '@/types';
+import { getUserInfo } from '@/services/auth.service';
 
 const ENDPOINT = 'http://localhost:5010/' || '';
 const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const Notification = () => {
+  const { userId } = getUserInfo() as any;
+  console.log(userId);
+  if (userId) {
+  }
   const { data, refetch } = useNotificationsQuery({
     limit: 10,
     refetchOnMountOrArgChange: true,
@@ -48,48 +53,56 @@ const Notification = () => {
 
   const notificationData = data?.notification;
 
-  const items: MenuProps['items'] = notificationData?.map(
-    (item: INotification) => ({
-      key: item.id,
-      label: (
-        <div className='flex justify-between items-start space-x-4  '>
-          <p className='cursor-pointer bg-transparent border-none'>
-            {item.title}
-          </p>
-          <button
-            onClick={(e) => handleDelete(item.id)}
-            className='bg-transparent border-none mt-1 '
-          >
-            <DeleteOutlined
-              // onClick={removeWishList}
-              className=' cursor-pointer   text-red-500 '
-            />
-          </button>
-        </div>
-      ),
-    })
-  );
+  const items: MenuProps['items'] = notificationData
+    ? notificationData?.map((item: INotification) => ({
+        key: item.id,
+        label: (
+          <div className='flex justify-between items-start space-x-4  '>
+            <p className='cursor-pointer bg-transparent border-none'>
+              {item.title}
+            </p>
+            <button
+              onClick={() => handleDelete(item.id)}
+              className='bg-transparent border-none mt-1 '
+            >
+              <DeleteOutlined
+                // onClick={removeWishList}
+                className=' cursor-pointer   text-red-500 '
+              />
+            </button>
+          </div>
+        ),
+      }))
+    : [
+        {
+          key: '0',
+          disabled: true,
+          label: (
+            <p className='cursor-pointer bg-transparent border-none'>
+              No Notification Yet
+            </p>
+          ),
+        },
+      ];
 
   return (
     <Dropdown
       overlayStyle={{
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
       }}
-      overlayClassName={` overflow-y-auto  mt-12 max-h-[220px]  top-4 max-w-[250px] md:max-w-xs rounded-lg z-[0] `}
+      overlayClassName={` overflow-y-auto  mt-12 max-h-[220px]  top-4 max-w-[250px] md:max-w-xs rounded-lg z-[0] fixed `}
       menu={{ items }}
       placement='bottomRight'
       arrow={{ pointAtCenter: true }}
       trigger={['click']}
     >
-      <a onClick={(e) => e.preventDefault()}>
-        <Badge
-          size='small'
-          count={data?.meta?.total}
-          style={{ padding: '0px 2px', marginRight: '4px' }}
-        >
-          <BellOutlined className=' text-lg cursor-pointerp-1 mx-0 px-0 text-pink-600' />
-        </Badge>
-      </a>
+      <Badge
+        size='small'
+        count={data?.meta?.total}
+        style={{ padding: '4px 2px', marginRight: '4px' }}
+      >
+        <BellOutlined className=' text-lg cursor-pointerp-1 mx-0 px-0 text-pink-600' />
+      </Badge>
     </Dropdown>
   );
 };

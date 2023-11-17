@@ -19,8 +19,8 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 	const cookies = request;
 	const da = getUserInfo() as any;
 
-	console.log("all info-------------------", response);
-	console.log("all info-++++++++++++", request,);
+	// console.log("all info-------------------", request.cookies);
+	// console.log("all info-++++++++++++", request,);
 
 
 	// console.log("cookieeee", cookie);

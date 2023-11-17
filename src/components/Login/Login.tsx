@@ -6,16 +6,20 @@ import { GoogleOutlined, GithubOutlined } from '@ant-design/icons';
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import { SubmitHandler } from 'react-hook-form';
-import { useUserLoginMutation } from '@/redux/api/authApi';
+import {
+  useOAuthAccessMutation,
+  useUserLoginMutation,
+} from '@/redux/api/authApi';
 import { getUserInfo, storeUserInfo } from '@/services/auth.service';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 // import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '@/schemas/login';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 type FormValues = {
   id: string;
@@ -26,17 +30,19 @@ const LoginPage = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searhParams = useSearchParams().get('redirect');
+  const { data: session, status } = useSession();
+  console.log(searhParams);
 
   const [
     userLogin,
     { data, error: responseError, isSuccess, isError, isLoading },
   ] = useUserLoginMutation();
+  const [oAuthAccess] = useOAuthAccessMutation();
 
-  // console.log(call);
+  console.log(session);
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await userLogin({ ...data }).unwrap();
-      console.log('res---f', res);
 
       if (res?.accessToken) {
         if (res.role == 'admin') {
@@ -62,10 +68,130 @@ const LoginPage = () => {
 
   // const githubHandler = () => {
   //   signIn('github', {
-  //     callbackUrl: callbackUrl || 'https://msp-pc-builder.vercel.app/',
+  //     call: 'http://localhost:3000/',
   //   });
   //   // sessionStorage.removeItem('previousPage');
   // };
+  const githubHandler = async () => {
+    await signIn('github');
+
+    // if (status === 'authenticated' && session) {
+    //   // Send session data to RTK query
+    //   const res = await oAuthAccess({
+    //     email: session?.user?.email,
+    //     provider: true,
+    //   }).unwrap();
+    //   if (res?.accessToken) {
+    //     if (res.role == 'admin') {
+    //       console.log('ADMIN', res.role);
+
+    //       router.push('/admin');
+    //     } else if (res.role == 'super_admin') {
+    //       router.push('/super_admin');
+    //     } else if (searhParams && res.role == 'user') {
+    //       console.log(res.role);
+    //       router.push(`${searhParams}`);
+    //     } else {
+    //       console.log('ADMIN', res.role);
+    //       router.push('/');
+    //     }
+    //     message.success('User logged in successfully!');
+    //     storeUserInfo({ accessToken: res?.accessToken });
+    //   }
+    //   // console.log('session', session);
+    //   // console.log(res);
+    // }
+  };
+  console.log('status is', status);
+
+  // if (status === 'authenticated' && session) {
+  //   console.log('YOOOOOOOOOOO 6546464646 ');
+
+  //   // Send session data to RTK query
+  //   const res = await oAuthAccess({
+  //     email: session?.user?.email,
+  //     provider: true,
+  //   }).unwrap();
+  //   await storeUserInfo({ accessToken: res?.accessToken });
+  //   console.log('RESSSSSSSSSSSSSSS', res);
+  //   console.log('STAAAAAAAAAA', status, session);
+
+  //   if (res?.accessToken) {
+  //     if (res.role == 'admin') {
+  //       console.log('ADMIN', res.role);
+
+  //       router.push('/admin');
+  //     } else if (res.role == 'super_admin') {
+  //       router.push('/super_admin');
+  //     } else if (searhParams && res.role == 'user') {
+  //       console.log(res.role);
+  //       router.push(`${searhParams}`);
+  //     } else {
+  //       console.log('ADMIN', res.role);
+  //       router.push('/');
+  //     }
+  //     message.success('User logged in successfully!');
+  //     storeUserInfo({ accessToken: res?.accessToken });
+  //   }
+  //   console.log('google  session', session);
+  //   console.log('google  session', res);
+  // }
+
+  const googleHandler = async () => {
+    const res = await signIn('google');
+
+    if (res?.ok && data) {
+      console.log('DATA', data);
+    }
+    console.log('RESSS', res);
+
+    // if (status === 'authenticated' && session) {
+    //   console.log('YOOOOOOOOOOO 6546464646 ', status);
+
+    //   // Send session data to RTK query
+    //   const res = await oAuthAccess({
+    //     email: session?.user?.email,
+    //     provider: true,
+    //   }).unwrap();
+    //   console.log('RESSSSSSSSSSSSSSS', res);
+
+    //   storeUserInfo({ accessToken: res?.accessToken });
+    //   console.log('STAAAAAAAAAA', status, session);
+
+    //   if (res?.accessToken) {
+    //     console.log('access token have', res?.accessToken);
+
+    //     if (res.role == 'admin') {
+    //       console.log('ADMIN', res.role);
+
+    //       router.push('/admin');
+    //     } else if (res.role == 'super_admin') {
+    //       router.push('/super_admin');
+    //     } else if (searhParams && res.role == 'user') {
+    //       console.log(res.role);
+    //       router.push(`${searhParams}`);
+    //     } else {
+    //       console.log('ADMIN', res.role);
+    //       router.push('/');
+    //     }
+    //     message.success('User logged in successfully!');
+    //     storeUserInfo({ accessToken: res?.accessToken });
+    //   }
+    //   console.log('google  session', session);
+    //   console.log('google  session', res);
+    // }
+  };
+
+  // useEffect(() => {
+  //   if (status === 'authenticated' && session) {
+  //     // Send session data to RTK query
+  //     const res = oAuthAccess({
+  //       email: session?.user?.email,
+  //       provider: true,
+  //     }).unwrap();
+  //     storeUserInfo({ accessToken: res?.accessToken });
+  //   }
+  // }, []);
 
   return (
     <section className='container  flex justify-center items-center h-screen '>
@@ -130,38 +256,15 @@ const LoginPage = () => {
             </Button>
           </Form>
 
-          {/* <Divider className='mt-6 font-medium text-lg' plain>
+          <Divider className='mt-6 font-medium text-lg' plain>
             or
           </Divider>
-          <div className='flex justify-center'>
-            <GithubOutlined className='text-3xl' onClick={githubHandler} />
-          </div> */}
+          <div className='flex justify-center space-x-4 text-3xl text-[#274279]'>
+            <GithubOutlined onClick={githubHandler} />
+            <GoogleOutlined onClick={googleHandler} />
+          </div>
         </div>
       </div>
-
-      {/* <div>
-        <h1
-          style={{
-            margin: '15px 0px',
-          }}
-        >
-          First login your account
-        </h1>
-        <div>
-          
-        </div>
-      </div> */}
-      {/* <div>
-        <GoogleOutlined
-          onClick={() =>
-            signIn('google', {
-              callbackUrl:
-                sessionStorage.getItem('previousPage') ||
-                'https://msp-pc-builder.vercel.app/',
-            })
-          }
-        />
-      </div> */}
     </section>
   );
 };

@@ -16,7 +16,7 @@ import CategorySider from './CategorySider';
 import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
 import NavDropDown from './NavDropDown';
 import { useAppSelector } from '@/redux/hooks';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { authKey } from '@/constants/storageKey';
 import {
   UserOutlined,
@@ -24,6 +24,7 @@ import {
   MenuUnfoldOutlined,
   UploadOutlined,
   VideoCameraOutlined,
+  BellOutlined,
 } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import Notification from './Notification';
@@ -33,19 +34,20 @@ const Navbar = () => {
   const { total } = useAppSelector((state) => state.wishList);
   const [userRole, setUserRole] = useState(null);
   const { data: session, status } = useSession();
-  const { role } = getUserInfo() as any;
+  const { role, userId } = getUserInfo() as any;
 
   const router = useRouter();
+  console.log(session, status);
+
   useEffect(() => {
     const { role } = getUserInfo() as any;
     setUserRole(role);
-    console.log(role);
   }, [userRole]);
 
   const handleLogout = () => {
     console.log('handle');
-
     removeUserInfo(authKey);
+    signOut();
     router.push('/login');
   };
 
@@ -64,14 +66,14 @@ const Navbar = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
+
       label: userRole ? (
-        <Button
+        <button
           onClick={handleLogout}
-          danger
-          className='ps-0 ms-0 font-semibold text-base bg-transparent border-none '
+          className=' font-semibold text-base bg-transparent border-none cursor-pointer text-red-500'
         >
           Logout
-        </Button>
+        </button>
       ) : (
         <Link href='/login'>
           <Button className=' ps-0 ms-0 font-semibold text-base border-none bg-transparent'>
@@ -150,8 +152,18 @@ const Navbar = () => {
                   </li>
                 </ul>
 
-                <div className='flex items-center space-x-2 font-semibold text-base'>
-                  <Notification />
+                <div className='flex items-center space-x-2 font-semibold text-base relative'>
+                  {userId ? (
+                    <Notification />
+                  ) : (
+                    <Badge
+                      size='small'
+                      count={0}
+                      style={{ padding: '4px 2px', marginRight: '4px' }}
+                    >
+                      <BellOutlined className=' text-lg cursor-pointerp-1 mx-0 px-0 text-pink-600' />
+                    </Badge>
+                  )}
 
                   <Link href='/wishlist'>
                     <Badge
@@ -165,12 +177,18 @@ const Navbar = () => {
                       />
                     </Badge>
                   </Link>
-                  <Dropdown menu={{ items }} className='hover:cursor-pointer'>
-                    <Avatar
+                  <Dropdown
+                    menu={{ items }}
+                    arrow={{ pointAtCenter: true }}
+                    placement='bottom'
+                    overlayClassName={`  mt-12   top-3  rounded-lg z-[200] fixed  `}
+                  >
+                    {/* <Avatar
                       size='default'
                       shape='square'
                       icon={<UserOutlined />}
-                    />
+                    /> */}
+                    <UserOutlined className='cursor-pointer ' />
                   </Dropdown>
                   {/* {userRole ? (
                     <Link href='/login'>

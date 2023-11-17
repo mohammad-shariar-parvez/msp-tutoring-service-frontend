@@ -1,3 +1,4 @@
+import { storeUserInfo } from "@/services/auth.service";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 const AUTH_URL = "/auth";
@@ -20,6 +21,32 @@ export const authApi: any = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user]
     }),
+    oAuthAccess: build.mutation({
+      query: (loginData) => ({
+        url: `${AUTH_URL}/oauth`,
+        method: "POST",
+        data: loginData
+      }),
+      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          console.log("redux res", result?.data?.accessToken);
+
+          // storeUserInfo({ accessToken: result?.data?.accessToken });
+          localStorage.setItem(
+            "accessToken",
+            JSON.stringify({
+              accessToken: result?.data?.accessToken,
+            }),
+          );
+
+        }
+        catch (err) {
+          // do nothing
+        }
+      },
+      invalidatesTags: [tagTypes.user]
+    },),
     changePassword: build.mutation({
       query: (loginData) => ({
         url: `${AUTH_URL}/change-password`,
@@ -47,4 +74,4 @@ export const authApi: any = baseApi.injectEndpoints({
 });
 
 export const { useUserLoginMutation, useUserSignUpMutation, useChangePasswordMutation, useForgotPasswordMutation,
-  useResetPasswordMutation, } = authApi;
+  useResetPasswordMutation, useOAuthAccessMutation } = authApi;

@@ -41,7 +41,8 @@ const Banner = () => {
           <Col md={24} lg={14} className='column-banner'>
             <div className='mt-[110px]'>
               <h1 className='sg-title-txt'>
-                <span>Connect</span> with best teachers near you
+                <span className='text-pink-600'>Connect</span> with best
+                teachers near you
               </h1>
               <p className='sg-title-sub-tx'>
                 Study Ground is a platform for highly dedicated teachers and
