@@ -11,26 +11,22 @@ import {
   Space,
   MenuProps,
 } from 'antd';
-import { getUserInfo, removeUserInfo } from '@/services/auth.service';
+
 import CategorySider from './CategorySider';
 import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
 import NavDropDown from './NavDropDown';
 import { useAppSelector } from '@/redux/hooks';
 import { signOut } from 'next-auth/react';
-import { authKey } from '@/constants/storageKey';
 import { UserOutlined, BellOutlined } from '@ant-design/icons';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Notification from './Notification';
-const Navbar = ({ session }: { session: boolean }) => {
+const Navbar = ({ session }: Record<string, any>) => {
+  console.log(session);
+
+  const [navbar, setNavbar] = useState(false);
   const [sideBar, setSideBar] = useState(true);
 
   const { total } = useAppSelector((state) => state.wishList);
-
-  // const { data: session, status } = useSession();
-  const { role, userId } = getUserInfo() as any;
-
-  const router = useRouter();
-  // console.log(session);
 
   const handleLogout = () => {
     // console.log('handle');
@@ -39,29 +35,31 @@ const Navbar = ({ session }: { session: boolean }) => {
     // await router.push('/login');
   };
 
-  // const changeBackground = () => {
-  //   if (window.scrollY >= 5) {
-  //     setNavbar(true);
-  //   } else {
-  //     setNavbar(false);
-  //   }
-  // };
+  const changeBackground = () => {
+    if (window.scrollY >= 5) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
 
-  // if (typeof window != 'undefined') {
-  //   window.addEventListener('scroll', changeBackground);
-  // }
+  if (typeof window != 'undefined') {
+    window.addEventListener('scroll', changeBackground);
+  }
 
   const items: MenuProps['items'] = [
     {
       key: '1',
 
       label: session ? (
-        <button
-          onClick={handleLogout}
-          className=' font-semibold text-base bg-transparent border-none cursor-pointer text-red-500'
-        >
-          Logout
-        </button>
+        <>
+          <button
+            onClick={handleLogout}
+            className=' font-semibold text-base bg-transparent border-none cursor-pointer text-red-500'
+          >
+            Logout
+          </button>
+        </>
       ) : (
         <Link href='/login'>
           <Button className=' ps-0 ms-0 font-semibold text-base border-none bg-transparent'>
@@ -95,7 +93,11 @@ const Navbar = ({ session }: { session: boolean }) => {
             <CategorySider sidebar={sideBar} />
           </Col>
           <Col xs={24} md={24} lg={24} className=''>
-            <div className=' fixed w-full left-0 right-0 z-50 bg-[#f9f9f9] shadow-sm top-0 '>
+            <div
+              className={`fixed w-full left-0 right-0 z-50 ${
+                navbar ? 'bg-[#f9f9f9] shadow-md ' : 'bg-white'
+              }  top-0`}
+            >
               <div className=' container  flex justify-between items-center   py-4 md:py-1 '>
                 <h2>MSP Tutoring</h2>
                 <ul className='flex justify-between items-center w-full list-none fixed bottom-0 md:static z-50  left-0 md:w-auto text-center bg-blue-100 md:bg-inherit  '>
@@ -107,11 +109,11 @@ const Navbar = ({ session }: { session: boolean }) => {
                       Home
                     </Link>
                   </li>
-                  {role ? (
+                  {session ? (
                     <li className='   md:w-28 p-4   block '>
                       <Link
                         className='text-black md:hover:text-slate-400 font-semibold text-base'
-                        href={`/${role}`}
+                        href={`/${session?.role}`}
                       >
                         Dashboard
                       </Link>
@@ -141,7 +143,7 @@ const Navbar = ({ session }: { session: boolean }) => {
                 </ul>
 
                 <div className='flex items-center space-x-2 font-semibold text-base relative'>
-                  {userId ? (
+                  {session?.accessToken ? (
                     <Notification />
                   ) : (
                     <Badge
@@ -149,7 +151,7 @@ const Navbar = ({ session }: { session: boolean }) => {
                       count={0}
                       style={{ padding: '4px 2px', marginRight: '4px' }}
                     >
-                      <BellOutlined className=' text-lg cursor-pointerp-1 mx-0 px-0 text-pink-600' />
+                      <BellOutlined className=' text-lg cursor-pointerp-1 mx-0 px-0 text-pink-600 cursor-pointer' />
                     </Badge>
                   )}
 
@@ -171,27 +173,8 @@ const Navbar = ({ session }: { session: boolean }) => {
                     placement='bottom'
                     overlayClassName={`  mt-12   top-3  rounded-lg z-[200] fixed  `}
                   >
-                    {/* <Avatar
-                      size='default'
-                      shape='square'
-                      icon={<UserOutlined />}
-                    /> */}
                     <UserOutlined className='cursor-pointer ' />
                   </Dropdown>
-                  {/* {userRole ? (
-                    <Link href='/login'>
-                      <Button
-                        onClick={handleLogout}
-                        className='font-semibold text-base'
-                      >
-                        Logout
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Link href='/login'>
-                      <Button className='font-semibold text-base'>Login</Button>
-                    </Link>
-                  )} */}
                 </div>
               </div>
             </div>

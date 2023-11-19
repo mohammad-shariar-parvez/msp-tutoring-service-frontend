@@ -3,10 +3,11 @@ import { Button, Divider, message } from 'antd';
 import loginImage from '../../assets/login.png';
 import Image from 'next/image';
 import Form from '@/components/Forms/Form';
-import { GithubOutlined } from '@ant-design/icons';
+
+import { GithubOutlined, GoogleOutlined } from '@ant-design/icons';
 import FormInput from '@/components/Forms/FormInput';
 import { SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpSchema } from '@/schemas/signUp';
 import Link from 'next/link';
@@ -19,7 +20,7 @@ type FormValues = {
 
 const SignUpPage = () => {
   const router = useRouter();
-
+  const searhParams = useSearchParams().get('redirect');
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const result = await signIn('msp-tutoring-signup', {
@@ -32,7 +33,7 @@ const SignUpPage = () => {
       if (result?.ok && !result.error) {
         message.success('User Created  successfully!');
         router.refresh();
-        router.push('/');
+        router.push('/', { scroll: false });
       } else {
         message.error('Could not create user!');
       }
@@ -42,6 +43,18 @@ const SignUpPage = () => {
       message.error(err?.data?.message || 'Something went wrong');
     }
   };
+
+  const githubHandler = async () => {
+    await signIn('github', {
+      callbackUrl: searhParams || 'http://localhost:3000/',
+    });
+  };
+  const googleHandler = async () => {
+    await signIn('google', {
+      callbackUrl: searhParams || 'http://localhost:3000/',
+    });
+  };
+
   return (
     <section className='container  flex justify-center items-center h-screen '>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-8 '>
@@ -110,11 +123,10 @@ const SignUpPage = () => {
           <Divider className='mt-6 font-medium text-lg' plain>
             or
           </Divider>
-          <div className='flex justify-center'>
-            <GithubOutlined
-              className='text-3xl'
-              onClick={() => signIn('github')}
-            />
+
+          <div className='flex justify-center space-x-4 text-3xl text-[#274279]'>
+            <GithubOutlined onClick={githubHandler} />
+            <GoogleOutlined onClick={googleHandler} />
           </div>
         </div>
       </div>

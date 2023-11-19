@@ -9,8 +9,13 @@ function ForgotPasswordPage() {
   const [forgotPassword] = useForgotPasswordMutation();
   const onSubmit = async (values: { id: string }) => {
     try {
-      await forgotPassword(values);
-      message.success('Reset link has been sent to your email');
+      const res = await forgotPassword(values);
+      console.log('ressssssssssss', res);
+      if (res?.error) {
+        message.error(res?.error.data.message);
+      } else {
+        message.success('Reset link has been sent to your email');
+      }
     } catch (error) {}
   };
   return (
@@ -23,7 +28,12 @@ function ForgotPasswordPage() {
             <label className='font-bold text-base text-[#565656] mb-4'>
               Email
             </label>
-            <FormInput name='email' placeholder='Enter Your Email' required />
+            <FormInput
+              name='email'
+              placeholder='Enter Your Email'
+              type='email'
+              required
+            />
           </div>
           <Button
             htmlType='submit'

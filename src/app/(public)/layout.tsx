@@ -31,7 +31,7 @@ const PublicLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <div className='bg-white'>
-        <Navbar session={session?.accessToken ? true : false} />
+        <Navbar session={session} />
         {children}
         <Footer />
       </div>

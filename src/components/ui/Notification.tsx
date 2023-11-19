@@ -11,16 +11,11 @@ import socketIO from 'socket.io-client';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import { INotification } from '@/types';
-import { getUserInfo } from '@/services/auth.service';
 
 const ENDPOINT = 'http://localhost:5010/' || '';
 const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const Notification = () => {
-  const { userId } = getUserInfo() as any;
-  // console.log(userId);
-  if (userId) {
-  }
   const { data, refetch } = useNotificationsQuery({
     limit: 10,
     refetchOnMountOrArgChange: true,
@@ -101,7 +96,7 @@ const Notification = () => {
         count={data?.meta?.total}
         style={{ padding: '4px 2px', marginRight: '4px' }}
       >
-        <BellOutlined className=' text-lg cursor-pointerp-1 mx-0 px-0 text-pink-600' />
+        <BellOutlined className=' text-lg cursor-pointer p-1 mx-0 px-0 text-pink-600' />
       </Badge>
     </Dropdown>
   );

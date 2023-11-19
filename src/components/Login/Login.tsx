@@ -29,11 +29,11 @@ const LoginPage = () => {
         redirect: false,
         // callbackUrl: "/",
       });
-      console.log(result, 'result');
+
       if (result?.ok && !result.error) {
         message.success('User Created  successfully!');
         router.refresh();
-        router.push('/');
+        router.push('/', { scroll: false });
       } else {
         message.error('Password is incorrect!');
       }

@@ -18,7 +18,7 @@ export const authOptions: AuthOptions = {
 			clientId: process.env.GITHUB_ID as string,
 			clientSecret: process.env.GITHUB_SECRET as string,
 			profile(profile, tokens) {
-				console.log("profile", profile);
+				// console.log("profile", profile);
 				// Make a fetch request to send credentials and fetch additional data
 				const sendCredentialsAndFetchData = async () => {
 					try {
@@ -36,7 +36,7 @@ export const authOptions: AuthOptions = {
 
 						});
 						const data = res.data;
-						console.log(data);
+						// console.log(data);
 
 						// console.log("AMARRRR DATAA", data.accessToken);
 						const verifiedToken: any = jwtHelpers.verifyToken(
@@ -74,7 +74,7 @@ export const authOptions: AuthOptions = {
 			clientId: process.env.GOOGLE_ID as string,
 			clientSecret: process.env.GOOGLE_SECRET as string,
 			profile(profile, tokens) {
-				console.log(profile);
+				// console.log(profile);
 
 				// Make a fetch request to send credentials and fetch additional data
 				const sendCredentialsAndFetchData = async () => {
@@ -88,7 +88,7 @@ export const authOptions: AuthOptions = {
 
 						});
 						const data = res.data;
-						console.log(data);
+						// console.log(data);
 
 						// console.log("AMARRRR DATAA", data.accessToken);
 						const verifiedToken: any = jwtHelpers.verifyToken(
@@ -97,8 +97,8 @@ export const authOptions: AuthOptions = {
 						);
 
 						if (data) {
-							console.log("data", data);
-							console.log("profile", profile);
+							// console.log("data", data);
+							// console.log("profile", profile);
 
 							return {
 								id: profile.sub,
@@ -139,7 +139,7 @@ export const authOptions: AuthOptions = {
 				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials, req) {
-				console.log(credentials);
+				// console.log(credentials);
 
 				// console.log(credentials);
 				try {
@@ -153,15 +153,15 @@ export const authOptions: AuthOptions = {
 					// console.log("yoo yoo res", res);
 
 					const data = res.data;
-					console.log(data);
+					// console.log(data);
 
 					// const { data } = await res.json();
 					const verifiedToken: any = jwtHelpers.verifyToken(
 						data?.accessToken,
 						process.env.JWT_SECRET!
 					);
-					console.log("varified token", verifiedToken);
-					console.log("data", data);
+					// console.log("varified token", verifiedToken);
+					// console.log("data", data);
 
 					if (data) {
 						return {
@@ -171,7 +171,7 @@ export const authOptions: AuthOptions = {
 					}
 				} catch (error: any) {
 
-					console.log("LOGIN ERROR_______", error.response.data);
+					// console.log("LOGIN ERROR_______", error.response.data);
 					throw new Error(error.message);
 				}
 			},
@@ -216,8 +216,8 @@ export const authOptions: AuthOptions = {
 					);
 					// console.log("varified token", verifiedToken);
 					// console.log("auth option", res);
-					console.log("varified token", verifiedToken);
-					console.log("data", data);
+					// console.log("varified token", verifiedToken);
+					// console.log("data", data);
 					if (data) {
 						// console.log("data", data);
 						return {
@@ -238,8 +238,8 @@ export const authOptions: AuthOptions = {
 
 
 		async jwt({ token, user }) {
-			console.log(token, "token auth option++++");
-			console.log(user, "user auth option+++++");
+			// console.log(token, "token auth option++++");
+			// console.log(user, "user auth option+++++");
 
 			return {
 				...token,
@@ -247,8 +247,8 @@ export const authOptions: AuthOptions = {
 			};
 		},
 		async session({ session, token }: { session: any; token: any; }) {
-			console.log(session, "session auth option");
-			console.log(token, "token auth option inside session");
+			// console.log(session, "session auth option");
+			// console.log(token, "token auth option inside session");
 			const verifiedToken = jwtHelpers.verifyToken(
 				token?.accessToken,
 				process.env.JWT_SECRET!
