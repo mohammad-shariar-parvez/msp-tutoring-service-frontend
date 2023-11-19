@@ -18,7 +18,7 @@ const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const Notification = () => {
   const { userId } = getUserInfo() as any;
-  console.log(userId);
+  // console.log(userId);
   if (userId) {
   }
   const { data, refetch } = useNotificationsQuery({
@@ -49,7 +49,7 @@ const Notification = () => {
     deleteNotification(id);
   };
 
-  console.log(data);
+  // console.log(data);
 
   const notificationData = data?.notification;
 

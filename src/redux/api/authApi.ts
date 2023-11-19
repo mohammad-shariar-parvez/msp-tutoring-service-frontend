@@ -30,7 +30,7 @@ export const authApi: any = baseApi.injectEndpoints({
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          console.log("redux res", result?.data?.accessToken);
+          // console.log("redux res", result?.data?.accessToken);
 
           // storeUserInfo({ accessToken: result?.data?.accessToken });
           localStorage.setItem(

@@ -33,7 +33,7 @@ export const faqApi = baseApi.injectEndpoints({
 
 		faq: build.query({
 			query: (id) => {
-				console.log(`${FAQ_URL}/${id}`);
+				// console.log(`${FAQ_URL}/${id}`);
 
 				return ({
 

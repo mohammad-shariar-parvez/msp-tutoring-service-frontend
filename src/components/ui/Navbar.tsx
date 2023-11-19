@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Row,
   Col,
@@ -16,39 +16,27 @@ import CategorySider from './CategorySider';
 import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
 import NavDropDown from './NavDropDown';
 import { useAppSelector } from '@/redux/hooks';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { authKey } from '@/constants/storageKey';
-import {
-  UserOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  VideoCameraOutlined,
-  BellOutlined,
-} from '@ant-design/icons';
-import { useRouter } from 'next/navigation';
+import { UserOutlined, BellOutlined } from '@ant-design/icons';
+import { redirect, useRouter } from 'next/navigation';
 import Notification from './Notification';
-const Navbar = () => {
+const Navbar = ({ session }: { session: boolean }) => {
   const [sideBar, setSideBar] = useState(true);
-  const [navbar, setNavbar] = useState(false);
+
   const { total } = useAppSelector((state) => state.wishList);
-  const [userRole, setUserRole] = useState(null);
-  const { data: session, status } = useSession();
+
+  // const { data: session, status } = useSession();
   const { role, userId } = getUserInfo() as any;
 
   const router = useRouter();
-  console.log(session, status);
-
-  useEffect(() => {
-    const { role } = getUserInfo() as any;
-    setUserRole(role);
-  }, [userRole]);
+  // console.log(session);
 
   const handleLogout = () => {
-    console.log('handle');
-    removeUserInfo(authKey);
+    // console.log('handle');
+
     signOut();
-    router.push('/login');
+    // await router.push('/login');
   };
 
   // const changeBackground = () => {
@@ -67,7 +55,7 @@ const Navbar = () => {
     {
       key: '1',
 
-      label: userRole ? (
+      label: session ? (
         <button
           onClick={handleLogout}
           className=' font-semibold text-base bg-transparent border-none cursor-pointer text-red-500'

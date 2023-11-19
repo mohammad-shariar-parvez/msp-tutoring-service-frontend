@@ -1,16 +1,11 @@
 'use client';
-import { Button, Col, Divider, Input, Row, message } from 'antd';
+import { Button, Divider, message } from 'antd';
 import loginImage from '../../assets/login.png';
 import Image from 'next/image';
 import Form from '@/components/Forms/Form';
-import { GoogleOutlined, GithubOutlined } from '@ant-design/icons';
+import { GithubOutlined } from '@ant-design/icons';
 import FormInput from '@/components/Forms/FormInput';
 import { SubmitHandler } from 'react-hook-form';
-import {
-  useUserLoginMutation,
-  useUserSignUpMutation,
-} from '@/redux/api/authApi';
-import { storeUserInfo } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpSchema } from '@/schemas/signUp';
@@ -23,27 +18,30 @@ type FormValues = {
 };
 
 const SignUpPage = () => {
-  const [userSignUp] = useUserSignUpMutation();
   const router = useRouter();
-
-  // console.log(isLoggedIn());
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
-      const { confirmPassword, ...dataToSend } = data;
-      const res = await userSignUp({ ...dataToSend }).unwrap();
-
-      if (res?.accessToken) {
-        router.push('/');
+      const result = await signIn('msp-tutoring-signup', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+        // callbackUrl: "/",
+      });
+      console.log(result, 'result');
+      if (result?.ok && !result.error) {
         message.success('User Created  successfully!');
+        router.refresh();
+        router.push('/');
+      } else {
+        message.error('Could not create user!');
       }
-      storeUserInfo({ accessToken: res?.accessToken });
-      // console.log(res);
     } catch (err: any) {
-      console.error(err.message);
+      console.log(err);
+
+      message.error(err?.data?.message || 'Something went wrong');
     }
   };
-
   return (
     <section className='container  flex justify-center items-center h-screen '>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-8 '>
@@ -121,18 +119,6 @@ const SignUpPage = () => {
         </div>
       </div>
 
-      {/* <div>
-        <h1
-          style={{
-            margin: '15px 0px',
-          }}
-        >
-          First login your account
-        </h1>
-        <div>
-          
-        </div>
-      </div> */}
       <div>
         {/* <GoogleOutlined
           onClick={() =>

@@ -1,15 +1,14 @@
+import { getNewAccessTokenfromBD } from './../../services/auth.service';
 
 import { jwtHelpers } from "@/helpers/jwt/jwtHelpers";
-import { getNewAccessToken } from "@/services/getNewAccessToken";
 import { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { getoAuth, storeUserInfo } from "@/services/auth.service";
 import { getBaseUrl } from "@/helpers/config/envConfig";
 
-
 import { instance as axiosInstance } from "@/helpers/axios/axiosInstance";
+import next from 'next';
 
 export const authOptions: AuthOptions = {
 	// Configure one or more authentication providers
@@ -19,62 +18,113 @@ export const authOptions: AuthOptions = {
 			clientId: process.env.GITHUB_ID as string,
 			clientSecret: process.env.GITHUB_SECRET as string,
 			profile(profile, tokens) {
-				// console.log("LAST TRY", profile);
-				// console.log("LAST TOKEN", tokens);
+				console.log("profile", profile);
 				// Make a fetch request to send credentials and fetch additional data
 				const sendCredentialsAndFetchData = async () => {
 					try {
 						// Example: Send credentials to your server
-						const credentialsRes = await fetch(`http://localhost:5010/api/v1/auth/oauth`, {
+						// const res = await fetch(`http://localhost:5010/api/v1/auth/oauth`, {
+						// 	method: "POST",
+						// 	body: JSON.stringify({ email: profile?.email, provider: true }),
+						// 	headers: { "Content-Type": "application/json" },
+						// });
+						const res = await axiosInstance({
+							url: `${getBaseUrl()}/auth/oauth`,
 							method: "POST",
-							body: JSON.stringify({ email: profile?.email, provider: true }),
+							data: JSON.stringify({ email: profile?.email, provider: true }),
 							headers: { "Content-Type": "application/json" },
+
 						});
+						const data = res.data;
+						console.log(data);
+
+						// console.log("AMARRRR DATAA", data.accessToken);
+						const verifiedToken: any = jwtHelpers.verifyToken(
+							data?.accessToken,
+							process.env.JWT_SECRET!
+						);
+
+						if (data) {
+							console.log("data", profile);
+							return {
+
+								...profile,
+								...data,
+								...verifiedToken,
+							};
+						}
 
 
-						const { data } = await credentialsRes.json();
-						console.log("AMARRRR DATAA", data);
-
-
-
-
-						// Customize the GitHub authorization process here
-						// const customData = {
-						// 	// Add your custom data here
-						// 	someKey: "someValue",
-						// 	// Add additional data from the fetch requests
-						// 	credentialsData,
-
+						// return {
+						// 	...profile,
+						// 	...data,
+						// 	...verifiedToken
 						// };
-
-						// Return the customized profile data
-						return {
-							...profile,
-
-						};
-					} catch (error) {
-						console.error("Error fetching data:", error);
-						return null;
+					} catch (error: any) {
+						// console.log(error);
+						throw new Error(error.message);
 					}
 				};
 
 				return sendCredentialsAndFetchData();
 			},
 		}),
-		// GoogleProvider({
-		// 	clientId: process.env.GOOGLE_ID as string,
-		// 	clientSecret: process.env.GOOGLE_SECRET as string,
-
-		// }),
 		GoogleProvider({
-			clientId: process.env.GITHUB_ID as string,
-			clientSecret: process.env.GITHUB_SECRET as string,
-			// Add custom properties here
-			// ...
 
-			// Profile callback for additional customization
+			clientId: process.env.GOOGLE_ID as string,
+			clientSecret: process.env.GOOGLE_SECRET as string,
+			profile(profile, tokens) {
+				console.log(profile);
 
+				// Make a fetch request to send credentials and fetch additional data
+				const sendCredentialsAndFetchData = async () => {
+					try {
+
+						const res = await axiosInstance({
+							url: `${getBaseUrl()}/auth/oauth`,
+							method: "POST",
+							data: JSON.stringify({ email: profile?.email, provider: true }),
+							headers: { "Content-Type": "application/json" },
+
+						});
+						const data = res.data;
+						console.log(data);
+
+						// console.log("AMARRRR DATAA", data.accessToken);
+						const verifiedToken: any = jwtHelpers.verifyToken(
+							data?.accessToken,
+							process.env.JWT_SECRET!
+						);
+
+						if (data) {
+							console.log("data", data);
+							console.log("profile", profile);
+
+							return {
+								id: profile.sub,
+								...profile,
+								...data,
+								...verifiedToken,
+							};
+						}
+
+
+						// return {
+						// 	...profile,
+						// 	...data,
+						// 	...verifiedToken
+						// };
+					} catch (error: any) {
+						// console.log(error);
+						throw new Error(error.message);
+					}
+				};
+
+				return sendCredentialsAndFetchData();
+			},
 		}),
+
+
 
 		CredentialsProvider({
 			id: "msp-tutoring-signin",
@@ -89,32 +139,39 @@ export const authOptions: AuthOptions = {
 				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials, req) {
-				console.log(req);
+				console.log(credentials);
 
 				// console.log(credentials);
 				try {
-					const res = await fetch(`http://localhost:5010/api/v1/auth/signin`, {
+					const res = await axiosInstance({
+						url: `${getBaseUrl()}/auth/signin`,
 						method: "POST",
-						body: JSON.stringify(credentials),
+						data: JSON.stringify({ email: credentials?.email, password: credentials?.password, provider: true }),
 						headers: { "Content-Type": "application/json" },
+
 					});
-					const { data } = await res.json();
+					// console.log("yoo yoo res", res);
+
+					const data = res.data;
+					console.log(data);
+
+					// const { data } = await res.json();
 					const verifiedToken: any = jwtHelpers.verifyToken(
 						data?.accessToken,
 						process.env.JWT_SECRET!
 					);
-					// console.log("varified token", verifiedToken);
-					// console.log("auth option", data);
-					if (res.ok && data) {
-						console.log("data", data);
+					console.log("varified token", verifiedToken);
+					console.log("data", data);
 
+					if (data) {
 						return {
 							...data,
 							...verifiedToken,
 						};
 					}
 				} catch (error: any) {
-					// console.log(error);
+
+					console.log("LOGIN ERROR_______", error.response.data);
 					throw new Error(error.message);
 				}
 			},
@@ -139,19 +196,29 @@ export const authOptions: AuthOptions = {
 
 
 				try {
-					const res = await fetch(`http://localhost:5010/api/v1/auth/signup`, {
+					// const res = await fetch(`${getBaseUrl()}/auth/signup`, {
+					// 	method: "POST",
+					// 	body: JSON.stringify({ email, password }),
+					// 	headers: { "Content-Type": "application/json" },
+					// });
+					const res = await axiosInstance({
+						url: `${getBaseUrl()}/auth/signup`,
 						method: "POST",
-						body: JSON.stringify({ email, password }),
+						data: JSON.stringify({ email: credentials?.email, password: credentials?.password, provider: true }),
 						headers: { "Content-Type": "application/json" },
+
 					});
-					const { data } = await res.json();
+					const data = res.data;
+					// const { data } = await res.json();
 					const verifiedToken: any = jwtHelpers.verifyToken(
 						data?.accessToken,
 						process.env.JWT_SECRET!
 					);
 					// console.log("varified token", verifiedToken);
 					// console.log("auth option", res);
-					if (res.ok && data) {
+					console.log("varified token", verifiedToken);
+					console.log("data", data);
+					if (data) {
 						// console.log("data", data);
 						return {
 							...data,
@@ -159,7 +226,7 @@ export const authOptions: AuthOptions = {
 						};
 					}
 				} catch (error: any) {
-					// console.log(error);
+					console.log(error);
 					throw new Error(error.message);
 				}
 			},
@@ -168,48 +235,11 @@ export const authOptions: AuthOptions = {
 	],
 	callbacks: {
 
-		// async signIn(user,) {
-		// 	// Use the custom hook to send the session data
-		// 	const { email } = user;
-		// 	console.log(user?.email);
-		// 	console.log(user?.user);
-		// 	console.log(user?.user?.email);
 
-
-		// 	try {
-		// 		// const res = await fetch(`http://localhost:5010/api/v1/auth/oauth`, {
-		// 		// 	method: "POST",
-		// 		// 	body: JSON.stringify({ email: user?.user?.email, provider: true }),
-		// 		// 	headers: { "Content-Type": "application/json" },
-		// 		// });
-		// 		// const response = await getoAuth(user?.user?.email as string);
-
-		// 		// console.log("resssssssssssssssssssssssssssssssssss", response);
-
-
-
-		// 		// const { data } = await res.json();
-		// 		// storeUserInfo({ accessToken: data?.accessToken });
-		// 		// // console.log({ accessToken: data?.accessToken });
-		// 		// // console.log(localStorage);
-
-		// 		// localStorage.setItem(
-		// 		// 	"accessToken",
-		// 		// 	JSON.stringify({
-		// 		// 		accessToken: data?.accessToken,
-		// 		// 	}),
-		// 		// );
-
-		// 		return true; // Allow the user to be signed in
-		// 	} catch (error) {
-		// 		console.error('Error in signIn callback:', error);
-		// 		return false; // Prevent the user from being signed in
-		// 	}
-		// },
 
 		async jwt({ token, user }) {
-			// console.log(token, "token auth option++++");
-			// console.log(user, "user auth option+++++");
+			console.log(token, "token auth option++++");
+			console.log(user, "user auth option+++++");
 
 			return {
 				...token,
@@ -217,32 +247,43 @@ export const authOptions: AuthOptions = {
 			};
 		},
 		async session({ session, token }: { session: any; token: any; }) {
-			// console.log(session, "session auth option");
-			// console.log(token, "token auth option inside session");
+			console.log(session, "session auth option");
+			console.log(token, "token auth option inside session");
 			const verifiedToken = jwtHelpers.verifyToken(
 				token?.accessToken,
 				process.env.JWT_SECRET!
 			);
-			// console.log(verifiedToken);
+			console.log(verifiedToken);
 
-			// if (!verifiedToken) {
-			// 	// console.log("token expired so new token generated");
-			// 	const { data } = await getNewAccessToken(token?.accessToken);
-			// 	token.accessToken = data?.accessToken;
-			// }
+			if (!verifiedToken) {
+				// console.log("token expired so new token generated");
+				// console.log("token expired so new -", token?.accessToken);
+				// const { data } = await getNewAccessToken(token?.accessToken);
+				// console.log("refresh", data);
+
+				const response = await getNewAccessTokenfromBD(token?.refreshToken);
+				const accessToken = response?.data?.accessToken;
+
+				// console.log("accesstoken", accessToken);
+
+
+
+				token.accessToken = accessToken;
+				// token.accessToken = data?.accessToken;
+			}
 			return {
 				...session,
 				...token,
 			};
 		},
 	},
-	// session: {
-	// 	strategy: "jwt",
-	// 	maxAge: 24 * 60 * 60,
-	// },
-	// jwt: {
-	// 	secret: process.env.NEXTAUTH_SECRET,
-	// },
+	session: {
+		strategy: "jwt",
+		maxAge: 12 * 30 * 24 * 60 * 60,
+	},
+	jwt: {
+		secret: process.env.NEXTAUTH_SECRET,
+	},
 	secret: process.env.NEXTAUTH_SECRET,
 	pages: {
 		signIn: "/login",

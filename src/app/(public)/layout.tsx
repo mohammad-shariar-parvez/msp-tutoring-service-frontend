@@ -1,14 +1,14 @@
-'use client';
-
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/Navbar';
 import { Row, Space, Spin } from 'antd';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../lib/AuthOptions';
 
-const PublicLayout = ({ children }: { children: React.ReactNode }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  console.log('yoo');
-
+const PublicLayout = async ({ children }: { children: React.ReactNode }) => {
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // console.log('yoo');
+  const session: any = await getServerSession(authOptions);
+  // console.log('HAMARA LIB', session);
   // useLayoutEffect(() => {
   //   setIsLoading(true);
   // }, []);
@@ -31,7 +31,7 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <div className='bg-white'>
-        <Navbar />
+        <Navbar session={session?.accessToken ? true : false} />
         {children}
         <Footer />
       </div>

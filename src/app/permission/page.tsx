@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(0);
-  console.log(isLoading);
+  // console.log(isLoading);
 
   useEffect(() => {
     if (isLoading == 0) {

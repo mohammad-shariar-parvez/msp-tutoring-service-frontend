@@ -1,20 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, ConfigProvider, Layout, Menu } from 'antd';
-
+import { Layout, Menu } from 'antd';
 import { sidebarItems } from '@/constants/sidebarItems';
-import { USER_ROLE } from '@/constants/role';
-import { getUserInfo } from '@/services/auth.service';
 
 const { Sider } = Layout;
 
-const SideBar = () => {
+const SideBar = ({ session }: { session: Record<string, string> }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   // const role = USER_ROLE.ADMIN;
-  const { role } = getUserInfo() as any;
-  // console.log('ROOLE SIDEBAR---', role);
+  const { role } = session || { session: { role: null } };
+  // console.log('ROOLE SIDEBAR---', session);
 
   return (
     <Sider

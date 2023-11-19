@@ -29,7 +29,7 @@ const BookingFormSection: React.FC<BookingFormProps> = ({ courseId }) => {
         message.success('Booking Completed successfully!');
       }
     } catch (err: any) {
-      console.error(err.message);
+      // console.error(err.message);
     }
     // console.log('STEPPR', values);
   };

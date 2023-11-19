@@ -26,7 +26,7 @@ function ResetPassword({ searchParams }: any) {
     email,
     newPassword: '',
   };
-  console.log('HEllo', token);
+  // console.log('HEllo', token);
 
   const onSubmit = async (values: FormData) => {
     // console.log(values);

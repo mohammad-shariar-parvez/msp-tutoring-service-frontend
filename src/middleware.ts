@@ -1,63 +1,73 @@
-import { getUserInfo } from './services/auth.service';
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getFromLocalStorage } from './utils/local-storage';
 
 // This function can be marked `async` if using `await` inside
-const hybridRoutes = ["/", "/login", "/register"];
-const patientAccesibleRoutes = ["/dashboard", "my-profile", "my-appointments"];
+const hybridRoutes = ["/login", "/register", "/", "/categories"];
+// const publicRoutes = ["/", "/categories"];
+
+const protectedRoutes = ["/course", "/blog"];
+
 const rolesRedirect: Record<string, unknown> = {
-	doctor: `${process.env.FRONTEND_URL}/doctor/dashboard`,
-	patient: `${process.env.FRONTEND_URL}/dashboard`,
-	admin: `${process.env.FRONTEND_URL}/admins/dashboard`,
+	admin: `${process.env.FRONTEND_URL}/admin/`,
+	user: `${process.env.FRONTEND_URL}/`,
+	super_user: `${process.env.FRONTEND_URL}/super_user/`,
 };
-export async function middleware(request: NextRequest, response: NextResponse) {
+export async function middleware(request: NextRequest) {
 	const token = await getToken({ req: request });
-	// console.log(token, "token middleware")
-	const cookie = request.cookies.get("accessToken");
-	const cookies = request;
-	const da = getUserInfo() as any;
-
-	// console.log("all info-------------------", request.cookies);
-	// console.log("all info-++++++++++++", request,);
-
-
-	// console.log("cookieeee", cookie);
-
+	const role = token?.role as string;
+	console.log(token, "token middleware");
 	const { pathname } = request.nextUrl;
-	console.log("MIDDLEWARE");
-	// if (cookie) {
-	// 	return NextResponse.redirect('/login');
-	// }
 
-	// if (!token) {
-	// 	if (hybridRoutes.includes(pathname)) {
-	// 		return NextResponse.next();
-	// 	}
-	// 	return NextResponse.redirect(`${process.env.FRONTEND_URL}/login`);
-	// }
+	if (!token) {
+		console.log("REAL PATH NAME", pathname);
 
-	// const role = token?.role as string;
-	// console.log(role, "role middleware")
-	// if (
-	// 	(role === "admin" && pathname.startsWith("/admins")) ||
-	// 	(role === "doctor" && pathname.startsWith("/doctor")) ||
-	// 	(role === "patient" && patientAccesibleRoutes.includes(pathname))
-	// ) {
-	// 	// console.log("next")
-	// 	return NextResponse.next();
-	// }
+		if (hybridRoutes.includes(pathname)) {
 
-	// if (pathname === "/" && role && role in rolesRedirect) {
-	// 	return NextResponse.redirect(rolesRedirect[role] as string);
-	// }
+			console.log("pppppppppppp--", role);
+			console.log("xxxxxxxxxxx--", pathname);
+			return NextResponse.next();
 
+		}
+		if (protectedRoutes.some(route => pathname.startsWith(route))) {
+			console.log("11111111111111------", pathname);
+			return NextResponse.redirect(`${process.env.FRONTEND_URL}/login?redirect=${pathname}`);
+		}
+
+		// redirect(`/login?redirect=${pathname}`);
+
+		// return NextResponse.redirect(`${process.env.FRONTEND_URL}/login`);
+	}
+
+
+
+
+	console.log(role, "role middleware");
+	if (
+
+		(role === "admin" && pathname.startsWith("/admin")) ||
+		(role === "super_admin" && pathname.startsWith("/super_admin")) ||
+		(role === "user" && !pathname.startsWith("/super_admin") && !pathname.startsWith("/admin"))
+	) {
+
+		console.log("333333333333333333333333333", pathname);
+		return NextResponse.next();
+	}
+
+	if (pathname === "/" && role && role in rolesRedirect) {
+		console.log("44444444444444", role);
+
+		return NextResponse.redirect(rolesRedirect[role] as string);
+	}
+
+
+	console.log("55555555555555555", pathname, role);
 	// NextResponse.rewrite(request.
-	// NextResponse.rewrite("/login");
+	// NextResponse.redirect(`${process.env.FRONTEND_URL}/`);
+	return NextResponse.redirect(`${process.env.FRONTEND_URL}/login`);
+
 	//so d
-	return NextResponse.next();
-	// return NextResponse.redirect(`${process.env.FRONTEND_URL}`);
+	// return NextResponse.redirect("http://localhost:3000");
 }
 
 // See "Matching Paths" below to learn more
@@ -67,20 +77,13 @@ export const config = {
 		"/",
 		"/login",
 		"/register",
-		//patient routes
-		"/dashboard",
-		"/my-profile",
-		"/my-appointments",
-		//doctor routes
-		"/doctor/:page*",
+		// "/admin",
+		"/course/:page*",
 		//admin routes
-		"/admins/:page*",
+		"/admin/:page*",
+		//super_admin routes
+		"/super_admin/:page*",
 	],
 };
 
 
-
-
-// export { default } from "next-auth/middleware";
-
-// export const config = { matcher: [] };

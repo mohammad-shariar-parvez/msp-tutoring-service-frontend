@@ -8,10 +8,10 @@ const useSendSessionData1 = () => {
   const sendData = async (sessionData: any) => {
     try {
       const { data } = await oAuthAccess({ sessionData });
-      console.log('Send Session Data Response:', data);
+      // console.log('Send Session Data Response:', data);
       return data; // You can return data or handle it as needed
     } catch (error) {
-      console.error('Error sending session data:', error);
+      // console.error('Error sending session data:', error);
       throw error; // Rethrow the error or handle it as needed
     }
   };

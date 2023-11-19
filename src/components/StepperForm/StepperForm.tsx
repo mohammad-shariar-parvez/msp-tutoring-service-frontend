@@ -55,10 +55,10 @@ const StepperForm = ({
   const prev = () => {
     setCurrent(current - 1);
   };
-  console.log(steps);
+  // console.log(steps);
 
   const items = steps.map((item) => ({ key: item.title, ...item }));
-  console.log(items);
+  // console.log(items);
 
   const methods = useForm({ defaultValues: savedValues });
   const watch = methods.watch();

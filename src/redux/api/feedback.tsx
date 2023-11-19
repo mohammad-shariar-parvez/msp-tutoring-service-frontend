@@ -4,6 +4,20 @@ import { baseApi } from './baseApi';
 
 const FEEDBACK_URL = '/feedbacks';
 const QUESTIONS_URL = '/feedbacks/questions';
+import { useSession, getSession } from 'next-auth/react';
+// const prepareHeaders = (headers, { getState }) => {
+//   // Get the access token from the Next.js session
+//   const accessToken = getState().yourSessionSlice.accessToken;
+//   const janina = getSession();
+//   console.log(janina);
+
+//   if (accessToken) {
+//     // Add the authorization header if the access token is available
+//     headers.set('Authorization', `Bearer ${accessToken}`);
+//   }
+
+//   return headers;
+// };
 
 export const feedbackApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

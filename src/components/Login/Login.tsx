@@ -1,25 +1,16 @@
 'use client';
-import { Button, Col, Divider, Input, Row, message } from 'antd';
+import { Button, Divider, message } from 'antd';
 import loginImage from '../../assets/login.png';
 import Image from 'next/image';
-import { GoogleOutlined, GithubOutlined } from '@ant-design/icons';
+import { GithubOutlined, GoogleOutlined } from '@ant-design/icons';
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import { SubmitHandler } from 'react-hook-form';
-import {
-  useOAuthAccessMutation,
-  useUserLoginMutation,
-} from '@/redux/api/authApi';
-import { getUserInfo, storeUserInfo } from '@/services/auth.service';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-
-// import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '@/schemas/login';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 type FormValues = {
   id: string;
@@ -28,170 +19,41 @@ type FormValues = {
 
 const LoginPage = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const searhParams = useSearchParams().get('redirect');
-  const { data: session, status } = useSession();
-  console.log(searhParams);
 
-  const [
-    userLogin,
-    { data, error: responseError, isSuccess, isError, isLoading },
-  ] = useUserLoginMutation();
-  const [oAuthAccess] = useOAuthAccessMutation();
-
-  console.log(session);
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
-      const res = await userLogin({ ...data }).unwrap();
-
-      if (res?.accessToken) {
-        if (res.role == 'admin') {
-          console.log('ADMIN', res.role);
-
-          router.push('/admin');
-        } else if (res.role == 'super_admin') {
-          router.push('/super_admin');
-        } else if (searhParams && res.role == 'user') {
-          console.log(res.role);
-          router.push(`${searhParams}`);
-        } else {
-          console.log('ADMIN', res.role);
-          router.push('/');
-        }
-        message.success('User logged in successfully!');
+      const result = await signIn('msp-tutoring-signin', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+        // callbackUrl: "/",
+      });
+      console.log(result, 'result');
+      if (result?.ok && !result.error) {
+        message.success('User Created  successfully!');
+        router.refresh();
+        router.push('/');
+      } else {
+        message.error('Password is incorrect!');
       }
-      storeUserInfo({ accessToken: res?.accessToken });
     } catch (err: any) {
-      message.error(err?.data?.message || 'Network Error');
+      // console.log(err);
+
+      message.error(err?.data?.message || 'Something went wrong');
     }
   };
 
-  // const githubHandler = () => {
-  //   signIn('github', {
-  //     call: 'http://localhost:3000/',
-  //   });
-  //   // sessionStorage.removeItem('previousPage');
-  // };
   const githubHandler = async () => {
-    await signIn('github');
-
-    // if (status === 'authenticated' && session) {
-    //   // Send session data to RTK query
-    //   const res = await oAuthAccess({
-    //     email: session?.user?.email,
-    //     provider: true,
-    //   }).unwrap();
-    //   if (res?.accessToken) {
-    //     if (res.role == 'admin') {
-    //       console.log('ADMIN', res.role);
-
-    //       router.push('/admin');
-    //     } else if (res.role == 'super_admin') {
-    //       router.push('/super_admin');
-    //     } else if (searhParams && res.role == 'user') {
-    //       console.log(res.role);
-    //       router.push(`${searhParams}`);
-    //     } else {
-    //       console.log('ADMIN', res.role);
-    //       router.push('/');
-    //     }
-    //     message.success('User logged in successfully!');
-    //     storeUserInfo({ accessToken: res?.accessToken });
-    //   }
-    //   // console.log('session', session);
-    //   // console.log(res);
-    // }
+    await signIn('github', {
+      callbackUrl: searhParams || 'http://localhost:3000/',
+    });
   };
-  console.log('status is', status);
-
-  // if (status === 'authenticated' && session) {
-  //   console.log('YOOOOOOOOOOO 6546464646 ');
-
-  //   // Send session data to RTK query
-  //   const res = await oAuthAccess({
-  //     email: session?.user?.email,
-  //     provider: true,
-  //   }).unwrap();
-  //   await storeUserInfo({ accessToken: res?.accessToken });
-  //   console.log('RESSSSSSSSSSSSSSS', res);
-  //   console.log('STAAAAAAAAAA', status, session);
-
-  //   if (res?.accessToken) {
-  //     if (res.role == 'admin') {
-  //       console.log('ADMIN', res.role);
-
-  //       router.push('/admin');
-  //     } else if (res.role == 'super_admin') {
-  //       router.push('/super_admin');
-  //     } else if (searhParams && res.role == 'user') {
-  //       console.log(res.role);
-  //       router.push(`${searhParams}`);
-  //     } else {
-  //       console.log('ADMIN', res.role);
-  //       router.push('/');
-  //     }
-  //     message.success('User logged in successfully!');
-  //     storeUserInfo({ accessToken: res?.accessToken });
-  //   }
-  //   console.log('google  session', session);
-  //   console.log('google  session', res);
-  // }
-
   const googleHandler = async () => {
-    const res = await signIn('google');
-
-    if (res?.ok && data) {
-      console.log('DATA', data);
-    }
-    console.log('RESSS', res);
-
-    // if (status === 'authenticated' && session) {
-    //   console.log('YOOOOOOOOOOO 6546464646 ', status);
-
-    //   // Send session data to RTK query
-    //   const res = await oAuthAccess({
-    //     email: session?.user?.email,
-    //     provider: true,
-    //   }).unwrap();
-    //   console.log('RESSSSSSSSSSSSSSS', res);
-
-    //   storeUserInfo({ accessToken: res?.accessToken });
-    //   console.log('STAAAAAAAAAA', status, session);
-
-    //   if (res?.accessToken) {
-    //     console.log('access token have', res?.accessToken);
-
-    //     if (res.role == 'admin') {
-    //       console.log('ADMIN', res.role);
-
-    //       router.push('/admin');
-    //     } else if (res.role == 'super_admin') {
-    //       router.push('/super_admin');
-    //     } else if (searhParams && res.role == 'user') {
-    //       console.log(res.role);
-    //       router.push(`${searhParams}`);
-    //     } else {
-    //       console.log('ADMIN', res.role);
-    //       router.push('/');
-    //     }
-    //     message.success('User logged in successfully!');
-    //     storeUserInfo({ accessToken: res?.accessToken });
-    //   }
-    //   console.log('google  session', session);
-    //   console.log('google  session', res);
-    // }
+    await signIn('google', {
+      callbackUrl: searhParams || 'http://localhost:3000/',
+    });
   };
-
-  // useEffect(() => {
-  //   if (status === 'authenticated' && session) {
-  //     // Send session data to RTK query
-  //     const res = oAuthAccess({
-  //       email: session?.user?.email,
-  //       provider: true,
-  //     }).unwrap();
-  //     storeUserInfo({ accessToken: res?.accessToken });
-  //   }
-  // }, []);
 
   return (
     <section className='container  flex justify-center items-center h-screen '>

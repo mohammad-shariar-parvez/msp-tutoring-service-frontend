@@ -20,7 +20,7 @@ const EditFaqsPage = ({ params }: any) => {
   const [updateFaqs] = useUpdateFaqsMutation();
 
   //@ts-ignore
-  console.log(isLoading);
+  // console.log(isLoading);
 
   const onSubmit = async (values: any) => {
     try {
@@ -40,7 +40,7 @@ const EditFaqsPage = ({ params }: any) => {
     question: faqdata?.question || '',
     answer: faqdata?.answer || '',
   };
-  console.log('YOOOO', faqdata);
+  // console.log('YOOOO', faqdata);
 
   return (
     <div>

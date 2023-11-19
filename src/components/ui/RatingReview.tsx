@@ -24,7 +24,7 @@ const RatingReview: React.FC<RatingReviewProps> = ({ courseId }) => {
         message.success('Profile updated successfully!');
       }
     } catch (err: any) {
-      console.error(err.message);
+      // console.error(err.message);
     }
   };
   // console.log(courseId);

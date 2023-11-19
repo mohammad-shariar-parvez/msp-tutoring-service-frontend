@@ -28,14 +28,17 @@ export const removeUserInfo = (key: string) => {
   return localStorage.removeItem(key);
 };
 
-export const getNewAccessToken = async () => {
+export const getNewAccessTokenfromBD = async (token: string) => {
   return await axiosInstance({
     url: `${getBaseUrl()}/auth/refresh-token`,
     method: "POST",
+    data: JSON.stringify({ refreshToken: token }),
     headers: { "Content-Type": "application/json" },
     withCredentials: true,
   });
 };
+
+
 export const getoAuth = async (data: string) => {
   return await axiosInstance({
     url: `${getBaseUrl()}/auth/oauth`,

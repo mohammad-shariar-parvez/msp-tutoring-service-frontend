@@ -27,8 +27,8 @@ const ProfilePage = () => {
   //@ts-ignore
   const { data: categories } = useCategoriesQuery({});
 
-  const router = useRouter();
-  const { role } = getUserInfo() as any;
+  // const router = useRouter();
+  // const { role } = getUserInfo() as any;
 
   if (bookingLoading || userLoading || coursesLoading) {
     return (
@@ -44,7 +44,7 @@ const ProfilePage = () => {
         </Space>
       </Row>
     );
-    console.log('YOOOOOO');
+    // console.log('YOOOOOO');
   }
   // useEffect(() => {
   //   const pathname = router.pathname;

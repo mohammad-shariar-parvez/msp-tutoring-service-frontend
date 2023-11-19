@@ -10,9 +10,11 @@ export const getNewAccessToken = async (token: string) => {
 			}
 		});
 		const data = await res.json();
+		console.log("responseeeee", data);
+
 		return data;
 	} catch (error: any) {
-		// console.log(error);
+		console.log("error++++", error);
 		throw new Error(error.message);
 	}
 };
