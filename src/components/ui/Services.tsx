@@ -15,7 +15,9 @@ const Services = () => {
       <div className='container'>
         <div>
           <div className='  text-center '>
-            <h1 className='sg-title-txt mb-20'>Get personalised help with</h1>
+            <h1 className='sub-title sub-title-style '>
+              Get personalised help with
+            </h1>
 
             <div className='grid grid-cols-1  md:grid-cols-3  gap-8  '>
               <ServiceCard

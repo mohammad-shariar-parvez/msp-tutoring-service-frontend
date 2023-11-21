@@ -5,7 +5,6 @@ import { useCoursesQuery } from '@/redux/api/courseApi';
 import CourseCard from './CourseCard';
 import { ICourse } from '@/types';
 import { FaLocationDot } from 'react-icons/fa6';
-import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
 import { locationOptions } from '@/constants/global';
 
 const Course: React.FC = () => {

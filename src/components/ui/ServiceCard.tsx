@@ -27,11 +27,11 @@ const ServiceCard: React.FC<CustomCardProps> = ({
           alt='eagle_image'
           className='mx-auto object-contain  '
         />
-        <h5 className=' text-xl font-bold tracking-tight text-gray-900 mb-6 mt-3 '>
+        <h5 className=' text-xl font-semibold  text-secondary mb-6 mt-3 '>
           {title}
         </h5>
 
-        <p className=' text-base font-medium  text-gray-700 '>{description}</p>
+        <p className=' text-base font-normal  text-gray-600 '>{description}</p>
       </div>
     </div>
   );

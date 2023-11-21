@@ -31,29 +31,43 @@ const Demo = () => {
   return (
     <section className='bg-[#fbfeff] mb-16  py-16 '>
       <div className='container'>
-        <div className='grid grid-cols-2 gap-10'>
-          <div className='  req-demo-info-cnt'>
-            <div className='flex justify-between mt-8'>
-              <div className='req-demo-step'>
-                <h4>
-                  <span>Tell us your</span>
-                  <small>Needs</small>
-                </h4>
-                <h6>1</h6>
+        <div className='grid grid-cols-1 md:grid-cols-2 md:gap-10 gap-y-8 md:gap-y-0'>
+          <div className='  '>
+            <div className='flex justify-between mt-8  space-x-2'>
+              <div className=' p-4 bg-white shadow-md text-center space-y-2  rounded-lg   '>
+                <span className='font-semibold text-2xl block '>
+                  Tell us your
+                </span>
+                <span className='font-normal text-xl text-darkGreen block'>
+                  Needs
+                </span>
+                <span className='block text-darkGreen font-medium text-2xl'>
+                  1
+                </span>
               </div>
-              <div className='req-demo-step'>
-                <h4>
-                  <span>Schedule </span>
-                  <small>Class</small>
-                </h4>
-                <h6>2</h6>
+
+              <div className=' p-[15px] bg-white shadow-md text-center space-y-2  rounded-lg   '>
+                <span className='font-semibold text-2xl block '>
+                  Get a demo
+                </span>
+                <span className='font-normal text-xl text-darkGreen block'>
+                  Class
+                </span>
+                <span className='block text-darkGreen font-medium text-2xl'>
+                  2
+                </span>
               </div>
-              <div className='req-demo-step'>
-                <h4>
-                  <span>Confirm if you </span>
-                  <small>Like</small>
-                </h4>
-                <h6>3</h6>
+
+              <div className=' p-[15px] bg-white shadow-md text-center space-y-2  rounded-lg   '>
+                <span className='font-semibold text-2xl block '>
+                  Confirm if you
+                </span>
+                <span className='font-normal text-xl text-darkGreen block'>
+                  Like
+                </span>
+                <span className='block text-darkGreen font-medium text-2xl'>
+                  3
+                </span>
               </div>
             </div>
             <div className='req-demo-info-img'>
@@ -61,7 +75,7 @@ const Demo = () => {
                 src={demo}
                 width={500}
                 alt='req demo tutor'
-                className='img-fluid'
+                className='w-full h-auto'
               />
             </div>
           </div>
@@ -69,7 +83,7 @@ const Demo = () => {
           <div className=''>
             <Form submitHandler={questionOnSubmit}>
               <div className='req-demo-form p-4 '>
-                <h3 className='mb-9 text-[#10858b] mt-3 text-center text-3xl'>
+                <h3 className='mb-9 text-[#10858b] mt-3 text-center font-medium text-3xl'>
                   Ask A Question
                 </h3>
                 <div className='sg-form-group'>
