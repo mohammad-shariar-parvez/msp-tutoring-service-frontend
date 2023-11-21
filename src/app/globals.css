@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 
 html {
   scroll-behavior: smooth;
@@ -12,9 +12,6 @@ html {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-
-  font-family: 'Rubik', sans-serif !important;
-
 }
 
 
@@ -80,6 +77,39 @@ html {
   margin: 15px 0;
   color: #092847;
   line-height: 55px;
+}
+
+.sub-title {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 15px 0;
+  color: #092847;
+  line-height: 1.2;
+}
+
+.sub-title-style::before {
+  content: "";
+  width: 80px;
+  height: 5px;
+  position: absolute;
+
+  top: 44px;
+  background: #092847;
+  border-radius: 5px;
+  right: 40%;
+  transform: translate(-40%);
+}
+
+.sub-title-style::after {
+  content: "";
+  width: 80px;
+  height: 5px;
+  position: absolute;
+  top: 44px;
+  background: #092847;
+  border-radius: 5px;
+  left: 46%;
+  transform: translate(-45%);
 }
 
 .sg-title-sub-tx {
@@ -478,6 +508,41 @@ notification dropdown
 .overlay {
   max-height: 120px;
   background-color: #564ffd !important;
+}
+
+
+/* 
+
+CAEROSEL
+*/
+
+
+
+.carousel {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: marquee 10s linear infinite;
+}
+
+.sentence {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* 
+contact
+*/
+
+
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 /* Responsive max height for medium devices (md) */

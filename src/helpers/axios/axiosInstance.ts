@@ -26,7 +26,7 @@ instance.interceptors.request.use(
 
       // const xxxx = session.user.accessToken ? session.user.accessToken  : "";
       //@ts-ignore
-      config.headers.Authorization = `Bearer ${session.accessToken}`;
+      config.headers.Authorization = `${session.accessToken}`;
     }
     return config;
   },

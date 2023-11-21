@@ -11,7 +11,7 @@ import insta6 from '../../assets/insta6.jpg';
 
 function Footer() {
   return (
-    <footer className='bg-[#f9f9f9]'>
+    <footer className='bg-[#f9f9f9] relative'>
       <div className='grid grid-cols-1 gap-x-8 gap-y-10  md:grid-cols-4  text-black  container p-4 py-20  '>
         <div className='space-y-6  '>
           <h6 className=' text-lg leading-normal font-semibold  '>

@@ -15,6 +15,8 @@ const TutorField = ({ name, label, locateTutor }: ServiceFieldProps) => {
     page: 1,
     location: locateTutor,
   });
+  // console.log(data);
+
   const tutors = data?.tutors;
   //@ts-ignore
   const categoryList = tutors?.map((tutor) => {

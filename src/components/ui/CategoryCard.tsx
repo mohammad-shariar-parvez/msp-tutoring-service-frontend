@@ -12,7 +12,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, details }) => {
   return (
     <>
       <Link href={`/categories/${category?.id}`} className='no-underline'>
-        <div className='max-w-sm bg-white  rounded-lg     hover:shadow-blue-200  shadow-lg shadow-blue-100  '>
+        <div className='max-w-sm bg-white  rounded-lg     hover:shadow-blue-200  shadow-md shadow-blue-100  '>
           <Image
             src={category?.imageUrl}
             width={200}

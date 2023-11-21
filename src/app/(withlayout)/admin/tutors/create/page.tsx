@@ -39,7 +39,7 @@ const CreateTutor = () => {
       <Form submitHandler={adminOnSubmit}>
         <div className='bg-[#e6f3f9] p-4 my-2'>
           <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 '>
-            Course information
+            Tutor information
           </h5>
 
           <div className='grid  md:grid-cols-3 gap-4'>

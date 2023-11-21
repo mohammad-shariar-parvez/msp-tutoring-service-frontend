@@ -26,7 +26,9 @@ const BlogDetails = ({ params }: IDProps) => {
         {isLoading ? (
           <Skeleton.Input className='w-full mb-8' active />
         ) : (
-          <h1 className='mb-8'>{data?.title}</h1>
+          <h1 className='text-secondary font-semibold text-xl md:text-2xl mb-4'>
+            {data?.title}
+          </h1>
         )}
 
         <div className='md:flex   items-start md:space-x-4 space-y-4 md:space-y-0'>
@@ -42,11 +44,13 @@ const BlogDetails = ({ params }: IDProps) => {
               width={500}
               height={290}
               alt='eagle_image'
-              className='w-full md:w-auto '
+              className='w-full h-auto md:h-[290] md:w-auto '
             />
           )}
           <Skeleton loading={isLoading}>
-            <div>{parsedContent}</div>
+            <p className='text-base font-normal text-[#212529] text-justify'>
+              {parsedContent}
+            </p>
           </Skeleton>
         </div>
       </div>

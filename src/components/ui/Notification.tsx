@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { Badge, Button } from 'antd';
-import { BellOutlined, DeleteOutlined } from '@ant-design/icons';
+import { BellOutlined, DeleteOutlined, UserOutlined } from '@ant-design/icons';
 import {
   useDeleteNotificationMutation,
   useNotificationsQuery,
@@ -16,6 +16,8 @@ const ENDPOINT = 'http://localhost:5010/' || '';
 const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const Notification = () => {
+  // console.log(userId);
+
   const { data, refetch } = useNotificationsQuery({
     limit: 10,
     refetchOnMountOrArgChange: true,
@@ -53,7 +55,7 @@ const Notification = () => {
         key: item.id,
         label: (
           <div className='flex justify-between items-start space-x-4  '>
-            <p className='cursor-pointer bg-transparent border-none'>
+            <p className='text-base font-medium text-[#212529]  cursor-pointer bg-transparent border-none'>
               {item.title}
             </p>
             <button
@@ -73,7 +75,7 @@ const Notification = () => {
           key: '0',
           disabled: true,
           label: (
-            <p className='cursor-pointer bg-transparent border-none'>
+            <p className=' text-base font-medium text-[#212529]  cursor-pointer bg-transparent border-none'>
               No Notification Yet
             </p>
           ),
@@ -85,11 +87,13 @@ const Notification = () => {
       overlayStyle={{
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
       }}
-      overlayClassName={` overflow-y-auto  mt-12 max-h-[220px]  top-4 max-w-[250px] md:max-w-xs rounded-lg z-[0] fixed `}
-      menu={{ items }}
-      placement='bottomRight'
-      arrow={{ pointAtCenter: true }}
+      overlayClassName={` overflow-y-auto   max-h-[220px] max-w-[250px] md:max-w-xs rounded-lg  `}
       trigger={['click']}
+      // className='p-4 rounded-none '
+      menu={{ items }}
+      placement='bottom'
+      arrow
+      className='rounded-none  py-4  '
     >
       <Badge
         size='small'

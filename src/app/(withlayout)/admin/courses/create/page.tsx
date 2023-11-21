@@ -35,9 +35,6 @@ const CreateServicePage = () => {
     }
   };
 
-  if (!!locateTutor) {
-  }
-
   const base = 'admin';
   return (
     <>

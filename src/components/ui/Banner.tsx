@@ -44,11 +44,13 @@ const Banner = () => {
                 <span className='text-pink-600'>Connect</span> with best
                 teachers near you
               </h1>
-              <p className='sg-title-sub-tx'>
-                Study Ground is a platform for highly dedicated teachers and
-                students to fulfill the communication gap between students and
-                teachers.
-                <Link href='https://study-ground.com/login'>Connect now!</Link>
+              <p className='text-base mb-6 text-gray-500'>
+                MSP Tutoring Service is a platform for highly dedicated teachers
+                and students to fulfill the communication gap between students
+                and teachers.
+                <Link href='https://msp-tutoring-service.vercel.app/signup'>
+                  Connect now!
+                </Link>
               </p>
               <div className='search-box '>
                 <div className='flex justify-between items-center  w-full space-x-1'>
@@ -75,13 +77,13 @@ const Banner = () => {
                       <Button
                         onClick={resetFilters}
                         value='large'
-                        className='hidden md:block  bg-[#274279]    text-white rounded-md  '
+                        className='hidden md:block  bg-[#335880]    text-white rounded-md  '
                       >
                         Find Now
                       </Button>
                     </Link>
                     <Link href={`/search`}>
-                      <Button className=' md:hidden bg-[#274279]  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'>
+                      <Button className=' md:hidden bg-[#335880]  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'>
                         <SearchOutlined />
                       </Button>
                     </Link>

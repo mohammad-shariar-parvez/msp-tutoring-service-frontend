@@ -6,7 +6,7 @@ import type { NextRequest } from "next/server";
 const hybridRoutes = ["/login", "/register", "/", "/categories"];
 // const publicRoutes = ["/", "/categories"];
 
-const protectedRoutes = ["/course", "/blog"];
+const protectedRoutes = ["/course", "/blogs"];
 
 const rolesRedirect: Record<string, unknown> = {
 	admin: `${process.env.FRONTEND_URL}/admin/`,
@@ -79,6 +79,7 @@ export const config = {
 		"/register",
 		// "/admin",
 		"/course/:page*",
+		"/blogs/:page*",
 		//admin routes
 		"/admin/:page*",
 		//super_admin routes

@@ -14,14 +14,25 @@ const NavDropDown = () => {
     ? categories.map((item: { title: string }, index) => {
         const element = {
           key: index.toString(),
-          label: item.title,
+          label: (
+            <span className=' text-secondary font-semibold text-base'>
+              {item.title}
+            </span>
+          ),
         };
 
         // @ts-ignore
         const child = item?.courses?.map((ele, courseIndex) => {
           return {
             key: index.toString() + courseIndex.toString(),
-            label: <Link href={`/course/${ele.id}`}>{ele.title}</Link>,
+            label: (
+              <Link
+                className=' text-secondary font-semibold text-base'
+                href={`/course/${ele.id}`}
+              >
+                {ele.title}
+              </Link>
+            ),
           };
         });
         // @ts-ignore
@@ -32,15 +43,23 @@ const NavDropDown = () => {
     : [];
   return (
     <>
-      <Dropdown menu={{ items }} className='rounded-none hidden md:block p-4 '>
-        <button
+      <Dropdown
+        placement='bottom'
+        arrow
+        menu={{ items }}
+        className='rounded-none hidden md:block p-4  '
+        overlayStyle={{
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        <ul
           onClick={(e) => e.preventDefault()}
           className='bg-transparent border-none'
         >
-          <Space className='bg-red text-black font-semibold text-base'>
+          <Space className='  text-secondary font-semibold text-lg'>
             Categories
           </Space>
-        </button>
+        </ul>
       </Dropdown>
     </>
   );

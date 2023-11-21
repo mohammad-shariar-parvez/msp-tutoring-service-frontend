@@ -21,8 +21,8 @@ import { UserOutlined, BellOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import Notification from './Notification';
 import Topbar from './Topbar';
-const Navbar = ({ session, home = false }: Record<string, any>) => {
-  // console.log(session);
+const HomeNavbar = ({ session }: Record<string, any>) => {
+  console.log(session);
 
   const [navbar, setNavbar] = useState(false);
   const [sideBar, setSideBar] = useState(true);
@@ -94,24 +94,20 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
             <CategorySider sidebar={sideBar} />
           </Col>
           <Col xs={24} md={24} lg={24} className=''>
-            <div className='fixed w-full left-0 right-0 top-0 z-50 '>
-              {!navbar && home ? <Topbar /> : null}
+            <div className='fixed w-full left-0 right-0 top-0 z-50'>
+              {!navbar ? <Topbar /> : null}
               <div
                 className={`  ${
-                  !navbar && home ? 'bg-white' : '  bg-[#f9f9f9] shadow-md '
+                  navbar ? 'bg-[#f9f9f9] shadow-md ' : 'bg-white'
                 } relative `}
               >
                 <div className=' container  flex justify-between items-center   py-4 md:py-1 '>
-                  <Link href='/' className=''>
-                    <h2 className=' text-secondary font-bold text-2xl'>
-                      MSP Tutoring
-                    </h2>
-                  </Link>
+                  <h2>MSP Tutoring</h2>
 
-                  <ul className='flex justify-between items-center w-full list-none fixed bottom-0 md:static z-50  left-0 md:w-auto text-center bg-blue-100 md:bg-inherit text-secondary '>
-                    <li className='   p-4   block  '>
+                  <ul className='flex justify-between items-center w-full list-none fixed bottom-0 md:static z-50  left-0 md:w-auto text-center bg-blue-100 md:bg-inherit  '>
+                    <li className='   p-4   block text-black '>
                       <Link
-                        className='  text-secondary font-semibold text-lg'
+                        className='text-black md:hover:text-slate-400 font-semibold text-base'
                         href='/'
                       >
                         Home
@@ -120,7 +116,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     {session ? (
                       <li className='    p-4   block '>
                         <Link
-                          className='  text-secondary font-semibold text-lg'
+                          className='text-black md:hover:text-slate-400 font-semibold text-base'
                           href={`/${session?.role}`}
                         >
                           Dashboard
@@ -131,31 +127,34 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     <NavDropDown />
                     <li
                       onClick={() => setSideBar(!sideBar)}
-                      className='text-secondary    p-4   block md:hidden'
+                      className='    p-4   block md:hidden'
                     >
-                      <Link className='  font-semibold text-lg' href='/'>
+                      <Link
+                        className='text-black md:hover:text-slate-400 font-semibold text-base'
+                        href='/'
+                      >
                         Categories
                       </Link>
                     </li>
-                    <li className='   p-4   block '>
+                    <li className='    p-4   block '>
                       <Link
-                        className=' text-secondary  font-semibold text-lg'
+                        className='text-black md:hover:text-slate-400 font-semibold text-base'
                         href='/blogs'
                       >
-                        Blogsss
+                        Blogs
                       </Link>
                     </li>
-                    <li className='   p-4   block '>
+                    <li className='    p-4   block '>
                       <Link
-                        className=' text-secondary font-semibold text-lg'
-                        href='/about'
+                        className='text-black md:hover:text-slate-400 font-semibold text-base'
+                        href='/blogs'
                       >
                         About
                       </Link>
                     </li>
                     <li className='    p-4   block '>
                       <Link
-                        className='   text-secondary font-semibold text-lg'
+                        className='text-black md:hover:text-slate-400 font-semibold text-base'
                         href='/blogs'
                       >
                         Contact
@@ -208,4 +207,4 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
   );
 };
 
-export default Navbar;
+export default HomeNavbar;

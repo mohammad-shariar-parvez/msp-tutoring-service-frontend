@@ -9,7 +9,7 @@ import {
   addCourseWishList,
   removeCourseWishList,
 } from '@/redux/wishList/wishListSlice';
-import { usePathname } from 'next/navigation';
+// import { usePathname } from 'next/navigation';
 import { ICourse } from '@/types';
 
 interface CourseCardProps {
@@ -52,7 +52,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   return (
     <div className='relative'>
       <Link href={`/course/${course?.id}`} className='no-underline '>
-        <div className='max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:shadow-2xl  '>
+        <div className='max-w-sm bg-white  rounded-lg     hover:shadow-blue-200  shadow-md shadow-blue-100   '>
           <Image
             src={course.imageUrl}
             width={200}
