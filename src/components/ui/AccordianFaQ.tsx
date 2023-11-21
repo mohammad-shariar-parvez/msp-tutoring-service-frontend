@@ -36,7 +36,7 @@ const AccordianFAQ: React.FC = () => {
 
   return (
     <section className='container mb-32 '>
-      <h1 className='sg-title-txt mb-16 text-center'>FAQ</h1>
+      <h1 className='sub-title sub-title-style text-center '>FAQ</h1>
       <Collapse
         bordered={false}
         defaultActiveKey={['0']}

@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const NedHelp = () => {
   return (
-    <section className='container  h-96 justify-center items-center'>
+    <section className='container  md:h-96 justify-center items-center  mb-44 md:mb-32'>
       <div className='mix-blend-overlay hidden md:block'>
         <Image
           src={newsLetter}
@@ -16,7 +16,7 @@ const NedHelp = () => {
           className='  h-auto   p-4    '
         />
       </div>
-      <div className='mix-blend-overlay block md:hidden   '>
+      <div className='mix-blend-overlay block md:hidden    '>
         <Image
           src={newsLetterMobile}
           fill

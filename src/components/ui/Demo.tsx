@@ -29,7 +29,7 @@ const Demo = () => {
   };
 
   return (
-    <section className='bg-[#fbfeff] mb-16  py-16 '>
+    <section className='bg-[#fbfeff]  py-16 mb-32 '>
       <div className='container'>
         <div className='grid grid-cols-1 md:grid-cols-2 md:gap-10 gap-y-8 md:gap-y-0'>
           <div className='  '>

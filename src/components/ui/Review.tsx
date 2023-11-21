@@ -13,8 +13,8 @@ export default function Review() {
 
   return (
     <section>
-      <div className='container text-center mb-32 py-12  border   rounded-lg       shadow-md shadow-blue-100   '>
-        <h1 className=' sg-title-txt mb-20'>User Reviews</h1>
+      <div className=' container text-center mb-32   border   rounded-lg      shadow-md shadow-blue-100   '>
+        <h1 className=' sub-title  text-center '>User Reviews</h1>
         <div className='pb-16'>
           <Swiper
             spaceBetween={30}

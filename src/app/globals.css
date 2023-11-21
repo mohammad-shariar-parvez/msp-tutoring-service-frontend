@@ -113,6 +113,35 @@ html {
   transform: translate(-45%);
 }
 
+.sub-title-style-2::before {
+  content: "";
+  width: 80px;
+  height: 5px;
+  position: absolute;
+
+  top: 48px;
+  background: #092847;
+  border-radius: 5px;
+  right: 40%;
+  transform: translate(-40%);
+}
+
+.sub-title-style-2::after {
+  content: "";
+  width: 80px;
+  height: 5px;
+  position: absolute;
+  top: 48px;
+  background: #092847;
+  border-radius: 5px;
+  left: 46%;
+  transform: translate(-45%);
+}
+
+
+
+
+
 .sg-title-sub-tx {
   font-size: 16px;
   color: #858585;
@@ -655,6 +684,7 @@ submenu 2
 
 
 
+
 /* @media (min-width: 576px) {
   .container {
     max-width: 540px;
@@ -675,6 +705,52 @@ submenu 2
     /* Add any other styles for small devices here */
   }
 
+  .sub-title-style::before {
+    content: "";
+    width: 43px;
+    height: 5px;
+    position: absolute;
+    top: 45px;
+    background: #092847;
+    border-radius: 5px;
+    right: 46%;
+    transform: translate(-40%);
+  }
 
+  .sub-title-style::after {
+    content: "";
+    width: 43px;
+    height: 5px;
+    position: absolute;
+    top: 45px;
+    background: #092847;
+    border-radius: 5px;
+    left: 56%;
+    transform: translate(-45%);
+  }
+
+  .sub-title-style-2::before {
+    content: "";
+    width: 43px;
+    height: 5px;
+    position: absolute;
+    top: 79px;
+    background: #092847;
+    border-radius: 5px;
+    right: 46%;
+    transform: translate(-40%);
+  }
+
+  .sub-title-style-2::after {
+    content: "";
+    width: 43px;
+    height: 5px;
+    position: absolute;
+    top: 79px;
+    background: #092847;
+    border-radius: 5px;
+    left: 56%;
+    transform: translate(-45%);
+  }
 
 }

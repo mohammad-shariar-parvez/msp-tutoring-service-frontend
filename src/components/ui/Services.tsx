@@ -15,7 +15,7 @@ const Services = () => {
       <div className='container'>
         <div>
           <div className='  text-center '>
-            <h1 className='sub-title sub-title-style '>
+            <h1 className='sub-title sub-title-style-2 '>
               Get personalised help with
             </h1>
 

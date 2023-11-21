@@ -10,7 +10,7 @@ const Category = () => {
   const categoryData = data?.categories;
 
   return (
-    <div className='container pb-32 '>
+    <div className='container mb-32 '>
       <h1 className='sub-title sub-title-style text-center '>Top Categories</h1>
       <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
         {categoryData?.map((category: ICategory) => (

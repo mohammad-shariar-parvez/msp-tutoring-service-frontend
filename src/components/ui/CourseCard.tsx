@@ -52,7 +52,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   return (
     <div className='relative'>
       <Link href={`/course/${course?.id}`} className='no-underline '>
-        <div className='max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:shadow-2xl  '>
+        <div className='max-w-sm bg-white  rounded-lg     hover:shadow-blue-200  shadow-md shadow-blue-100  '>
           <Image
             src={course.imageUrl}
             width={200}
@@ -60,12 +60,12 @@ const CourseCard: React.FC<CourseCardProps> = ({
             alt='eagle_image'
             className='rounded-t-lg w-full h-36 md:h-48  object-fill '
           />
-          <div className='p-3 md:p-5 text-black relative'>
-            <h5 className='mb-2  text-sm md:text-xl font-bold tracking-tight  '>
+          <div className='p-3 md:p-5 text-black relative     '>
+            <h1 className='mb-2  text-sm md:text-lg   text-secondary font-semibold '>
               {course.title}
-            </h5>
+            </h1>
 
-            <div className='flex justify-between items-center  '>
+            <div className='flex justify-between items-center text-xs md:text-base  '>
               <p>{course.location}</p>
             </div>
 

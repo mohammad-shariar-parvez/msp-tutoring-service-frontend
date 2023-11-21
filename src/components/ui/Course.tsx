@@ -19,8 +19,10 @@ const Course: React.FC = () => {
   console.log(data);
 
   return (
-    <section className='container pb-32'>
-      <h1 className='sg-title-txt mb-20 text-center '>Available Courses</h1>
+    <section className='container mb-32'>
+      <h1 className='sub-title sub-title-style text-center  '>
+        Available Courses
+      </h1>
       <ConfigProvider
         theme={{
           components: {

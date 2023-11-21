@@ -22,7 +22,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, details }) => {
           />
 
           <div className='p-5'>
-            <h5 className=' mb-2  text-sm md:text-lg font-semibold text-gray-800 '>
+            <h5 className=' mb-2  text-sm md:text-lg   text-secondary font-semibold  '>
               {category.title}
             </h5>
 
