@@ -13,6 +13,7 @@ const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 const Providers = ({ children }: { children: React.ReactNode }) => {
   // const router = useRouter();
   // const pathname = usePathname();
+  // const pathname = usePathname();
   // const { role } = getUserInfo() as any;
 
   // useLayoutEffect(() => {
