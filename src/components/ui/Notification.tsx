@@ -7,7 +7,7 @@ import {
   useDeleteNotificationMutation,
   useNotificationsQuery,
 } from '@/redux/api/notificationApi';
-import socketIO from 'socket.io-client';
+// import socketIO from 'socket.io-client';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import { INotification } from '@/types';
@@ -15,7 +15,7 @@ import { getBaseUrl } from '@/helpers/config/envConfig';
 
 // const ENDPOINT = 'http://localhost:5010/' || '';
 const ENDPOINT = getBaseUrl();
-const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
+// const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const Notification = () => {
   // console.log(userId);
@@ -37,12 +37,12 @@ const Notification = () => {
     audio?.play();
   };
 
-  useEffect(() => {
-    socketId.on('newNotification', (data) => {
-      refetch();
-      playerNotificationSound();
-    });
-  }, []);
+  // useEffect(() => {
+  //   socketId.on('newNotification', (data) => {
+  //     refetch();
+  //     playerNotificationSound();
+  //   });
+  // }, []);
 
   const handleDelete = (id: string) => {
     deleteNotification(id);

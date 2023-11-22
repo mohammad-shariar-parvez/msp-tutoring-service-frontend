@@ -23,13 +23,13 @@ import Form from '@/components/Forms/Form';
 import FormDatePicker from '@/components/Forms/FormDatePicker';
 import ActionButtons from '@/components/ui/ActionButtons';
 import ActionBookingBar from '@/components/ui/ActionBookingBar';
-import socketIO from 'socket.io-client';
+// import socketIO from 'socket.io-client';
 import { useAddNotificationMutation } from '@/redux/api/notificationApi';
 import { getBaseUrl } from '@/helpers/config/envConfig';
 
 // const ENDPOINT = 'http://localhost:5010/' || '';
 const ENDPOINT = getBaseUrl();
-const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
+// const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 const BookingsPage = () => {
   const query: Record<string, any> = {};
 
@@ -121,10 +121,10 @@ const BookingsPage = () => {
     });
     console.log('check', x);
 
-    socketId.emit('notification', {
-      userId,
-      title: `your ordered - ${course}  course is confirmed .Please pay`,
-    });
+    // socketId.emit('notification', {
+    //   userId,
+    //   title: `your ordered - ${course}  course is confirmed .Please pay`,
+    // });
   };
 
   const onDetailsHandler = (values: any) => {

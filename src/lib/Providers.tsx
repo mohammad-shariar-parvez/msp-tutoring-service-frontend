@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import StyledComponentsRegistry from './AntdRegistry';
 import { SessionProvider } from 'next-auth/react';
 import { useEffect } from 'react';
-import socketIO from 'socket.io-client';
+// import socketIO from 'socket.io-client';
 import { getBaseUrl } from '@/helpers/config/envConfig';
 // const ENDPOINT = getBaseUrl() 'http://localhost:5010/' || '';
 const ENDPOINT = getBaseUrl();
-const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
+// const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   // const router = useRouter();
@@ -29,9 +29,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   //     redirect('/seper_admin');
   //   }
   // }, [pathname, role, router]);
-  useEffect(() => {
-    socketId.on('connection', () => {});
-  }, []);
+  // useEffect(() => {
+  //   socketId.on('connection', () => {});
+  // }, []);
 
   return (
     <SessionProvider>
