@@ -25,17 +25,17 @@ const Notification = () => {
     refetchOnMountOrArgChange: true,
   });
   const [deleteNotification] = useDeleteNotificationMutation();
-  const [audio] = useState(
-    typeof window !== 'undefined'
-      ? new window.Audio(
-          'https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3'
-        )
-      : null
-  );
+  // const [audio] = useState(
+  //   typeof window !== 'undefined'
+  //     ? new window.Audio(
+  //         'https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3'
+  //       )
+  //     : null
+  // );
 
-  const playerNotificationSound = () => {
-    audio?.play();
-  };
+  // const playerNotificationSound = () => {
+  //   audio?.play();
+  // };
 
   // useEffect(() => {
   //   socketId.on('newNotification', (data) => {

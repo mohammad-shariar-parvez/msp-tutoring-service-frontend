@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { ConfigProvider, Tabs } from 'antd';
+import { Button, ConfigProvider, Divider, Tabs } from 'antd';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 import CourseCard from './CourseCard';
 import { ICourse } from '@/types';
@@ -9,6 +9,8 @@ import { locationOptions } from '@/constants/global';
 
 const Course: React.FC = () => {
   const [location, setLocation] = useState('natore');
+  const [active, setActive] = useState(true);
+
   const onChange = (key: string) => {
     setLocation(key);
     console.log(key);
@@ -23,51 +25,50 @@ const Course: React.FC = () => {
       <h1 className='sub-title sub-title-style text-center  '>
         Available Courses
       </h1>
-      <ConfigProvider
-        theme={{
-          components: {
-            Button: {
-              fontWeight: '600',
-              //   defaultBg: 'red',
-              //   primaryColor: 'red',
-              /* here is your component tokens */
-            },
-          },
-          token: {
-            colorPrimary: 'white',
-            colorPrimaryHover: '#3f64ae',
-            colorBgContainer: '#274279',
-            lineWidth: 2,
-          },
-        }}
-      >
-        <Tabs
-          onChange={onChange}
-          type='card'
-          size='large'
-          className=''
-          items={locationOptions.map((location) => {
-            return {
-              label: (
-                <div className='font-semibold space-x-1 leading-3 flex items-center justify-center '>
-                  <span className=' inline-block '>
-                    <FaLocationDot />
-                  </span>
-                  <span className='inline-block'>{location.label}</span>
-                </div>
-              ),
-              key: location.value,
-              children: (
-                <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
-                  {courseData?.map((course: ICourse) => (
-                    <CourseCard key={course.id} course={course} />
-                  ))}
-                </div>
-              ),
-            };
-          })}
-        />
-      </ConfigProvider>
+
+      <div className='space-x-2 text-sm md:text-base'>
+        <button
+          className={` ${
+            active
+              ? 'bg-secondary text-white rounded-t-lg hover:bg-primary'
+              : 'bg-white text-secondary rounded-t-lg'
+          }  px-4 py-2   cursor-pointer border-solid border'`}
+          onClick={() => {
+            setLocation('natore'), setActive(true);
+          }}
+        >
+          <div className=' space-x-1 leading-3 flex items-center justify-center '>
+            <span className=' inline-block '>
+              <FaLocationDot />
+            </span>
+            <span className='inline-block'>Natore</span>
+          </div>
+        </button>
+
+        <button
+          className={` ${
+            !active
+              ? 'bg-secondary text-white hover:bg-primary'
+              : 'bg-white text-secondary'
+          }  px-4 py-2   cursor-pointer rounded-t-lg border-solid border border-gray-200'`}
+          onClick={() => {
+            setLocation('gazipur'), setActive(false);
+          }}
+        >
+          <div className=' space-x-1 leading-3 flex items-center justify-center '>
+            <span className=' inline-block '>
+              <FaLocationDot />
+            </span>
+            <span className='inline-block'>Gazipur</span>
+          </div>
+        </button>
+      </div>
+      <Divider className='my-4'></Divider>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
+        {courseData?.map((course: ICourse) => (
+          <CourseCard key={course.id} course={course} />
+        ))}
+      </div>
     </section>
   );
 };

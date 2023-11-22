@@ -20,7 +20,7 @@ type FormValues = {
 
 const SignUpPage = () => {
   const router = useRouter();
-  const searhParams = useSearchParams().get('redirect');
+  const searhParams = useSearchParams().get('redirect') as string;
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const result = await signIn('msp-tutoring-signup', {
@@ -33,7 +33,7 @@ const SignUpPage = () => {
       if (result?.ok && !result.error) {
         message.success('User Created  successfully!');
         router.refresh();
-        router.push('/', { scroll: false });
+        router.push(searhParams, { scroll: false });
       } else {
         message.error('Could not create user!');
       }
