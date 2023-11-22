@@ -11,7 +11,12 @@ import {
 
 const BannerInfo = () => {
   const formatter = (value: number, title: string) => (
-    <CountUp className='statistics-details' end={value} separator=','>
+    <CountUp
+      className='statistics-details'
+      end={value}
+      duration={5}
+      separator=','
+    >
       {({ countUpRef, start }) => (
         <div className='ml-[5px]'>
           <span
@@ -33,13 +38,13 @@ const BannerInfo = () => {
             <Col xs={12} md={12} lg={6}>
               <div className='sg-bnr-info-itm'>
                 <UsergroupDeleteOutlined className=' icon-size clr-01' />
-                {formatter(30, 'Active Tutors')}
+                {formatter(30, ' Tutors')}
               </div>
             </Col>
             <Col xs={12} md={12} lg={6}>
               <div className='sg-bnr-info-itm'>
                 <UserOutlined className=' icon-size clr-02' />
-                {formatter(900, 'Active Students')}
+                {formatter(900, ' Students')}
               </div>
             </Col>
             <Col xs={12} md={12} lg={6}>
@@ -52,7 +57,7 @@ const BannerInfo = () => {
               <div className='sg-bnr-info-itm'>
                 <i className='fas fa-map-marked-alt fa-fw clr-04'></i>
                 <CarryOutFilled className=' icon-size clr-04' />
-                {formatter(20, 'Locations Cover')}
+                {formatter(20, 'Locations ')}
               </div>
             </Col>
           </Row>

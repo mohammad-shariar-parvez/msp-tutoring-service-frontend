@@ -18,13 +18,15 @@ import Course from '@/components/ui/Course';
 import Choise from '@/components/ui/Choise';
 import NedHelp from '@/components/ui/NedHelp';
 import About from '@/components/ui/About';
+import { Rubik } from 'next/font/google';
+const rubik = Rubik({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+});
 const HomePage = async () => {
   const session: any = await getServerSession(authOptions);
   return (
-    // <PublicContents>
-    <div>
-      {/* <Topbar /> */}
-      {/* <HomeNavbar /> */}
+    <div className={rubik.className}>
       <Navbar session={session} home />
       <Banner />
       <BannerInfo />
@@ -32,7 +34,6 @@ const HomePage = async () => {
       <Services />
       <Category />
       <Course />
-      {/* <CourseCity /> */}
       <UpcommingCourse />
       <Info />
       <Review />
@@ -43,7 +44,6 @@ const HomePage = async () => {
       <About />
       <Footer />
     </div>
-    // </PublicContents>
   );
 };
 HomePage.getLayout = (page: React.ReactNode) => page;

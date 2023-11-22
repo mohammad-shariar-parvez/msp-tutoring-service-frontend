@@ -11,18 +11,20 @@ import {
 } from '@/redux/wishList/wishListSlice';
 import { usePathname } from 'next/navigation';
 import { ICourse } from '@/types';
-import { Skeleton } from 'antd';
+import { Skeleton, Badge, Card, Space } from 'antd';
 
 interface CourseCardProps {
   course: ICourse;
   isDelete?: boolean;
   isLoading?: boolean;
+  ribbon?: boolean;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
   course,
   isDelete = false,
   isLoading,
+  ribbon,
 }) => {
   const { courses: courseData } = useAppSelector((state) => state.wishList);
   const dispatch = useAppDispatch();
@@ -54,6 +56,11 @@ const CourseCard: React.FC<CourseCardProps> = ({
   return (
     <div className='relative'>
       <Link href={`/course/${course?.id}`} className='no-underline '>
+        {/* <Badge.Ribbon
+          className={`${ribbon ? 'block' : 'hidden'}`}
+          text='Hippies'
+          color='#335880'
+        > */}
         <div className='max-w-sm bg-white  rounded-lg     hover:shadow-blue-200  shadow-md shadow-blue-100  '>
           {isLoading ? (
             <Skeleton.Image
@@ -104,6 +111,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
             </div>
           </Skeleton>
         </div>
+        {/* </Badge.Ribbon> */}
       </Link>
     </div>
   );

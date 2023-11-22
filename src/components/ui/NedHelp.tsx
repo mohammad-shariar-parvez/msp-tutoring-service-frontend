@@ -24,7 +24,7 @@ const NedHelp = () => {
           className='rounded-t-lg  h-36   object-cover object-center p-4  '
         />
       </div>
-      <div className=' relative top-10 md:top-[42%] flex items-center justify-center flex-col md:flex-row w-full md:space-x-10  space-y-2 md:space-y-0  '>
+      <div className=' relative top-10 md:top-[44%] flex items-center justify-center flex-col md:flex-row w-full md:space-x-10  space-y-2 md:space-y-0  '>
         <h1 className='text-[21px] md:text-[40px] font-semibold text-[#333]'>
           Do you need <span className=' '>help ?</span>
         </h1>

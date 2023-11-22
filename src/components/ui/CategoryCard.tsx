@@ -36,9 +36,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
           )}
           <Skeleton className='p-4' active={true} loading={isLoading}>
             <div className='p-5'>
-              <h5 className=' mb-2  text-sm md:text-lg   text-secondary font-semibold  '>
+              <h1 className=' mb-2  text-sm md:text-lg   text-secondary font-semibold  '>
                 {category.title}
-              </h5>
+              </h1>
 
               {!details ? (
                 <p className=' text-gray-700'>

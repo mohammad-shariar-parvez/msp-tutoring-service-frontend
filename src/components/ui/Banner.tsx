@@ -11,13 +11,6 @@ const Banner = () => {
   const query: Record<string, any> = { limit: 0 };
   const [course, setCourse] = useState<string>('');
 
-  const publicOnSubmit = async (values: any) => {
-    // console.log(values);
-    // setSearchTerm(values.searchTerm);
-    // setSearchTerm2(values.searchTerm2);
-    // setLimit(15);
-  };
-
   const { data, isLoading } = useCoursesQuery({ ...query });
   // console.log(data);
 

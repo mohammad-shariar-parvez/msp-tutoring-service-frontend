@@ -25,7 +25,12 @@ const UpcommingCourse = () => {
 
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
         {courseData?.map((course: ICourse) => (
-          <CourseCard key={course.id} course={course} isLoading={isLoading} />
+          <CourseCard
+            key={course.id}
+            course={course}
+            isLoading={isLoading}
+            ribbon
+          />
         ))}
       </div>
     </div>

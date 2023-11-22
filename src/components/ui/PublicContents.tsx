@@ -10,33 +10,6 @@ import { useRouter } from 'next/navigation';
 const { Content } = Layout;
 
 const PublicContents = ({ children }: { children: React.ReactNode }) => {
-  const userLoggedIn = isLoggedIn();
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  useEffect(() => {
-    setIsLoading(true);
-  }, [router, isLoading, userLoggedIn]);
-
-  if (!isLoading) {
-    return (
-      <>
-        <Navbar />
-        <Row
-          justify='center'
-          style={{
-            height: '100vh',
-          }}
-          className='opacity-50'
-        >
-          <Space>
-            <Spin tip='Loading' size='large'></Spin>
-          </Space>
-        </Row>
-        <Footer />
-      </>
-    );
-  }
-
   return (
     <Layout className=' body-color'>
       <Navbar />

@@ -46,7 +46,7 @@ const SearchField = () => {
   const onPageChange: PaginationProps['onChange'] = (page, pageSize) => {
     setPage(page);
   };
-  const { data } = useBlogsQuery({ ...query });
+  const { data, isLoading } = useBlogsQuery({ ...query });
   // console.log(data);
 
   const blogsData = data?.blogs;
@@ -56,7 +56,7 @@ const SearchField = () => {
         {blogsData?.length > 0 ? (
           <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
             {blogsData?.map((blog: IBlogs) => (
-              <BlogCard key={blog.id} blog={blog} />
+              <BlogCard key={blog.id} blog={blog} isLoading={isLoading} />
             ))}
           </div>
         ) : (

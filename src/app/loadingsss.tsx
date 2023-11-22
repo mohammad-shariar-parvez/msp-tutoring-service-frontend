@@ -6,7 +6,7 @@ const Loading = () => {
       justify='center'
       align='middle'
       style={{
-        height: '100vh',
+        height: '30px',
       }}
       className='bg- bg-red-500'
     >
