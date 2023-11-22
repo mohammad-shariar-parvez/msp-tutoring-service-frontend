@@ -8,11 +8,14 @@ import { ICourse } from '@/types';
 import CourseCard from './CourseCard';
 
 const UpcommingCourse = () => {
-  const { data } = useCoursesQuery({ limit: 4, status: 'UPCOMMING' });
+  const { data, isLoading } = useCoursesQuery({
+    limit: 4,
+    status: 'UPCOMMING',
+  });
 
   const courseData = data?.courses;
 
-  console.log(courseData);
+  // console.log(courseData);
 
   return (
     <div className='container mb-32 '>
@@ -22,7 +25,7 @@ const UpcommingCourse = () => {
 
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
         {courseData?.map((course: ICourse) => (
-          <CourseCard key={course.id} course={course} />
+          <CourseCard key={course.id} course={course} isLoading={isLoading} />
         ))}
       </div>
     </div>

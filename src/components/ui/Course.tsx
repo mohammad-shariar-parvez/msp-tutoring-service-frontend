@@ -16,7 +16,11 @@ const Course: React.FC = () => {
     console.log(key);
   };
 
-  const { data } = useCoursesQuery({ limit: 6, location, status: 'RUNNING' });
+  const { data, isLoading } = useCoursesQuery({
+    limit: 6,
+    location,
+    status: 'RUNNING',
+  });
   const courseData = data?.courses;
   console.log(data);
 
@@ -26,13 +30,13 @@ const Course: React.FC = () => {
         Available Courses
       </h1>
 
-      <div className='space-x-2 text-sm md:text-base'>
+      <div className='space-x-2 text-sm md:text-lg '>
         <button
           className={` ${
             active
-              ? 'bg-secondary text-white rounded-t-lg hover:bg-primary'
-              : 'bg-white text-secondary rounded-t-lg'
-          }  px-4 py-2   cursor-pointer border-solid border'`}
+              ? 'bg-secondary text-white rounded-t-lg hover:bg-primary '
+              : 'bg-white text-secondary rounded-t-lg hover:bg-slate-100 '
+          }  px-4 py-2   cursor-pointer border-solid border '`}
           onClick={() => {
             setLocation('natore'), setActive(true);
           }}
@@ -49,7 +53,7 @@ const Course: React.FC = () => {
           className={` ${
             !active
               ? 'bg-secondary text-white hover:bg-primary'
-              : 'bg-white text-secondary'
+              : 'bg-white text-secondary hover:bg-slate-100'
           }  px-4 py-2   cursor-pointer rounded-t-lg border-solid border border-gray-200'`}
           onClick={() => {
             setLocation('gazipur'), setActive(false);
@@ -66,7 +70,7 @@ const Course: React.FC = () => {
       <Divider className='my-4'></Divider>
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
         {courseData?.map((course: ICourse) => (
-          <CourseCard key={course.id} course={course} />
+          <CourseCard key={course.id} course={course} isLoading={isLoading} />
         ))}
       </div>
     </section>

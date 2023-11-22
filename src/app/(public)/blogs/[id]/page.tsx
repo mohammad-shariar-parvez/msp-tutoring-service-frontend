@@ -35,7 +35,7 @@ const BlogDetails = ({ params }: IDProps) => {
           {isLoading ? (
             <Skeleton.Image
               active={true}
-              className='h-[290px] w-full md:w-[290px]'
+              className='h-[290px] w-full md:w-[320px]'
               // style={{ height: 290 }}
             />
           ) : (
@@ -44,10 +44,10 @@ const BlogDetails = ({ params }: IDProps) => {
               width={500}
               height={290}
               alt='eagle_image'
-              className='w-full h-auto md:h-[290] md:w-auto '
+              className='w-full h-auto md:h-[290px] md:w-[320px] '
             />
           )}
-          <Skeleton loading={isLoading}>
+          <Skeleton active={true} loading={isLoading}>
             <p className='text-base font-normal text-[#212529] text-justify'>
               {parsedContent}
             </p>
