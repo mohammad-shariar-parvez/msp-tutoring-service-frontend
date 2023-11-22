@@ -25,8 +25,10 @@ import ActionButtons from '@/components/ui/ActionButtons';
 import ActionBookingBar from '@/components/ui/ActionBookingBar';
 import socketIO from 'socket.io-client';
 import { useAddNotificationMutation } from '@/redux/api/notificationApi';
+import { getBaseUrl } from '@/helpers/config/envConfig';
 
-const ENDPOINT = 'http://localhost:5010/' || '';
+// const ENDPOINT = 'http://localhost:5010/' || '';
+const ENDPOINT = getBaseUrl();
 const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 const BookingsPage = () => {
   const query: Record<string, any> = {};

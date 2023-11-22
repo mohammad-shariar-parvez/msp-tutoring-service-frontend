@@ -11,8 +11,10 @@ import socketIO from 'socket.io-client';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import { INotification } from '@/types';
+import { getBaseUrl } from '@/helpers/config/envConfig';
 
-const ENDPOINT = 'http://localhost:5010/' || '';
+// const ENDPOINT = 'http://localhost:5010/' || '';
+const ENDPOINT = getBaseUrl();
 const socketId = socketIO(ENDPOINT, { transports: ['websocket'] });
 
 const Notification = () => {
