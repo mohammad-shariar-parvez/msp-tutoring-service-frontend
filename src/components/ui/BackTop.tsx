@@ -14,8 +14,8 @@ const BackTop = () => (
         },
       }}
     >
-      <FloatButton.Group shape='circle'>
-        <FloatButton.BackTop visibilityHeight={4000} />
+      <FloatButton.Group shape='circle' className='bottom-[60px] right-[10px]'>
+        <FloatButton.BackTop visibilityHeight={7000} />
       </FloatButton.Group>
     </ConfigProvider>
   </>

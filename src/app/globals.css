@@ -165,6 +165,11 @@ html {
 
 }
 
+/* 
+.ant-menu-root {
+  color: yellowgreen !important;
+} */
+
 .sg-title-sub-tx {
   font-size: 16px;
   color: #858585;
@@ -540,6 +545,15 @@ find button
 
 } */
 
+
+/* 
+ant menu
+*/
+
+/* .ant-menu-title-content {
+  color: red !important;
+
+} */
 
 
 .buttonCOurse {

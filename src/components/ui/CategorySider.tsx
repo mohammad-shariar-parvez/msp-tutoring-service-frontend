@@ -88,12 +88,20 @@ const CategorySider: React.FC<CategorySiderProps> = ({ sidebar }) => {
     },
     {
       key: '3',
-      label: 'About',
+      label: (
+        <Link className='' href='/about'>
+          About
+        </Link>
+      ),
     },
 
     {
       key: '4',
-      label: 'Logout',
+      label: (
+        <Link className='' href='/contact'>
+          Contact
+        </Link>
+      ),
     },
   ];
   const onClick: MenuProps['onClick'] = (e) => {};
@@ -105,8 +113,10 @@ const CategorySider: React.FC<CategorySiderProps> = ({ sidebar }) => {
       onClick={onClick}
       style={{ width: 256 }}
       items={final}
-      className={`h-screen md:hidden transition-all duration-300 ease-in-out fixed top-8 left-0 overflow-x-hidden ${
-        sidebar ? '-translate-x-full' : 'translate-x-0 z-50'
+      className={`h-screen md:hidden transition-all duration-300 ease-in-out fixed top-6 left-0 overflow-x-hidden  ${
+        sidebar
+          ? '-translate-x-full'
+          : 'translate-x-0 z-50 text-base font-medium'
       }  `}
     />
   );

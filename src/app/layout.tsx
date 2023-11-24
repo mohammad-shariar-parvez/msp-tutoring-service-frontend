@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Rubik } from 'next/font/google';
 import Providers from '@/lib/Providers';
+import { ConfigProvider } from 'antd';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -22,7 +23,17 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={rubik.className}>
-        <Providers>{children}</Providers>
+        <ConfigProvider
+          theme={{
+            token: {
+              // Seed Token
+
+              fontFamily: 'rubik', // Alias Token
+            },
+          }}
+        >
+          <Providers>{children}</Providers>
+        </ConfigProvider>
       </body>
     </html>
   );

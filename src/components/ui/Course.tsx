@@ -1,11 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, ConfigProvider, Divider, Tabs } from 'antd';
+import { Button, ConfigProvider, Divider, Empty, Tabs } from 'antd';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 import CourseCard from './CourseCard';
 import { ICourse } from '@/types';
 import { FaLocationDot } from 'react-icons/fa6';
 import { locationOptions } from '@/constants/global';
+import CourseCardScalaton from './scalaton/CourseCardScalaton';
 
 const Course: React.FC = () => {
   const [location, setLocation] = useState('natore');
@@ -16,14 +17,48 @@ const Course: React.FC = () => {
     console.log(key);
   };
 
-  const { data, isLoading } = useCoursesQuery({
+  const { data, isLoading, isError } = useCoursesQuery({
     limit: 6,
     location,
     status: 'RUNNING',
   });
-  const courseData = data?.courses;
-  console.log(data);
 
+  const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
+  // console.log(data);
+  let searchComponent = null;
+
+  if (!isLoading && isError) {
+    searchComponent = (
+      <div className=' flex justify-center items-center h-full'>
+        <Empty
+          className='text-red-500  text-xl font-semibold block'
+          description='Something went wrong'
+        />
+      </div>
+    );
+  }
+  if (!isError && !isLoading && coursesData?.length <= 0) {
+    searchComponent = <Empty description='No courses found' />;
+  }
+  if (isLoading && !isError) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
+        {Array.from({ length: 8 }).map((_, index) => (
+          <CourseCardScalaton key={index} />
+        ))}
+      </div>
+    );
+  }
+
+  if (!isError && !isLoading && coursesData?.length > 0) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
+        {coursesData?.map((course: ICourse) => (
+          <CourseCard key={course.id} course={course} isLoading={isLoading} />
+        ))}
+      </div>
+    );
+  }
   return (
     <section className='container mb-32'>
       <h1 className='sub-title sub-title-style text-center  '>
@@ -68,11 +103,12 @@ const Course: React.FC = () => {
         </button>
       </div>
       <Divider className='my-4'></Divider>
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
+      {/* <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
         {courseData?.map((course: ICourse) => (
           <CourseCard key={course.id} course={course} isLoading={isLoading} />
         ))}
-      </div>
+      </div> */}
+      {searchComponent}
     </section>
   );
 };

@@ -11,13 +11,21 @@ import {
   Space,
   MenuProps,
 } from 'antd';
-
+import { IoMdHome } from 'react-icons/io';
+import { HomeOutlined } from '@ant-design/icons';
+import { MdDashboardCustomize, MdMore, MdHomeFilled } from 'react-icons/md';
+import { CgMoreVerticalO } from 'react-icons/cg';
 import CategorySider from './CategorySider';
 import { HeartOutlined, DeleteOutlined } from '@ant-design/icons';
+import { FaBlog } from 'react-icons/fa';
 import NavDropDown from './NavDropDown';
 import { useAppSelector } from '@/redux/hooks';
 import { signOut } from 'next-auth/react';
-import { UserOutlined, BellOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  BellOutlined,
+  PlusCircleOutlined,
+} from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import Notification from './Notification';
 import Topbar from './Topbar';
@@ -94,18 +102,20 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                   </Link>
 
                   <ul className='flex justify-between items-center w-full list-none fixed bottom-0 md:static z-50  left-0 md:w-auto text-center bg-blue-100 md:bg-inherit text-secondary '>
-                    <li className='   p-4   block  '>
+                    <li className=' px-4 pt-2  md:p-4   block  '>
+                      <IoMdHome className=' text-secondary  font-semibold text-xl md:hidden' />
                       <Link
-                        className='  text-secondary font-semibold text-lg'
+                        className='  text-secondary font-medium text-sm md:font-semibold md:text-lg block'
                         href='/'
                       >
                         Home
                       </Link>
                     </li>
                     {session ? (
-                      <li className='    p-4   block '>
+                      <li className='   px-4 pt-2  md:p-4   block '>
+                        <MdDashboardCustomize className=' text-secondary  font-semibold text-lg md:hidden' />
                         <Link
-                          className='  text-secondary font-semibold text-lg'
+                          className='  text-secondary font-medium text-sm block md:font-semibold md:text-lg'
                           href={`/${session?.role}`}
                         >
                           Dashboard
@@ -114,23 +124,32 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     ) : null}
 
                     <NavDropDown />
-                    <li
-                      onClick={() => setSideBar(!sideBar)}
-                      className='text-secondary    p-4   block md:hidden'
-                    >
-                      <Link className='  font-semibold text-lg' href='/'>
-                        Categories
-                      </Link>
-                    </li>
-                    <li className='   p-4   block '>
+
+                    <li className='  px-4 pt-2  md:p-4  block '>
+                      <FaBlog className=' text-secondary  font-semibold text-lg md:hidden' />
                       <Link
-                        className=' text-secondary  font-semibold text-lg'
+                        className=' text-secondary font-medium text-sm block md:font-semibold md:text-lg'
                         href='/blogs'
                       >
-                        Blogsss
+                        Blogs
                       </Link>
                     </li>
-                    <li className='   p-4   block '>
+
+                    <li
+                      onClick={() => setSideBar(!sideBar)}
+                      className='text-secondary    px-4 pt-2  md:p-4    block md:hidden '
+                    >
+                      <CgMoreVerticalO className='text-secondary font-semibold text-lg md:hidden ' />
+                      <Link
+                        className=' text-secondary  font-medium text-sm block'
+                        href=''
+                      >
+                        More
+                      </Link>
+                      <span className=' text-secondary  font-semibold text-lg'></span>
+                    </li>
+
+                    <li className='   p-4 hidden  md:block '>
                       <Link
                         className=' text-secondary font-semibold text-lg'
                         href='/about'
@@ -138,7 +157,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                         About
                       </Link>
                     </li>
-                    <li className='    p-4   block '>
+                    <li className='    p-4   hidden  md:block  '>
                       <Link
                         className='   text-secondary font-semibold text-lg'
                         href='/blogs'

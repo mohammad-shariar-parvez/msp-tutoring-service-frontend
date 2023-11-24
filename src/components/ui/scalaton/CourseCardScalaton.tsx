@@ -18,15 +18,7 @@ const CourseCardScalaton: React.FC<CourseCardProps> = ({}) => {
           />
 
           <Skeleton className='p-4' active={true} loading={true}>
-            <div className='p-3 md:p-5 text-black relative     '>
-              <h1 className='mb-2  text-sm md:text-lg   text-secondary font-semibold '>
-                gh
-              </h1>
-
-              <div className='flex justify-between items-center text-xs md:text-base  '>
-                <p>gh</p>
-              </div>
-            </div>
+            <div className='p-3 md:p-5 text-black relative     '></div>
           </Skeleton>
         </div>
       </Link>
