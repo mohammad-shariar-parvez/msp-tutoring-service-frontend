@@ -139,9 +139,31 @@ html {
   transform: translate(-45%);
 }
 
+.ant-select-selection-item {
 
+  font-weight: 500 !important;
+  color: "#335880";
+}
 
+.ant-select-item-option-content {
 
+  font-weight: 500 !important;
+  color: "#335880";
+}
+
+.ant-input-borderless {
+
+  font-weight: 500 !important;
+  color: "#335880";
+}
+
+.ant-select-dropdown {
+  position: absolute;
+  left: 80px;
+  top: 80px;
+  bottom: 80;
+
+}
 
 .sg-title-sub-tx {
   font-size: 16px;
@@ -162,6 +184,7 @@ find button
   display: inline-flex;
   transition: all 0.7s;
   border: none;
+  margin-right: 4px;
   border-radius: 7px;
   white-space: nowrap !important
 }

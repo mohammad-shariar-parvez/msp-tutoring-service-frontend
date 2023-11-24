@@ -26,7 +26,7 @@ const rubik = Rubik({
 const HomePage = async () => {
   const session: any = await getServerSession(authOptions);
   return (
-    <div className={rubik.className}>
+    <div>
       <Navbar session={session} home />
       <Banner />
       <BannerInfo />

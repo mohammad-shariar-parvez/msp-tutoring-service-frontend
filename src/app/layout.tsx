@@ -20,12 +20,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Providers>
-      <html lang='en'>
-        <body className={rubik.className}>
-          <body>{children}</body>
-        </body>
-      </html>
-    </Providers>
+    <html lang='en'>
+      <body className={rubik.className}>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
 }

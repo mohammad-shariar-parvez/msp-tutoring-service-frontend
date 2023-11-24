@@ -12,6 +12,11 @@ const ENDPOINT = getBaseUrl();
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
+    // <SessionProvider>
+    //   <Provider store={store}>
+    //     <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+    //   </Provider>
+    // </SessionProvider>
     <SessionProvider>
       <Provider store={store}>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>

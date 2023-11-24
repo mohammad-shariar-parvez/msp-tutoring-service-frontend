@@ -51,38 +51,40 @@ const Notification = () => {
   // console.log(data);
 
   const notificationData = data?.notification;
+  console.log(notificationData?.length);
 
-  const items: MenuProps['items'] = notificationData
-    ? notificationData?.map((item: INotification) => ({
-        key: item.id,
-        label: (
-          <div className='flex justify-between items-start space-x-4  '>
-            <p className='text-base font-medium text-[#212529]  cursor-pointer bg-transparent border-none'>
-              {item.title}
-            </p>
-            <button
-              onClick={() => handleDelete(item.id)}
-              className='bg-transparent border-none mt-1 '
-            >
-              <DeleteOutlined
-                // onClick={removeWishList}
-                className=' cursor-pointer   text-red-500 '
-              />
-            </button>
-          </div>
-        ),
-      }))
-    : [
-        {
-          key: '0',
-          disabled: true,
+  const items: MenuProps['items'] =
+    notificationData?.length > 0
+      ? notificationData?.map((item: INotification) => ({
+          key: item.id,
           label: (
-            <p className=' text-base font-medium text-[#212529]  cursor-pointer bg-transparent border-none'>
-              No Notification Yet
-            </p>
+            <div className='flex justify-between items-start space-x-4  '>
+              <p className='text-base font-medium text-[#212529]  cursor-pointer bg-transparent border-none'>
+                {item.title}
+              </p>
+              <button
+                onClick={() => handleDelete(item.id)}
+                className='bg-transparent border-none mt-1 '
+              >
+                <DeleteOutlined
+                  // onClick={removeWishList}
+                  className=' cursor-pointer   text-red-500 '
+                />
+              </button>
+            </div>
           ),
-        },
-      ];
+        }))
+      : [
+          {
+            key: '0',
+            disabled: true,
+            label: (
+              <p className=' text-base font-medium text-[#212529]  cursor-pointer bg-transparent border-none'>
+                No Notification Yet
+              </p>
+            ),
+          },
+        ];
 
   return (
     <Dropdown
@@ -95,7 +97,7 @@ const Notification = () => {
       menu={{ items }}
       placement='bottom'
       arrow
-      className='rounded-none  py-4  '
+      className='rounded-none px-2 py-4 md:p-4    '
     >
       <Badge
         size='small'

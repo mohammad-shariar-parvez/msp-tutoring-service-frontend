@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import Link from 'next/link';
 const About = () => {
   return (
-    <section className='container pb-32'>
+    <section className='container pb-32 my-0'>
       <h1 className='sub-title sub-title-style mb-20 text-center mt-0  '>
         About Us
       </h1>

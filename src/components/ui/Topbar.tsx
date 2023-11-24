@@ -38,7 +38,7 @@ const Topbar = () => {
             <span>Improve Your Result </span>
           </div>
         </Carousel>
-        <div className='text-lg cursor-pointer  space-x-3 text-white leading-3  '>
+        <div className='text-lg cursor-pointer  space-x-4 text-white leading-3  '>
           <Link className='cursor-pointer inline-block my-auto' href='/'>
             {/* <WhatsAppOutlined className='text-gray-300 hover:text-gray-100' /> */}
             <FaWhatsappSquare className='text-gray-300 hover:text-gray-100 pt-0' />

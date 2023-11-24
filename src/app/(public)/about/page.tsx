@@ -3,7 +3,7 @@ import React from 'react';
 
 const AboutUs = () => {
   return (
-    <section className='container my-32'>
+    <section className='container md:my-32'>
       <h1 className='sg-title-txt   '>About Us</h1>
 
       <div className='text-base font-normal text-[#212529]   m-auto space-y-4 text-justify'>

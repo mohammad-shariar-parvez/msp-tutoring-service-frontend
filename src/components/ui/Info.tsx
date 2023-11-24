@@ -17,10 +17,10 @@ const Info = () => {
               <div className='text-hint font-medium text-lg  text-primary'>
                 Step 1
               </div>
-              <h2 className='text-secondary font-semibold text-center my-6 text-lg'>
+              <h2 className='  text-center my-6 text-xl font-semibold  text-secondary'>
                 Sign up
               </h2>
-              <p className='text-center font-medium  text-gray-600 text-base'>
+              <p className='ext-base font-normal  text-gray-600 text-center '>
                 Fill up your details and complete the sign-up process.
               </p>
             </div>
@@ -28,10 +28,10 @@ const Info = () => {
               <div className='text-hint font-medium text-lg  text-primary'>
                 Step 2
               </div>
-              <h2 className='text-secondary font-semibold text-center my-6 text-lg'>
+              <h2 className='text-center my-6 text-xl font-semibold  text-secondary'>
                 Place your order
               </h2>
-              <p className='text-center font-medium  text-gray-600 text-base'>
+              <p className='ext-base font-normal  text-gray-600 text-center '>
                 Place your order by uploading your queries and wait for a
                 quotation.
               </p>
@@ -40,10 +40,10 @@ const Info = () => {
               <div className='text-hint font-medium text-lg  text-primary'>
                 Step 3
               </div>
-              <h2 className='text-secondary font-semibold text-center my-6 text-lg'>
+              <h2 className='text-center my-6 text-xl font-semibold  text-secondary'>
                 Payment
               </h2>
-              <p className='text-center font-medium  text-gray-600 text-base'>
+              <p className='ext-base font-normal  text-gray-600 text-center '>
                 We will quote a price depending on your order. Pay with the
                 link.
               </p>
@@ -52,10 +52,10 @@ const Info = () => {
               <div className='text-hint font-medium text-lg text-primary'>
                 Step 4
               </div>
-              <h2 className='text-secondary font-semibold text-center my-6 text-lg'>
+              <h2 className='text-center my-6 text-xl font-semibold  text-secondary'>
                 Get your solutions
               </h2>
-              <p className='text-center font-medium  text-gray-600 text-base'>
+              <p className='text-base font-normal  text-gray-600 text-center '>
                 Once payment is completed, you can sit back and relax.
               </p>
             </div>

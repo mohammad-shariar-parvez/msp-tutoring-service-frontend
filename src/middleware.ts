@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
 			return NextResponse.next();
 
 		}
-		if (protectedRoutes.some(route => pathname.startsWith(route))) {
+		if (protectedRoutes.some(route => pathname?.startsWith(route))) {
 			console.log("11111111111111------", pathname);
 			return NextResponse.redirect(`${process.env.FRONTEND_URL}/login?redirect=${pathname}`);
 		}
@@ -45,9 +45,9 @@ export async function middleware(request: NextRequest) {
 	console.log(role, "role middleware");
 	if (
 
-		(role === "admin" && pathname.startsWith("/admin")) ||
-		(role === "super_admin" && pathname.startsWith("/super_admin")) ||
-		(role === "user" && !pathname.startsWith("/super_admin") && !pathname.startsWith("/admin"))
+		(role === "admin" && pathname?.startsWith("/admin")) ||
+		(role === "super_admin" && pathname?.startsWith("/super_admin")) ||
+		(role === "user" && !pathname?.startsWith("/super_admin") && !pathname?.startsWith("/admin"))
 	) {
 
 		console.log("333333333333333333333333333", pathname);

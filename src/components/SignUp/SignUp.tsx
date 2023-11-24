@@ -21,6 +21,9 @@ type FormValues = {
 const SignUpPage = () => {
   const router = useRouter();
   const searhParams = useSearchParams().get('redirect') as string;
+  const callbackUrl = searhParams
+    ? searhParams
+    : 'https://msp-tutoring-service.vercel.app/';
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const result = await signIn('msp-tutoring-signup', {
@@ -33,12 +36,12 @@ const SignUpPage = () => {
       if (result?.ok && !result.error) {
         message.success('User Created  successfully!');
         router.refresh();
-        router.push(searhParams, { scroll: false });
+        router.push(callbackUrl, { scroll: false });
       } else {
         message.error('Could not create user!');
       }
     } catch (err: any) {
-      console.log(err);
+      console.log('sign in error', err);
 
       message.error(err?.data?.message || 'Something went wrong');
     }
@@ -46,12 +49,12 @@ const SignUpPage = () => {
 
   const githubHandler = async () => {
     await signIn('github', {
-      callbackUrl: searhParams || 'http://localhost:3000/',
+      callbackUrl: callbackUrl || 'https://msp-tutoring-service.vercel.app/',
     });
   };
   const googleHandler = async () => {
     await signIn('google', {
-      callbackUrl: searhParams || 'http://localhost:3000/',
+      callbackUrl: callbackUrl || 'https://msp-tutoring-service.vercel.app/',
     });
   };
 

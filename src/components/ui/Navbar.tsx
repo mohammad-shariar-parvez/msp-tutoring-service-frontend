@@ -75,21 +75,6 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
     <div>
       <div className='  bg-white pb-16 '>
         <Row>
-          {/* <Col md={0} lg={12}></Col>
-          <Col md={0} lg={12}>
-            <Row justify='end'>
-              <Input
-                type='text'
-                size='middle'
-                placeholder='Search...'
-                style={{ width: '40%' }}
-                // onChange={(e) => {
-                //   // setSearchTerm(e.target.value);
-                // }}
-              />
-            </Row>
-          </Col> */}
-
           <Col xs={24} md={24} lg={24}>
             <CategorySider sidebar={sideBar} />
           </Col>
@@ -101,7 +86,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                   !navbar && home ? 'bg-white' : '  bg-[#f9f9f9] shadow-md '
                 } relative `}
               >
-                <div className=' container  flex justify-between items-center   py-4 md:py-1 '>
+                <div className=' container  flex justify-between items-center   '>
                   <Link href='/' className=''>
                     <h2 className=' text-secondary font-bold text-2xl'>
                       MSP Tutoring
@@ -163,7 +148,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     </li>
                   </ul>
 
-                  <div className='flex items-center font-semibold text-base relative space-x-4 '>
+                  <div className='flex items-center font-semibold text-base relative    '>
                     {session?.accessToken ? (
                       <Notification />
                     ) : (
@@ -172,11 +157,11 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                         count={0}
                         style={{ padding: '4px 2px', marginRight: '4px' }}
                       >
-                        <BellOutlined className=' text-lg cursor-pointerp-1 mx-0 px-0 text-pink-600 cursor-pointer' />
+                        <BellOutlined className=' text-lg cursor-pointerp-1  text-pink-600 cursor-pointer px-2 py-4 md:p-4  ' />
                       </Badge>
                     )}
 
-                    <Link href='/wishlist' className='py-4 '>
+                    <Link href='/wishlist' className='px-2 py-4 md:p-4  '>
                       <Badge
                         size='small'
                         count={total}
@@ -192,8 +177,8 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     <Dropdown
                       menu={{ items }}
                       arrow={{ pointAtCenter: true }}
-                      placement='bottom'
-                      className='rounded-none  py-4  '
+                      placement='bottomRight'
+                      className='rounded-none px-2 py-4 md:p-4   '
                     >
                       <UserOutlined className='cursor-pointer ' />
                     </Dropdown>

@@ -101,10 +101,10 @@ const BookingsPage = () => {
       // if (res) {
       //   message.success('Payment Done successfully');
       // }
-      console.log(res);
+      // console.log(res);
       router.push(res);
     } catch (err: any) {
-      console.error(err.message);
+      // console.error(err.message);
       message.error(err.message);
     }
   };

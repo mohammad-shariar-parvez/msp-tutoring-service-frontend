@@ -20,6 +20,10 @@ type FormValues = {
 const LoginPage = () => {
   const router = useRouter();
   const searhParams = useSearchParams().get('redirect') as string;
+  // const callbackUrl = searhParams
+  //   ? searhParams
+  //   : 'https://msp-tutoring-service.vercel.app/';
+  const callbackUrl = searhParams ? searhParams : 'http://localhost:3000/';
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
@@ -33,12 +37,12 @@ const LoginPage = () => {
       if (result?.ok && !result.error) {
         message.success('User Created  successfully!');
         router.refresh();
-        router.push(searhParams, { scroll: false });
+        router.push(callbackUrl, { scroll: false });
       } else {
         message.error('Password is incorrect!');
       }
     } catch (err: any) {
-      // console.log(err);
+      console.log('looogin in error', err);
 
       message.error(err?.data?.message || 'Something went wrong');
     }
@@ -46,12 +50,12 @@ const LoginPage = () => {
 
   const githubHandler = async () => {
     await signIn('github', {
-      callbackUrl: searhParams || 'http://localhost:3000/',
+      callbackUrl: callbackUrl || 'http://localhost:3000/',
     });
   };
   const googleHandler = async () => {
     await signIn('google', {
-      callbackUrl: searhParams || 'http://localhost:3000/',
+      callbackUrl: callbackUrl || 'http://localhost:3000/',
     });
   };
 

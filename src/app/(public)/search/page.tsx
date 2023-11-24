@@ -1,47 +1,39 @@
 'use client';
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import type { RadioChangeEvent } from 'antd';
 import { Button, Empty, Input, Pagination, Radio } from 'antd';
 import CourseCard from '@/components/ui/CourseCard';
 import type { PaginationProps } from 'antd';
-
 import { locationOptions } from '@/constants/global';
-import {
-  SearchOutlined,
-  ArrowRightOutlined,
-  ReloadOutlined,
-  CloseOutlined,
-} from '@ant-design/icons';
-import Form from '@/components/Forms/Form';
-import FormInput from '@/components/Forms/FormInput';
-import { useDebounced } from '@/redux/hooks';
 import { useCoursesQuery } from '@/redux/api/courseApi';
-import { ICourse } from '@/types';
-import RelatedCourse from '@/components/ui/RelatedCourse';
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { ICourse } from '@/types';
+
+import { Router } from 'next/router';
+import CourseCardScalaton from '@/components/ui/scalaton/CourseCardScalaton';
+import ErrorMessage from '@/components/ui/atoms/Error';
 type IDProps = {
   params: any;
 };
 const SearchField = () => {
+  const searchParams = useSearchParams();
+  const courseParams = searchParams.get('course');
+  const locationParams = searchParams.get('location');
+
   const query: Record<string, any> = {};
 
-  const searchParams = useSearchParams();
-  const searchParms = searchParams.get('searchTerm');
   const [value, setValue] = useState('');
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(12);
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
 
-  const [searchTerm, setSearchTerm] = useState<string | undefined>(
-    searchParms || undefined
+  const [searchTerm, setSearchTerm] = useState(
+    [courseParams, locationParams] || undefined
   );
   const [maxPrice, setMaxPrice] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<string | undefined>(undefined);
-  const [location, setLocation] = useState<string | undefined>(undefined);
 
-  query['location'] = location;
   query['minPrice'] = minPrice;
   query['maxPrice'] = maxPrice;
   query['searchTerm'] = searchTerm;
@@ -56,23 +48,10 @@ const SearchField = () => {
     setPage(page);
   };
 
-  // SEARCHING
-
-  //   console.log('value', value);
-  //   console.log('max', maxPrice);
-  //   console.log('min', minPrice);
-
-  const onChange = (e: RadioChangeEvent) => {
-    setLocation(e.target.value);
-    setValue(e.target.value);
-  };
-
   const resetFilters = async () => {
-    setLocation(undefined);
     setMaxPrice(undefined);
     setMinPrice(undefined);
     setValue('');
-    setSearchTerm('');
   };
 
   const maxValueHandler = (e: {
@@ -80,37 +59,60 @@ const SearchField = () => {
   }) => {
     if (e.target.value === '') {
       setMaxPrice(undefined);
-      //   console.log(e.target.value);
     } else {
       setMaxPrice(e.target.value);
     }
-    // console.log(e.target.value);
   };
 
-  const { data } = useCoursesQuery({ ...query });
+  const { data, isLoading, isError } = useCoursesQuery({ ...query });
+  console.log(data?.meta?.total);
+
   const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
+  let searchComponent = null;
+
+  if (!isLoading && isError) {
+    searchComponent = (
+      <div className=' flex justify-center items-center h-full'>
+        <Empty
+          className='text-red-500  text-xl font-semibold block'
+          description='Something went wrong'
+        />
+      </div>
+    );
+  }
+
+  if (!isError && !isLoading && coursesData?.length <= 0) {
+    searchComponent = <Empty description='No courses found' />;
+  }
+
+  if (isLoading && !isError) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <CourseCardScalaton key={index} />
+        ))}
+      </div>
+    );
+  }
+
+  if (!isError && !isLoading && coursesData?.length > 0) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
+        {coursesData?.map((course: ICourse) => (
+          <CourseCard key={course.id} course={course} isLoading={isLoading} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className='container mt-8 md:mt-16 '>
       <div className='md:grid md:grid-cols-4 gap-6 space-y-4 md:space-y-0'>
         <div className='space-y-4'>
-          <div className='relative'></div>
-          <Radio.Group
-            onChange={onChange}
-            value={value}
-            className=' flex flex-col gap-2'
-          >
-            {locationOptions.map((location, index) => (
-              <Radio key={index} value={location.value}>
-                {location.label}
-              </Radio>
-            ))}
-          </Radio.Group>
-
-          <div className='flex justify-between items-center w-full space-x-1 pb-1'>
+          <div className='flex justify-between items-center w-full space-x-4 pb-1 '>
             <Input
               name='minPrice'
-              size='small'
+              size='middle'
               type='number'
               placeholder='Min Price'
               value={minPrice}
@@ -118,7 +120,7 @@ const SearchField = () => {
             />
             <Input
               name='maxPrice'
-              size='small'
+              size='middle'
               type='number'
               placeholder='Max Price'
               value={maxPrice}
@@ -127,26 +129,20 @@ const SearchField = () => {
           </div>
           <Button onClick={resetFilters}>Reset</Button>
         </div>
-        <div className='col-span-3'>
-          {coursesData?.length > 0 ? (
-            <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
-              {coursesData?.map((course: ICourse) => (
-                <CourseCard key={course.id} course={course} />
-              ))}
-            </div>
-          ) : (
-            <Empty description='No courses found' />
-          )}
+        <div className='col-span-3 min-h-[calc(100vh-600px)] relative '>
+          {searchComponent}
 
           <div className='flex justify-end pt-12 '>
-            <Pagination
-              defaultCurrent={page}
-              onChange={onPageChange}
-              defaultPageSize={size}
-              showSizeChanger={false}
-              total={data?.meta?.total}
-              showQuickJumper
-            />
+            {!isError && !isLoading && coursesData?.length > 0 ? (
+              <Pagination
+                defaultCurrent={page}
+                onChange={onPageChange}
+                defaultPageSize={size}
+                showSizeChanger={false}
+                total={data?.meta?.total}
+                showQuickJumper
+              />
+            ) : null}
           </div>
         </div>
       </div>

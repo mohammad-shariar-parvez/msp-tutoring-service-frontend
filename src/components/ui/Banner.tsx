@@ -1,21 +1,43 @@
 'use client';
-import { Button, Divider, Input, Row } from 'antd';
+import { Button, ConfigProvider, Divider, Input, Row, Select } from 'antd';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { SearchOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { FaLocationDot, FaBook } from 'react-icons/fa6';
 import heroImage from '../../assets/hero.webp';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 import Link from 'next/link';
+import { locationOptions } from '@/constants/global';
+
+import { SubmitHandler } from 'react-hook-form';
+import Form from '../Forms/Form';
+import LocationSelector from '../Forms/LocationSelector';
+import SearchInput from '../Forms/SearchInput';
+import { useRouter } from 'next/navigation';
 const Banner = () => {
   const query: Record<string, any> = { limit: 0 };
   const [course, setCourse] = useState<string>('');
+  const router = useRouter();
+  const [location, setLocation] = useState<string>('');
+  // console.log(location);
 
+  // const { control } = useFormContext();
   const { data, isLoading } = useCoursesQuery({ ...query });
   // console.log(data);
 
   const resetFilters = () => {
     setCourse('');
+  };
+
+  type FormValues = {
+    location: string;
+    course: string;
+  };
+
+  const onSubmit: SubmitHandler<FormValues> = (data: any) => {
+    // Handle the form data submission
+    router.push(`search?course=${data.course}&location=${data.location}`);
+    // console.log(data);
   };
 
   return (
@@ -39,68 +61,73 @@ const Banner = () => {
                   Connect now !
                 </Link>
               </p>
-
-              <div className='p-2 flex flex-col md:flex-row justify-between items-center  w-full rounded-lg  search-shadow '>
-                <div className='flex justify-between items-center  w-full '>
-                  <div className='font-semibold  leading-3 flex items-center justify-center flex-1'>
-                    <span className=' block text-gray-500  '>
-                      <FaBook />
-                    </span>
-                    <Input
-                      name='course'
-                      type='text'
-                      placeholder='Course'
-                      value={course}
-                      bordered={false}
-                      onChange={(e) => setCourse(e.target.value)}
-                      className='p-1 md:p-3 pl-2 w-full '
+              <Form submitHandler={onSubmit}>
+                <div className='p-2 flex flex-col md:flex-row justify-between items-center  w-full rounded-lg  search-shadow '>
+                  <div className='flex justify-between items-center  w-full '>
+                    <div className='font-semibold  leading-3 flex items-center justify-center flex-1'>
+                      <span className=' block text-secondary ms-1 '>
+                        <FaBook />
+                      </span>
+                      <SearchInput />
+                    </div>
+                    <Divider
+                      className='px-[0.3px] h-6 bg-gray-300 flex-none'
+                      type='vertical'
                     />
-                  </div>
-                  <Divider
-                    className='px-[0.3px] h-6 bg-gray-300 flex-none'
-                    type='vertical'
-                  />
-                  <div className='font-semibold  leading-3 flex items-center justify-center flex-1'>
-                    <span className=' block text-gray-500'>
-                      <FaLocationDot />
-                    </span>
-                    <Input
+                    <div className='font-semibold  leading-3 flex items-center justify-center flex-1 relative'>
+                      <span className=' block text-secondary'>
+                        <FaLocationDot />
+                      </span>
+                      {/* <Input
                       name='location'
                       type='text'
                       placeholder='Location'
-                      value={course}
+                      value={location}
                       bordered={false}
-                      onChange={(e) => setCourse(e.target.value)}
-                      className=' p-1 md:p-3 pl-2 w-full'
-                    />
-                  </div>
+                      onChange={(e) => setLocation(e.target.value)}
+                      className=' p-1 md:p-3 pl-2 w-full text-base font-medium'
+                    /> */}
+                      <LocationSelector />
+                    </div>
 
-                  <div>
-                    <Link
-                      href={{
-                        pathname: '/search',
-                        query: {
-                          searchTerm: course,
-                        },
-                      }}
-                      className='block no-underline  flex-none'
-                    >
+                    <div>
+                      {/* <Link
+                        href={{
+                          pathname: '/search',
+                          query: {
+                            course: course,
+                            location: location,
+                          },
+                        }}
+                        className='block no-underline  flex-none'
+                      >
+                        <button
+                          onClick={resetFilters}
+                          value='large'
+                          className='hidden md:block find-btn '
+                          type='submit'
+                        >
+                          Find Now
+                        </button>
+                      </Link> */}
                       <button
                         onClick={resetFilters}
                         value='large'
                         className='hidden md:block find-btn '
+                        type='submit'
                       >
                         Find Now
                       </button>
-                    </Link>
-                    <Link href={`/search`}>
-                      <Button className=' md:hidden bg-[#335880]  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'>
-                        <SearchOutlined />
-                      </Button>
-                    </Link>
+
+                      <Link href={`/search`}>
+                        <Button className=' md:hidden bg-[#335880]  text-white font-medium text-base px-3 py-1 rounded-md  cursor-pointer transition duration-700'>
+                          <SearchOutlined />
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Form>
             </div>
             <div className='  rounded-b-lg p-4 col-span-3  '>
               {data?.courses?.map((item) => (
@@ -124,7 +151,8 @@ const Banner = () => {
               <Image
                 src={heroImage}
                 width={500}
-                alt='study ground hero image'
+                height={500}
+                alt='msp tutoring hero image'
                 className=' w-full h-auto'
               />
             </div>

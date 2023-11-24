@@ -29,6 +29,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   const { courses: courseData } = useAppSelector((state) => state.wishList);
   const dispatch = useAppDispatch();
   const [isWishList, setIsWishList] = useState(false);
+  console.log(isLoading);
 
   // console.log('Real category is', courseData.length);
 
@@ -80,7 +81,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
 
           <Skeleton className='p-4' active={true} loading={isLoading}>
             <div className='p-3 md:p-5 text-black relative     '>
-              <h1 className='mb-2  text-sm md:text-lg   text-secondary font-semibold '>
+              <h1 className='mb-2  text-sm md:text-lg   text-secondary font-medium '>
                 {course.title}
               </h1>
 
