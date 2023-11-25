@@ -17,69 +17,66 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <UMBreadCrumb
-        items={[
-          {
-            label: 'user',
-            link: '/user',
-          },
-        ]}
-      />
-      <div className='container'>
-        <Row>
-          <Col xs={24} md={24} lg={8}>
-            {data?.profile?.profileImage ? (
-              <Image
-                src={data?.profile?.profileImage}
-                width={500}
-                height={500}
-                alt='eagle_image'
-              />
-            ) : (
-              <Empty description='Profile image not updated' />
-            )}
-          </Col>
-          <Col xs={24} md={24} lg={16}>
-            <Card style={{ margin: '10px 5px' }}>
-              <div>
-                <Row justify='space-between' className='pb-4'>
-                  <strong>Name</strong>
-                  <p>
-                    {data?.profile?.firstName} {data?.profile?.middleName}
-                    {data?.profile?.lastName}
-                  </p>
-                </Row>
-                <Row justify='space-between' className='pb-4'>
-                  <strong>Email</strong>
-                  <p>{data?.profile?.useEmail}</p>
-                </Row>
-                <Row justify='space-between' className='pb-4'>
-                  <strong>Role</strong>
-                  <p>{data?.profile?.role}</p>
-                </Row>
-                <Row justify='space-between' className='pb-4'>
-                  <strong>Contact Info</strong>
-                  <p>{data?.profile?.contactNo}</p>
-                </Row>
-                <Row>
-                  <strong>Bio</strong>
-                  <p>{data?.profile?.bio}</p>
-                </Row>
-              </div>
-            </Card>
+      <div className=' '>
+        <UMBreadCrumb
+          items={[
+            {
+              label: 'admin',
+              link: '/user',
+            },
+          ]}
+        />
 
-            <Row justify='space-between'>
-              <Link href='/profile/edit/'>
-                <Button
-                  className=' block bg-[#274279] mt-6    text-white   '
-                  type='primary'
-                >
-                  Update Profile
-                </Button>
-              </Link>
-            </Row>
-          </Col>
-        </Row>
+        <div className=' md:max-w-2xl mt-4  mx-auto'>
+          <div className='flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 text-base font-normal '>
+            <div className=''>
+              {data?.profile?.profileImage ? (
+                <Image
+                  src={data?.profile?.profileImage}
+                  width={200}
+                  height={300}
+                  alt='eagle_image'
+                  className=' rounded-t-lg w-full h-auto object-cover object-center  '
+                />
+              ) : (
+                <Empty description='Profile image not updated ' />
+              )}
+            </div>
+
+            <div className='bg-white p-4 grow '>
+              <div className='pb-4  '>
+                <b className='w-[30%] inline-block'>Name</b>
+                <span>
+                  {data?.profile?.firstName} {data?.profile?.middleName}
+                  {data?.profile?.lastName}
+                </span>
+              </div>
+              <div className='pb-4 '>
+                <b className='w-[30%] inline-block'>Email</b>
+                <span>{data?.profile?.useEmail}</span>
+              </div>
+              <div className='pb-4'>
+                <b className='w-[30%] inline-block'>Role</b>
+                <span>{data?.profile?.role}</span>
+              </div>
+              <div className='pb-4'>
+                <b className='w-[30%] inline-block'>Contact</b>
+                <span>{data?.profile?.contactNo}</span>
+              </div>
+              <div>
+                <b className='block mb-2'>Bio</b>
+                <p>{data?.profile?.bio}</p>
+              </div>
+            </div>
+          </div>
+          <div className='flex  justify-end mt-4'>
+            <Link href='/admin/profile/edit/'>
+              <Button className=' bg-secondary     text-white '>
+                Update Profile
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

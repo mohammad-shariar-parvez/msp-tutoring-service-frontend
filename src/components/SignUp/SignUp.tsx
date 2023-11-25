@@ -85,13 +85,13 @@ const SignUpPage = () => {
 
           <Form submitHandler={onSubmit} resolver={yupResolver(signUpSchema)}>
             <div className='mb-4 space-y-2 '>
-              <label className='font-bold text-base text-[#565656] mb-4'>
+              <label className='font-semibold text-base text-[#565656] mb-4'>
                 Email
               </label>
               <FormInput name='email' type='email' size='large' required />
             </div>
             <div className='mb-4 space-y-2 '>
-              <label className='font-bold text-base text-[#565656] mb-4'>
+              <label className='font-semibold text-base text-[#565656] mb-4'>
                 Password
               </label>
 
@@ -103,7 +103,7 @@ const SignUpPage = () => {
               />
             </div>
             <div className='mb-4 space-y-2 '>
-              <label className='font-bold text-base text-[#565656] mb-4'>
+              <label className='font-semibold text-base text-[#565656] mb-4'>
                 Password
               </label>
               <FormInput

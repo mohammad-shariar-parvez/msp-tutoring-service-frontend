@@ -28,7 +28,7 @@ const SideBar = ({ session }: { session: Record<string, string> }) => {
       //   bottom: 0,
       // }}
     >
-      <div
+      <h2
         // style={{
         //   color: 'black',
         //   fontSize: '1.5rem',
@@ -40,10 +40,10 @@ const SideBar = ({ session }: { session: Record<string, string> }) => {
         //   top: '0px',
 
         // }}
-        className='text-black font-bold text-3xl  top-0 bg-[#e6f3f9] z-40 my-[14px] text-center '
+        className=' text-secondary font-bold text-2xl   top-0 bg-[#e6f3f9] z-40 my-[16px] text-center '
       >
         MSP
-      </div>
+      </h2>
       <Menu
         theme='light'
         defaultSelectedKeys={['1']}
@@ -52,6 +52,7 @@ const SideBar = ({ session }: { session: Record<string, string> }) => {
         style={{
           height: '100vh ',
         }}
+        className=' text-sm font-medium text-secondary'
       />
     </Sider>
   );

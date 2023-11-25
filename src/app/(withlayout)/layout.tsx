@@ -23,7 +23,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
         },
       }}
     >
-      <Layout hasSider className=' '>
+      <Layout hasSider className=' text-xl'>
         <SideBar session={session} />
         <Header role={session?.role} />
         <Contents>{children}</Contents>

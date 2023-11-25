@@ -26,8 +26,9 @@ const ProfilePage = () => {
             },
           ]}
         />
-        <div className=' md:mx-56 mt-4'>
-          <div className='flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0'>
+
+        <div className=' md:max-w-2xl mt-4  mx-auto'>
+          <div className='flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 text-base font-normal '>
             <div className=''>
               {data?.profile?.profileImage ? (
                 <Image
@@ -38,19 +39,19 @@ const ProfilePage = () => {
                   className=' rounded-t-lg w-full h-auto object-cover object-center  '
                 />
               ) : (
-                <Empty description='Profile image not updated w-full' />
+                <Empty description='Profile image not updated ' />
               )}
             </div>
 
-            <div className='bg-white p-4 w-full '>
-              <div className='pb-4'>
+            <div className='bg-white p-4 grow '>
+              <div className='pb-4  '>
                 <b className='w-[30%] inline-block'>Name</b>
                 <span>
                   {data?.profile?.firstName} {data?.profile?.middleName}
                   {data?.profile?.lastName}
                 </span>
               </div>
-              <div className='pb-4'>
+              <div className='pb-4 '>
                 <b className='w-[30%] inline-block'>Email</b>
                 <span>{data?.profile?.useEmail}</span>
               </div>
@@ -64,13 +65,15 @@ const ProfilePage = () => {
               </div>
               <div>
                 <b className='block mb-2'>Bio</b>
-                <span>{data?.profile?.bio}</span>
+                <p>{data?.profile?.bio}</p>
               </div>
             </div>
           </div>
           <div className='flex  justify-end mt-4'>
             <Link href='/admin/profile/edit/'>
-              <Button className=' button-primary  '>Update Profile</Button>
+              <Button className=' bg-secondary     text-white '>
+                Update Profile
+              </Button>
             </Link>
           </div>
         </div>

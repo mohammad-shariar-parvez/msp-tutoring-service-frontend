@@ -177,7 +177,7 @@ const CategoryPage = () => {
         </div> */}
         <div className='flex space-x-1 '>
           <Link href='/admin/categories/create'>
-            <Button className='block bg-[#274279]     text-white '>
+            <Button className='block bg-secondary     text-white '>
               Create
             </Button>
           </Link>

@@ -18,6 +18,7 @@ import { useDebounced } from '@/redux/hooks';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 import { ICourse } from '@/types';
 import RelatedCourse from '@/components/ui/RelatedCourse';
+import CourseCardScalaton from '@/components/ui/scalaton/CourseCardScalaton';
 type IDProps = {
   params: any;
 };
@@ -72,10 +73,10 @@ const Courses = ({ params }: IDProps) => {
     setLocation(e.target.value);
     setValue(e.target.value);
   };
-  const publicOnSubmit = async (values: any) => {
-    setMinPrice(values.minPrice);
-    setMaxPrice(values.maxPrice);
-  };
+  // const publicOnSubmit = async (values: any) => {
+  //   setMinPrice(values.minPrice);
+  //   setMaxPrice(values.maxPrice);
+  // };
 
   const resetFilters = async () => {
     setFormReset(true);
@@ -97,11 +98,66 @@ const Courses = ({ params }: IDProps) => {
     }
     console.log(e.target.value);
   };
-  const { data } = useCoursesQuery({ ...query });
+  const { data, isLoading, isError, isFetching } = useCoursesQuery({
+    ...query,
+  });
   const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
 
+  let searchComponent = null;
+  console.log(data);
+  console.log(isLoading);
+  console.log(isFetching);
+
+  if (!isLoading && isError) {
+    searchComponent = (
+      <div className=' flex justify-center items-center h-full'>
+        <Empty
+          className='text-red-500  text-xl font-semibold block'
+          description='Something went wrong'
+        />
+      </div>
+    );
+  }
+
+  if (!isError && !isLoading && coursesData?.length <= 0) {
+    searchComponent = (
+      <div className=' flex justify-center items-center h-full'>
+        <Empty className=' text-xl  block' description='No course found' />
+      </div>
+    );
+  }
+
+  if (isLoading && !isError && isFetching) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <CourseCardScalaton key={index} />
+        ))}
+      </div>
+    );
+  }
+  if (!isError && isFetching) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <CourseCardScalaton key={index} />
+        ))}
+      </div>
+    );
+  }
+
+  if (!isError && !isLoading && coursesData?.length > 0) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
+        {coursesData?.map((course: ICourse) => (
+          <CourseCard key={course.id} course={course} isLoading={isLoading} />
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className='container mt-8 md:mt-16 '>
+    <div className='container my-8 md:my-16 '>
       <div className='md:grid md:grid-cols-4 gap-6 space-y-4 md:space-y-0'>
         <div className='space-y-4'>
           <div className='relative'>
@@ -139,10 +195,10 @@ const Courses = ({ params }: IDProps) => {
               ))}
             </Radio.Group>
 
-            <div className='flex justify-between items-center w-full space-x-1 pb-1'>
+            <div className='flex justify-between items-center w-full space-x-4 pb-1 '>
               <Input
                 name='minPrice'
-                size='small'
+                size='middle'
                 type='number'
                 placeholder='Min Price'
                 value={minPrice}
@@ -150,7 +206,7 @@ const Courses = ({ params }: IDProps) => {
               />
               <Input
                 name='maxPrice'
-                size='small'
+                size='middle'
                 type='number'
                 placeholder='Max Price'
                 value={maxPrice}
@@ -160,26 +216,20 @@ const Courses = ({ params }: IDProps) => {
             <Button onClick={resetFilters}>Reset</Button>
           </div>
         </div>
-        <div className='col-span-3'>
-          {coursesData?.length > 0 ? (
-            <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
-              {coursesData?.map((course: ICourse) => (
-                <CourseCard key={course.id} course={course} />
-              ))}
-            </div>
-          ) : (
-            <Empty description='No courses found' />
-          )}
+        <div className='col-span-3 min-h-[calc(100vh-600px)] relative'>
+          {searchComponent}
 
           <div className='flex justify-end pt-12 '>
-            <Pagination
-              defaultCurrent={page}
-              onChange={onPageChange}
-              defaultPageSize={size}
-              showSizeChanger={false}
-              total={data?.meta?.total}
-              showQuickJumper
-            />
+            {!isError && !isLoading && coursesData?.length > 0 ? (
+              <Pagination
+                defaultCurrent={page}
+                onChange={onPageChange}
+                defaultPageSize={size}
+                showSizeChanger={false}
+                total={data?.meta?.total}
+                showQuickJumper
+              />
+            ) : null}
           </div>
         </div>
       </div>

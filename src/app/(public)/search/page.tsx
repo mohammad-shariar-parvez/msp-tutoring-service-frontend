@@ -64,7 +64,9 @@ const SearchField = () => {
     }
   };
 
-  const { data, isLoading, isError } = useCoursesQuery({ ...query });
+  const { data, isLoading, isError, isFetching } = useCoursesQuery({
+    ...query,
+  });
   console.log(data?.meta?.total);
 
   const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
@@ -74,7 +76,7 @@ const SearchField = () => {
     searchComponent = (
       <div className=' flex justify-center items-center h-full'>
         <Empty
-          className='text-red-500  text-xl font-semibold block'
+          className=' text-xl font-semibold block'
           description='Something went wrong'
         />
       </div>
@@ -82,7 +84,14 @@ const SearchField = () => {
   }
 
   if (!isError && !isLoading && coursesData?.length <= 0) {
-    searchComponent = <Empty description='No courses found' />;
+    searchComponent = (
+      <div className=' flex justify-center items-center h-full'>
+        <Empty
+          className=' text-xl font-semibold block'
+          description='No courses found'
+        />
+      </div>
+    );
   }
 
   if (isLoading && !isError) {
@@ -105,8 +114,18 @@ const SearchField = () => {
     );
   }
 
+  if (!isError && isFetching) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <CourseCardScalaton key={index} />
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className='container mt-8 md:mt-16 '>
+    <div className='container my-8 md:my-16 '>
       <div className='md:grid md:grid-cols-4 gap-6 space-y-4 md:space-y-0'>
         <div className='space-y-4'>
           <div className='flex justify-between items-center w-full space-x-4 pb-1 '>

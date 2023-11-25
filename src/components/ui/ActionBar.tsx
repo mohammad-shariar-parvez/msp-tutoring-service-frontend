@@ -6,7 +6,7 @@ type ActionBarProps = {
 const ActionBar = ({ title, children }: ActionBarProps) => {
   return (
     <div>
-      <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 mt-3'>
+      <h5 className='text-xl font-medium tracking-tight text-secondary mb-4 mt-3'>
         {title}
       </h5>
       <div className='flex space-x-2 justify-between items-center my-4  '>

@@ -86,13 +86,13 @@ const LoginPage = () => {
 
           <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
             <div className='mb-4 space-y-2 '>
-              <label className='font-bold text-base text-[#565656] mb-4'>
+              <label className='font-semibold text-base text-[#565656] mb-4'>
                 Email
               </label>
               <FormInput name='email' type='email' size='large' required />
             </div>
             <div className='mb-4 space-y-2 '>
-              <label className='font-bold text-base text-[#565656] mb-4'>
+              <label className='font-semibold text-base text-[#565656] mb-4'>
                 Password
               </label>
 

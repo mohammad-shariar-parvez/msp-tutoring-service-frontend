@@ -52,7 +52,7 @@ const Header = ({ role }: { role: string }) => {
         /> */}
         <p className='text-sm mr-4'>{role}</p>
 
-        <Dropdown menu={{ items }} className='hover:cursor-pointer'>
+        <Dropdown menu={{ items }} className='hover:cursor-pointer py-5'>
           <UserOutlined />
         </Dropdown>
       </Row>

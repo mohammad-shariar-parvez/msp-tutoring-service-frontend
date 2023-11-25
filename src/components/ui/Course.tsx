@@ -17,7 +17,7 @@ const Course: React.FC = () => {
     console.log(key);
   };
 
-  const { data, isLoading, isError } = useCoursesQuery({
+  const { data, isLoading, isError, isFetching } = useCoursesQuery({
     limit: 6,
     location,
     status: 'RUNNING',
@@ -38,7 +38,7 @@ const Course: React.FC = () => {
     );
   }
   if (!isError && !isLoading && coursesData?.length <= 0) {
-    searchComponent = <Empty description='No courses found' />;
+    searchComponent = <Empty description='No course found' />;
   }
   if (isLoading && !isError) {
     searchComponent = (
@@ -55,6 +55,16 @@ const Course: React.FC = () => {
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
         {coursesData?.map((course: ICourse) => (
           <CourseCard key={course.id} course={course} isLoading={isLoading} />
+        ))}
+      </div>
+    );
+  }
+
+  if (!isError && isFetching) {
+    searchComponent = (
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <CourseCardScalaton key={index} />
         ))}
       </div>
     );
