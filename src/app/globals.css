@@ -262,19 +262,6 @@ find button
   background: #f8fbff;
 } */
 
-.sg-bnr-info-itm {
-  padding: 40px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.sg-bnr-info-itm i {
-  font-size: 40px;
-  display: inline-block;
-  margin-right: 8px;
-}
 
 
 

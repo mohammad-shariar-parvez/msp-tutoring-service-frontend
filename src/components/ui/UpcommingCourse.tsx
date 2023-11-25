@@ -23,10 +23,7 @@ const UpcommingCourse = () => {
   if (!isLoading && isError) {
     searchComponent = (
       <div className=' flex justify-center items-center h-full'>
-        <Empty
-          className='text-red-500  text-xl font-semibold block'
-          description='Something went wrong'
-        />
+        <Empty className=' block' description='Something went wrong' />
       </div>
     );
   }

@@ -41,11 +41,11 @@ const Banner = () => {
   };
 
   return (
-    <div className='main-banner mb-32 mt-10  '>
+    <div className='main-banner mb-16 md:mb-32 mt-10  '>
       <div className='container'>
         <div className='md:grid md:grid-cols-12 md:gap-12 '>
           <div className='md:col-span-7'>
-            <div className='mt-[110px]'>
+            <div className='md:mt-[110px]'>
               <h1 className='sg-title-txt'>
                 <span className='text-pink-600'>Connect</span> with best
                 teachers near you

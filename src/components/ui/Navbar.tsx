@@ -81,7 +81,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
 
   return (
     <div>
-      <div className='  bg-white pb-16 '>
+      <div className='  bg-white pb-14 '>
         <Row>
           <Col xs={24} md={24} lg={24}>
             <CategorySider sidebar={sideBar} />
@@ -105,7 +105,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     <li className=' px-4 pt-2  md:p-4   block  '>
                       <IoMdHome className=' text-secondary  font-semibold text-xl md:hidden' />
                       <Link
-                        className='  text-secondary font-medium text-sm md:font-semibold md:text-lg block'
+                        className='  text-secondary font-medium text-sm md:font-medium md:text-lg block'
                         href='/'
                       >
                         Home
@@ -115,7 +115,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                       <li className='   px-4 pt-2  md:p-4   block '>
                         <MdDashboardCustomize className=' text-secondary  font-semibold text-lg md:hidden' />
                         <Link
-                          className='  text-secondary font-medium text-sm block md:font-semibold md:text-lg'
+                          className='  text-secondary font-medium text-sm block md:font-medium  md:text-lg'
                           href={`/${session?.role}`}
                         >
                           Dashboard
@@ -128,7 +128,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     <li className='  px-4 pt-2  md:p-4  block '>
                       <FaBlog className=' text-secondary  font-semibold text-lg md:hidden' />
                       <Link
-                        className=' text-secondary font-medium text-sm block md:font-semibold md:text-lg'
+                        className=' text-secondary font-medium text-sm block md:font-medium  md:text-lg'
                         href='/blogs'
                       >
                         Blogs
@@ -146,12 +146,12 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                       >
                         More
                       </Link>
-                      <span className=' text-secondary  font-semibold text-lg'></span>
+                      <span className=' text-secondary  md:font-medium  text-lg'></span>
                     </li>
 
                     <li className='   p-4 hidden  md:block '>
                       <Link
-                        className=' text-secondary font-semibold text-lg'
+                        className=' text-secondary md:font-medium  text-lg'
                         href='/about'
                       >
                         About
@@ -159,7 +159,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     </li>
                     <li className='    p-4   hidden  md:block  '>
                       <Link
-                        className='   text-secondary font-semibold text-lg'
+                        className='   text-secondary md:font-medium  text-lg'
                         href='/blogs'
                       >
                         Contact
@@ -176,11 +176,11 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                         count={0}
                         style={{ padding: '4px 2px', marginRight: '4px' }}
                       >
-                        <BellOutlined className=' text-lg cursor-pointerp-1  text-pink-600 cursor-pointer px-2 py-4 md:p-4  ' />
+                        <BellOutlined className=' text-lg cursor-pointerp-1  text-pink-600 cursor-pointer px-2 py-4   ' />
                       </Badge>
                     )}
 
-                    <Link href='/wishlist' className='px-2 py-4 md:p-4  '>
+                    <Link href='/wishlist' className='px-2 py-4   '>
                       <Badge
                         size='small'
                         count={total}
@@ -197,7 +197,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                       menu={{ items }}
                       arrow={{ pointAtCenter: true }}
                       placement='bottomRight'
-                      className='rounded-none px-2 py-4 md:p-4   '
+                      className='rounded-none ps-2 py-4 md:py-4 md:ps-2'
                     >
                       <UserOutlined className='cursor-pointer ' />
                     </Dropdown>

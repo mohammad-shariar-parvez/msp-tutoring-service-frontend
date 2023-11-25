@@ -9,7 +9,7 @@ const Info = () => {
           <div className='sub-title sub-title-style-2 text-center  '>
             Get our help in 4 easy steps!
           </div>
-          <p className='text-secondary py-4 text-center font-semibold text-lg mb-10 '>
+          <p className='text-secondary py-4 text-center font-semibold text-xl mb-10 tracking-wide '>
             Get the best expert help available 24/7 with 100% accuracy
           </p>{' '}
           <div className='grid  mx-auto md:grid-cols-4 gap-6 place-items-center '>
@@ -77,21 +77,9 @@ const Info = () => {
       </div>
       {/* -------------------------- */}
 
-      <div className='bg-lightSkyBlue relative mb-32 '>
-        <div className='overflow-hidden h-64 '>
-          <Image
-            src={purple}
-            fill
-            alt='eagle_image'
-            className='rounded-[30px]'
-          />
-        </div>
-        <div className='   absolute top-0 left-0 right-0  '>
-          <div className='p-8 max-w-[1440px] mx-auto'>
-            <div className='text-white text-4xl font-medium leading-relaxed md:w-3/5 mx-auto md:my-10 my-5 text-center   '>
-              95% students get better grades when they study with us.
-            </div>
-          </div>
+      <div className=' mb-32 bg-gradient-to-r from-primary to-darkGreen'>
+        <div className='text-white text-4xl font-medium leading-relaxed  mx-auto md:my-10 my-5 text-center py-8 px-4  '>
+          95% students get better grades when they study with us.
         </div>
       </div>
     </div>
@@ -99,3 +87,21 @@ const Info = () => {
 };
 
 export default Info;
+
+// <div className='bg-lightSkyBlue relative mb-32 '>
+//   {/* <div className='overflow-hidden h-64 '>
+//     <Image
+//       src={purple}
+//       fill
+//       alt='eagle_image'
+//       className='rounded-[30px]'
+//     />
+//   </div> */}
+//   <div className='   absolute top-0 left-0 right-0  '>
+//     <div className='p-8 max-w-[1440px] mx-auto'>
+//       <div className='text-white text-4xl font-medium leading-relaxed md:w-3/5 mx-auto md:my-10 my-5 text-center   '>
+//         95% students get better grades when they study with us.
+//       </div>
+//     </div>
+//   </div>
+// </div>;

@@ -87,6 +87,7 @@ const StepperForm = ({
           components: {
             Steps: {
               colorPrimary: '#274279',
+
               /* here is your component tokens */
             },
           },

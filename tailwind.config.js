@@ -17,7 +17,8 @@ module.exports = {
         footer: "#141313",
         primary: "#335880",
         secondary: "#092847",
-        darkGreen: "#10858b"
+        darkGreen: "#10858b",
+        formHeader: "#10858b"
       },
       fontFamily: {
         rubik: ['Rubik', 'sans-serif'],

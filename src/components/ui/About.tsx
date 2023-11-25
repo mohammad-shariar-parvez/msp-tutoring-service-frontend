@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import about from '../../assets/about-us.webp';
-import { Button } from 'antd';
+import { Button, Col, Row } from 'antd';
 import Link from 'next/link';
 const About = () => {
   return (
@@ -9,6 +9,7 @@ const About = () => {
       <h1 className='sub-title sub-title-style mb-20 text-center mt-0  '>
         About Us
       </h1>
+
       <div className='flex   flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0'>
         <Image
           src={about}

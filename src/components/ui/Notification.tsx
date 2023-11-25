@@ -97,7 +97,7 @@ const Notification = () => {
       menu={{ items }}
       placement='bottom'
       arrow
-      className='rounded-none px-2 py-4 md:p-4    '
+      className='rounded-none px-2 py-4     '
     >
       <Badge
         size='small'

@@ -35,7 +35,7 @@ const Demo = () => {
           <div className='  '>
             <div className='flex justify-between mt-8  space-x-2'>
               <div className=' p-4 bg-white shadow-md text-center space-y-2  rounded-lg   '>
-                <span className='font-semibold text-2xl block '>
+                <span className='font-medium text-2xl block text-secondary'>
                   Tell us your
                 </span>
                 <span className='font-normal text-xl text-darkGreen block'>
@@ -47,7 +47,7 @@ const Demo = () => {
               </div>
 
               <div className=' p-[15px] bg-white shadow-md text-center space-y-2  rounded-lg   '>
-                <span className='font-semibold text-2xl block '>
+                <span className='font-medium text-2xl block text-secondary '>
                   Get a demo
                 </span>
                 <span className='font-normal text-xl text-darkGreen block'>
@@ -59,7 +59,7 @@ const Demo = () => {
               </div>
 
               <div className=' p-[15px] bg-white shadow-md text-center space-y-2  rounded-lg   '>
-                <span className='font-semibold text-2xl block '>
+                <span className='font-medium text-2xl block text-secondary '>
                   Confirm if you
                 </span>
                 <span className='font-normal text-xl text-darkGreen block'>
@@ -83,7 +83,7 @@ const Demo = () => {
           <div className=''>
             <Form submitHandler={questionOnSubmit}>
               <div className='req-demo-form p-4 '>
-                <h3 className='mb-9 text-[#10858b] mt-3 text-center font-medium text-3xl'>
+                <h3 className='mb-9 text-formHeader mt-3 text-center font-medium text-3xl'>
                   Ask A Question
                 </h3>
                 <div className='sg-form-group'>

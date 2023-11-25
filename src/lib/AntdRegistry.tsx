@@ -14,6 +14,7 @@ const StyledComponentsRegistry = ({ children }: React.PropsWithChildren) => {
     />
   ));
   return (
+    // <StyleProvider hashPriority='high' cache={cache}>
     <StyleProvider hashPriority='high' cache={cache}>
       {children}
     </StyleProvider>

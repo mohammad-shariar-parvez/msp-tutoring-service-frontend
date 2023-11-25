@@ -10,7 +10,7 @@ interface CommentsCardProps {
 
 const CommentsCard: React.FC<CommentsCardProps> = ({ review }) => {
   return (
-    <div className='py-4'>
+    <div className='py-4 pt-2'>
       <div className='flex  justify-between items-start mb-2 '>
         <div className='flex space-x-2 '>
           {review?.user.profile?.imageUrl ? (

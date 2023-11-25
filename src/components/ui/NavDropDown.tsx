@@ -15,7 +15,7 @@ const NavDropDown = () => {
         const element = {
           key: index.toString(),
           label: (
-            <span className=' text-secondary font-semibold text-base'>
+            <span className=' text-secondary font-medium  text-base'>
               {item.title}
             </span>
           ),
@@ -27,7 +27,7 @@ const NavDropDown = () => {
             key: index.toString() + courseIndex.toString(),
             label: (
               <Link
-                className=' text-secondary font-semibold text-base'
+                className=' text-secondary font-medium  text-base'
                 href={`/course/${ele.id}`}
               >
                 {ele.title}
@@ -56,7 +56,7 @@ const NavDropDown = () => {
           onClick={(e) => e.preventDefault()}
           className='bg-transparent border-none'
         >
-          <Space className='  text-secondary font-semibold text-lg'>
+          <Space className='  text-secondary md:font-medium  text-lg'>
             Categories
           </Space>
         </ul>

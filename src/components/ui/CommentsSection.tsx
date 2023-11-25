@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useReviewsQuery } from '@/redux/api/reviewApi';
-import { Pagination, type PaginationProps } from 'antd';
+import { Empty, Pagination, type PaginationProps } from 'antd';
 import CommentsCard from './CommentsCard';
+import { IReview } from '@/types';
+import ReviewSkalaton from './scalaton/ReviewSkalaton';
 
 interface CommentProps {
   id: string;
@@ -18,23 +20,50 @@ const CommentsSection: React.FC<CommentProps> = ({ id }) => {
   const onPageChange: PaginationProps['onChange'] = (page) => {
     setPage(page);
   };
-  const { data } = useReviewsQuery({ ...query });
-  const reviewData = data?.reviews;
-  console.log('YOOOOOOO');
+  const { data, isLoading, isError } = useReviewsQuery({ ...query });
 
+  const reviewData: IReview[] = (data?.reviews || []) as IReview[];
+  // console.log('YOOOOOOO');
+  let searchComponent = null;
+
+  if (!isLoading && isError) {
+    searchComponent = (
+      <div className=' flex justify-center items-center h-full pt-2'>
+        <Empty className='  block' description='Something went wrong' />
+      </div>
+    );
+  }
+  if (!isError && !isLoading && reviewData?.length <= 0) {
+    searchComponent = (
+      <div className=' flex justify-center items-center h-full pt-2'>
+        <Empty description='No review yet . Comment first .' />;
+      </div>
+    );
+  }
+  if (isLoading && !isError) {
+    searchComponent = Array.from({ length: 4 }).map((_, index) => (
+      <ReviewSkalaton key={index} />
+    ));
+  }
+
+  if (!isError && !isLoading && reviewData?.length > 0) {
+    searchComponent = reviewData?.map((review: IReview) => (
+      <CommentsCard key={review?.id} review={review} />
+    ));
+  }
   return (
-    <div className='p-4 bg-white py-8 my-8'>
-      <h1 className='text-lg font-semibold mb-6'>User Reviews</h1>
-      {reviewData?.map((review) => (
-        <CommentsCard key={review?.id} review={review} />
-      ))}
-      <div className='flex justify-end pt-12 '>
+    <div className=' bg-white mb-8 pb-8 p-4 rounded-md'>
+      <h1 className='mb-6  mt-3  text-3xl text-secondary   font-medium  '>
+        User Reviews
+      </h1>
+      {searchComponent}
+      <div className='flex justify-end pt-12  '>
         <Pagination
           defaultCurrent={page}
           onChange={onPageChange}
           defaultPageSize={size}
           showSizeChanger={false}
-          total={data?.meta?.total}
+          total={data?.meta?.total ? data?.meta?.total : size}
         />
       </div>
     </div>
