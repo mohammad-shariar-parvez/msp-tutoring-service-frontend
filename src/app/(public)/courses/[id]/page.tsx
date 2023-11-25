@@ -146,6 +146,21 @@ const ServiceCourse = ({ params }: IDProps) => {
             <p>Article</p>
           </div>
         </div>
+        <Row>
+          <Col lg={24}>
+            <p className='text-base font-semibold text-[#212529]   '>
+              AAAStudy Ground is an interactive education platform for teachers
+              and students, who are passionate about education. We have been
+              successful in making a tool for them, which encourages learning
+              and
+            </p>
+          </Col>
+        </Row>
+        <p className='text-base font-semibold text-[#212529]   '>
+          AAAStudy Ground is an interactive education platform for teachers and
+          students, who are passionate about education. We have been successful
+          in making a tool for them, which encourages learning and
+        </p>
         {/*  INFO*/}
         <div className='p-4 my-5 divide-y '>
           <Row>
