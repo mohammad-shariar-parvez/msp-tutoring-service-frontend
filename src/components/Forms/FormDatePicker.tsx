@@ -1,5 +1,5 @@
 'use client';
-import { DatePicker, DatePickerProps, Input } from 'antd';
+import { ConfigProvider, DatePicker, DatePickerProps, Input } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
 import dayjs, { Dayjs } from 'dayjs';
 
@@ -32,12 +32,29 @@ const FormDatePicker = ({
         name={name}
         control={control}
         render={({ field }) => (
-          <DatePicker
-            defaultValue={dayjs(field.value) || Date.now()}
-            size={size}
-            onChange={handleOnChange}
-            style={{ width: '100%' }}
-          />
+          <ConfigProvider
+            theme={{
+              token: {
+                /* here is your global tokens */
+                colorPrimary: '#274279',
+                colorLink: '#274279',
+                controlOutline: 'transparent',
+              },
+              components: {
+                DatePicker: {
+                  colorBorder: 'none',
+                  /* here is your component tokens */
+                },
+              },
+            }}
+          >
+            <DatePicker
+              defaultValue={dayjs(field.value) || Date.now()}
+              size={size}
+              onChange={handleOnChange}
+              style={{ width: '100%' }}
+            />
+          </ConfigProvider>
         )}
       />
     </div>
