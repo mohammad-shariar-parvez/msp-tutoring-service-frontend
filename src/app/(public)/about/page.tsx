@@ -1,3 +1,4 @@
+import { Col, Row } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 
