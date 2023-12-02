@@ -1,6 +1,5 @@
 import { useCategoriesQuery } from '@/redux/api/category';
 import FormSelectField, { SelectOptions } from './FormSelectField';
-import { ICategory } from '@/types';
 
 type CategoryFieldProps = {
   name: string;
@@ -9,6 +8,10 @@ type CategoryFieldProps = {
 };
 
 const CategoryField = ({ name, label, defaultValue }: CategoryFieldProps) => {
+  // console.log('HELLLLOOOOOOOOOOOO', name);
+  // console.log('HELLLLOOOOOOOOOOOO', label);
+  // console.log('HELLLLOOOOOOOOOOOO', defaultValue);
+
   const { data, isLoading } = useCategoriesQuery({
     limit: 100,
     page: 1,

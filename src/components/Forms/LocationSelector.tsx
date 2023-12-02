@@ -13,7 +13,7 @@ type SelectFieldProps = {
   options?: SelectOptions[];
   name?: string;
   size?: 'large' | 'small';
-  myValue?: string | string[] | undefined;
+  // myValue?: string | string[] | undefined;
   placeholder?: string;
   label?: string;
   defaultValue?: SelectOptions;
@@ -23,7 +23,7 @@ type SelectFieldProps = {
 const LocationSelector = ({
   name,
   size = 'large',
-  myValue,
+  // myValue,
   placeholder = 'select',
   options,
   label,
@@ -64,7 +64,7 @@ const LocationSelector = ({
                 suffixIcon={null}
                 allowClear
                 bordered={false}
-                value={myValue ? myValue : value}
+                value={value}
                 className='  w-full text-base font-medium text-start  '
                 dropdownAlign={{ offset: [10, 20] }} // Adjust the offset as needed
                 options={locationOptions}
