@@ -2,24 +2,41 @@
 
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
+import FormMultiSelectField from '@/components/Forms/FormMultiSelectField';
 import FormSelectField from '@/components/Forms/FormSelectField';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import { genderOptions, locationOptions } from '@/constants/global';
+import { useSubjectsQuery } from '@/redux/api/subjectApi';
 
 import { useAddTutorMutation } from '@/redux/api/tutorApi';
-import { Button, Col, Row, message } from 'antd';
+import { SelectOptions } from '@/types';
+import { Button, message } from 'antd';
+import { useState } from 'react';
 
 const CreateTutor = () => {
-  const [addTutor] = useAddTutorMutation();
+  const [addTutor, { isLoading }] = useAddTutorMutation();
 
+  const { data } = useSubjectsQuery({
+    limit: 100,
+    page: 1,
+  });
+  const subjects = data?.subjects;
+  const subjectsOptions = subjects?.map((subject) => {
+    return {
+      label: subject?.title,
+      value: subject?.id,
+    };
+  });
   const adminOnSubmit = async (values: any) => {
     console.log(values);
 
     try {
       const res = await addTutor(values);
-      if (!!res) {
-        message.success('Tutor created successfully!');
+      if (res && 'data' in res) {
+        message.success('Subject created successfully!');
+      } else if ('error' in res) {
+        message.error('Something went wrong!');
       }
     } catch (err: any) {
       message.error(err.message);
@@ -91,6 +108,15 @@ const CreateTutor = () => {
               </label>
               <FormSelectField name='location' options={locationOptions} />
             </div>
+            <div className='mb-4 space-y-2 md:col-span-1'>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Expertise Subjects
+              </label>
+              <FormMultiSelectField
+                options={subjectsOptions as SelectOptions[]}
+                name='subjects'
+              />
+            </div>
             <div className='mb-4 space-y-2 md:col-span-2'>
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Bio
@@ -104,6 +130,7 @@ const CreateTutor = () => {
             size='large'
             className='flex  button-primary rounded-md  px-6   ms-auto '
             htmlType='submit'
+            loading={isLoading}
           >
             Create
           </Button>

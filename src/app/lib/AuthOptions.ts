@@ -33,7 +33,6 @@ export const authOptions: AuthOptions = {
 							method: "POST",
 							data: JSON.stringify({ email: profile?.email, provider: true }),
 							headers: { "Content-Type": "application/json" },
-
 						});
 						const data = res.data;
 						// console.log(data);
@@ -55,11 +54,6 @@ export const authOptions: AuthOptions = {
 						}
 
 
-						// return {
-						// 	...profile,
-						// 	...data,
-						// 	...verifiedToken
-						// };
 					} catch (error: any) {
 						// console.log(error);
 						throw new Error(error.message);
@@ -235,8 +229,6 @@ export const authOptions: AuthOptions = {
 	],
 	callbacks: {
 
-
-
 		async jwt({ token, user }) {
 			// console.log(token, "token auth option++++");
 			// console.log(user, "user auth option+++++");
@@ -247,16 +239,16 @@ export const authOptions: AuthOptions = {
 			};
 		},
 		async session({ session, token }: { session: any; token: any; }) {
-			console.log(session, "session auth option");
-			console.log(token, "token auth option inside session");
+			// console.log(session, "session auth option");
+			// console.log(token, "token auth option inside session");
 			const verifiedToken = jwtHelpers.verifyToken(
 				token?.accessToken,
 				process.env.JWT_SECRET!
 			);
-			// console.log(verifiedToken);
+			console.log(verifiedToken);
 
 			if (!verifiedToken) {
-				// console.log("token expired so new token generated");
+				console.log("token expired so new token generated");
 				// console.log("token expired so new -", token?.accessToken);
 				// const { data } = await getNewAccessToken(token?.accessToken);
 				// console.log("refresh", data);
@@ -264,7 +256,7 @@ export const authOptions: AuthOptions = {
 				const response = await getNewAccessTokenfromBD(token?.refreshToken);
 				const accessToken = response?.data?.accessToken;
 
-				// console.log("accesstoken", accessToken);
+				console.log("accesstoken", accessToken);
 
 
 
@@ -279,7 +271,7 @@ export const authOptions: AuthOptions = {
 	},
 	session: {
 		strategy: "jwt",
-		maxAge: 12 * 30 * 24 * 60 * 60,
+		maxAge: 24 * 60 * 60,
 	},
 	jwt: {
 		secret: process.env.NEXTAUTH_SECRET,

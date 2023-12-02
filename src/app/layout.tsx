@@ -26,7 +26,8 @@ export default async function RootLayout({
         <ConfigProvider
           theme={{
             token: {
-              fontFamily: 'rubik', // Alias Token
+              fontFamily: 'rubik',
+              fontSize: 16, // Alias Token
             },
           }}
         >

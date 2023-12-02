@@ -35,7 +35,9 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   return (
     <div className='flex space-x-1'>
       <Button
-        className='bg-transparent border-none ps-0 '
+        className={
+          onDetailsHandler ? 'bg-transparent border-none ps-0 ' : 'hidden'
+        }
         onClick={() => onDetailsHandler?.(data)}
       >
         <EyeOutlined className='text-orange-800 text-lg hover:text-orange-700  ' />

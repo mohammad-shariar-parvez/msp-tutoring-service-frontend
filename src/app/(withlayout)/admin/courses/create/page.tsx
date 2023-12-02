@@ -9,13 +9,17 @@ import TutorField from '@/components/Forms/TutorField';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import { locationOptions, courseStatus } from '@/constants/global';
 import { useAddCourseMutation } from '@/redux/api/courseApi';
+import { useSubjectsQuery } from '@/redux/api/subjectApi';
+import { SelectOptions } from '@/types';
 
-import { Button, Col, Row, message } from 'antd';
+import { Button, message } from 'antd';
 import { useState } from 'react';
 
 const CreateServicePage = () => {
   const [addCourse] = useAddCourseMutation();
-  const [locateTutor, setLocateSutor] = useState<string>();
+  const [locateTutor, setLocateSutor] = useState<string>('');
+
+  const [subjectId, setSubjectId] = useState<string | undefined>('');
 
   const adminOnSubmit = async (values: any) => {
     const price = parseFloat(values.price);
@@ -23,7 +27,10 @@ const CreateServicePage = () => {
       ...values,
       price,
       location: locateTutor,
+      subjectId: subjectId,
     };
+
+    console.log(updatedValues);
 
     try {
       const res = await addCourse(updatedValues);
@@ -34,6 +41,18 @@ const CreateServicePage = () => {
       message.error(err.message);
     }
   };
+
+  const { data } = useSubjectsQuery({
+    limit: 100,
+    page: 1,
+  });
+
+  const subjects = (data?.subjects ?? []).map((sub) => {
+    return {
+      label: sub.title,
+      value: sub.id,
+    };
+  });
 
   const base = 'admin';
   return (
@@ -57,6 +76,7 @@ const CreateServicePage = () => {
               </label>
               <FormInput name='title' size='large' />
             </div>
+
             <div className='mb-4 space-y-2 md:col-span-1'>
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Slug
@@ -72,6 +92,18 @@ const CreateServicePage = () => {
                 name='location'
                 options={locationOptions}
                 handleChange={(el) => setLocateSutor(el)}
+              />
+            </div>
+
+            <div className='mb-4 space-y-2 md:col-span-1 '>
+              <label className='font-bold text-base text-[#565656] mb-2'>
+                Expertisd Subject
+              </label>
+              <FormSelectField
+                name='subjectId'
+                label={undefined}
+                options={subjects as SelectOptions[]}
+                handleChange={(el) => setSubjectId(el)}
               />
             </div>
 
@@ -103,6 +135,7 @@ const CreateServicePage = () => {
               <TutorField
                 name='courseTutorId'
                 locateTutor={locateTutor ? locateTutor : ''}
+                subjectId={subjectId ? subjectId : ''}
               />
             </div>
 

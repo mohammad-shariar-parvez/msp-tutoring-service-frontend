@@ -45,6 +45,10 @@ export interface ICourse {
   };
 
 }
+export interface ISubject {
+  id: string;
+  title: string;
+}
 
 
 export interface IProfile {
@@ -108,7 +112,10 @@ export type IGenericErrorMessage = {
   message: string;
 };
 
-
+export type SelectOptions = {
+  label: string;
+  value: string;
+};
 export interface Name {
   firstName: string;
   lastName: string;

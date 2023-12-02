@@ -3,22 +3,18 @@ import { useBookingsQuery } from '@/redux/api/bookingApi';
 import { useCategoriesQuery } from '@/redux/api/category';
 
 import { useUsersQuery } from '@/redux/api/userApi';
-import { getUserInfo } from '@/services/auth.service';
-import { useRouter, usePathname } from 'next/navigation';
 import {
   DollarCircleOutlined,
   ShoppingCartOutlined,
   ShoppingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Col, Row, Card, Button, Space, Spin } from 'antd';
-// import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { Col, Row, Space, Spin } from 'antd';
+
 import VChart from '@/components/ui/VChart';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 
 const ProfilePage = () => {
-  // const [addProfile] = useAddProfileMutation();
   const { data: bookings, isLoading: bookingLoading } = useBookingsQuery({});
   const { data: users, isLoading: userLoading } = useUsersQuery({
     role: 'user',
@@ -26,9 +22,6 @@ const ProfilePage = () => {
   const { data: courses, isLoading: coursesLoading } = useCoursesQuery({});
   //@ts-ignore
   const { data: categories } = useCategoriesQuery({});
-
-  // const router = useRouter();
-  // const { role } = getUserInfo() as any;
 
   if (bookingLoading || userLoading || coursesLoading) {
     return (
@@ -44,13 +37,7 @@ const ProfilePage = () => {
         </Space>
       </Row>
     );
-    // console.log('YOOOOOO');
   }
-  // useEffect(() => {
-  //   const pathname = router.pathname;
-  //   // router.push('/');
-  //   console.log('USER ROLE', pathname);
-  // }, [role, router]);
 
   return (
     <div>

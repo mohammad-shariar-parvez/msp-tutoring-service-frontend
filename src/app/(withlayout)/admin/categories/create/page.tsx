@@ -3,6 +3,8 @@
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
+import UploadFreeImage from '@/components/ui/UploadFreeIMage';
+import UploadImage from '@/components/ui/UploadImage';
 import { useAddCategoryMutation } from '@/redux/api/category';
 
 import { Button, Col, Row, message } from 'antd';
@@ -11,6 +13,7 @@ const CreateCategoryPage = () => {
   const [addCategory] = useAddCategoryMutation();
 
   const onSubmit = async (data: any) => {
+    // console.log(data);
     message.loading('Creating.....');
     try {
       await addCategory(data);
@@ -19,6 +22,7 @@ const CreateCategoryPage = () => {
       message.error(err.message);
     }
   };
+
   const base = 'admin';
   return (
     <div>
@@ -53,6 +57,9 @@ const CreateCategoryPage = () => {
               </label>
 
               <FormInput name='imageUrl' size='large' type='url' />
+              {/* <FormInput name='imageUrl' size='large' type='file' /> */}
+              {/* <UploadFreeImage /> */}
+              {/* <UploadImage name='file' /> */}
             </div>
             <Button
               size='large'
