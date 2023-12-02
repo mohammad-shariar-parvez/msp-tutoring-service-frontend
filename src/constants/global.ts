@@ -1,12 +1,12 @@
 export const locationOptions = [
   {
     label: "Natore",
-    value: "natore",
+    value: "Natore",
   },
 
   {
     label: "Gazipur",
-    value: "gazipur",
+    value: "Gazipur",
   },
 ];
 
