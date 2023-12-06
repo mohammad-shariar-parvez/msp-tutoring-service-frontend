@@ -14,6 +14,7 @@ import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
 import { useDebounced } from '@/redux/hooks';
 import dayjs from 'dayjs';
+import HTMLReactParser from 'html-react-parser';
 
 import Image from 'next/image';
 import ActionButtons from '@/components/ui/ActionButtons';
@@ -42,7 +43,7 @@ const ServicePage = () => {
   query['page'] = page;
   query['sortBy'] = sortBy;
   query['sortOrder'] = sortOrder;
-  // query["searchTerm"] = searchTerm;
+  query['searchTerm'] = searchTerm;
 
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
@@ -56,7 +57,7 @@ const ServicePage = () => {
 
   const courses = data?.courses;
   const meta = data?.meta;
-  // console.log(courses);
+  console.log(courses);
 
   const columns = [
     {
@@ -176,7 +177,11 @@ const ServicePage = () => {
             <Button className=' button-primary '>Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button onClick={resetFilters} type='primary'>
+            <Button
+              onClick={resetFilters}
+              type='primary'
+              className='bg-blue-400'
+            >
               <ReloadOutlined />
             </Button>
           )}
@@ -201,8 +206,9 @@ const ServicePage = () => {
               <Image
                 src={details.imageUrl}
                 height={100}
-                width={100}
-                alt='details category'
+                width={200}
+                alt='details category '
+                className='h-auto'
               />
             ) : (
               <Empty description='Image not available' />
@@ -215,7 +221,7 @@ const ServicePage = () => {
 
             <div>
               <strong className=' w-[30%] inline-block'>Category</strong>
-              <span>{details?.service?.title}</span>
+              <span>{details?.category?.title}</span>
             </div>
             <div>
               <strong className=' w-[30%] inline-block'>Tutor</strong>
@@ -230,7 +236,7 @@ const ServicePage = () => {
             </div>
             <div>
               <strong className=' w-[30%] inline-block'>Duration</strong>
-              <span>{details?.duration}</span>
+              <span>{details?.duration ? details?.duration : 'N/A'}</span>
             </div>
             <div>
               <strong className=' w-[30%] inline-block'>Price</strong>
@@ -238,7 +244,7 @@ const ServicePage = () => {
             </div>
             <div>
               <strong className=' w-[30%] block mb-2'>Description</strong>
-              <span>{details?.description}</span>
+              <span>{HTMLReactParser(details?.description || '')}</span>
             </div>
           </div>
         </Modal>

@@ -7,6 +7,7 @@ import FormSelectField from '@/components/Forms/FormSelectField';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import TutorField from '@/components/Forms/TutorField';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
+import UploadFreeImage from '@/components/ui/UploadFreeIMage';
 import { locationOptions, courseStatus } from '@/constants/global';
 import { useAddCourseMutation } from '@/redux/api/courseApi';
 import { useSubjectsQuery } from '@/redux/api/subjectApi';
@@ -33,9 +34,12 @@ const CreateServicePage = () => {
     console.log(updatedValues);
 
     try {
+      message.loading('Creating');
       const res = await addCourse(updatedValues);
-      if (!!res) {
+      if (res && 'data' in res) {
         message.success('Course created successfully!');
+      } else if ('error' in res) {
+        message.error('Something went wrong!');
       }
     } catch (err: any) {
       message.error(err.message);
@@ -47,12 +51,14 @@ const CreateServicePage = () => {
     page: 1,
   });
 
-  const subjects = (data?.subjects ?? []).map((sub) => {
-    return {
-      label: sub.title,
-      value: sub.id,
-    };
-  });
+  const subjects = (data?.subjects ?? []).map(
+    (sub: { title: any; id: any }) => {
+      return {
+        label: sub.title,
+        value: sub.id,
+      };
+    }
+  );
 
   const base = 'admin';
   return (
@@ -97,7 +103,7 @@ const CreateServicePage = () => {
 
             <div className='mb-4 space-y-2 md:col-span-1 '>
               <label className='font-bold text-base text-[#565656] mb-2'>
-                Expertisd Subject
+                Subject
               </label>
               <FormSelectField
                 name='subjectId'
@@ -157,7 +163,7 @@ const CreateServicePage = () => {
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Description
               </label>
-              <FormTextArea name='description' rows={4} />
+              <FormTextArea name='description' rows={8} />
             </div>
           </div>
           <Button

@@ -10,12 +10,30 @@ import TutorField from '@/components/Forms/TutorField';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import { locationOptions, courseStatus } from '@/constants/global';
 import { useCourseQuery, useUpdateCourseMutation } from '@/redux/api/courseApi';
+import { useSubjectsQuery } from '@/redux/api/subjectApi';
+import { SelectOptions } from '@/types';
 
 import { Button, Col, Row, message } from 'antd';
+import { useEffect, useState } from 'react';
 
 const EditServicePage = ({ params }: any) => {
+  const [locateTutor, setLocateSutor] = useState<string>('');
+  const [subjectId, setSubjectId] = useState<string | undefined>('');
   const { data: courseData, isLoading: loading } = useCourseQuery(params?.id);
-  //   console.log(courseData);
+  const [defaultValues, setDefaultValues] = useState({
+    slug: courseData?.slug,
+    title: courseData?.title || '',
+    price: courseData?.price || '',
+    imageUrl: courseData?.imageUrl || '',
+    description: courseData?.description || '',
+    duration: courseData?.duration || null,
+    courseTutorId: courseData?.courseTutorId || undefined,
+    categoryId: courseData?.categoryId || undefined,
+    status: courseData?.status || '',
+    subjectId: courseData?.subjectId || '',
+    location: courseData?.location || '',
+  });
+  console.log(courseData);
   const [updateCourse] = useUpdateCourseMutation();
 
   //@ts-ignore
@@ -41,20 +59,36 @@ const EditServicePage = ({ params }: any) => {
       console.error(err.message);
     }
   };
+  const { data } = useSubjectsQuery({
+    limit: 100,
+    page: 1,
+  });
+  // console.log(courseData);
 
-  const defaultValues = {
-    slug: courseData?.slug,
-    title: courseData?.title || '',
-    price: courseData?.price || '',
-    imageUrl: courseData?.imageUrl || '',
-    description: courseData?.description || '',
-    duration: courseData?.duration || null,
-    courseTutorId: courseData?.courseTutorId,
-    categoryId: courseData?.categoryId || '',
-    status: courseData?.status || '',
-    location: courseData?.location || '',
-  };
+  const subjects = (data?.subjects ?? []).map((sub) => {
+    return {
+      label: sub.title,
+      value: sub.id,
+    };
+  });
+  // console.log('Yoo yoo', defaultValues);
 
+  useEffect(() => {
+    // Set the initial default values when the component mounts
+    setDefaultValues({
+      slug: courseData?.slug,
+      title: courseData?.title || '',
+      price: courseData?.price || '',
+      imageUrl: courseData?.imageUrl || '',
+      description: courseData?.description || '',
+      duration: courseData?.duration || null,
+      courseTutorId: courseData?.courseTutorId || undefined,
+      categoryId: courseData?.categoryId || undefined,
+      status: courseData?.status || '',
+      subjectId: courseData?.subjectId || '',
+      location: courseData?.location || '',
+    });
+  }, [courseData]);
   return (
     <div>
       <UMBreadCrumb
@@ -71,25 +105,19 @@ const EditServicePage = ({ params }: any) => {
       />
 
       <>
-        <h1>Edit Course</h1>
         <Form submitHandler={onSubmit} defaultValues={defaultValues}>
-          <div
-            style={{
-              border: '1px solid #d9d9d9',
-              borderRadius: '5px',
-              padding: '15px',
-              marginBottom: '10px',
-            }}
-          >
-            <p
-              style={{ fontSize: '18px', fontWeight: '500', margin: '5px 0px' }}
-            >
+          <div className='bg-[#e6f3f9] p-4 my-2'>
+            <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 '>
               Course information
-            </p>
-            <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-              <Col span={8} style={{ margin: '10px 0' }}>
-                <FormInput name='title' label='Title' size='large' />
-              </Col>
+            </h5>
+            <div className='grid  md:grid-cols-3 gap-4'>
+              <div className='mb-4 space-y-2 md:col-span-1'>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Title
+                </label>
+                <FormInput name='title' size='large' />
+              </div>
+
               <div className='mb-4 space-y-2 md:col-span-1'>
                 <label className='font-bold text-base text-[#565656] mb-2'>
                   Slug
@@ -97,65 +125,89 @@ const EditServicePage = ({ params }: any) => {
                 <FormInput name='slug' size='large' />
               </div>
 
-              <Col span={8} style={{ margin: '10px 0' }}>
+              <div className='mb-4 space-y-2 md:col-span-1 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Location
+                </label>
                 <FormSelectField
                   name='location'
-                  label='Location'
                   options={locationOptions}
+                  handleChange={(el) => setLocateSutor(el)}
                 />
-              </Col>
+              </div>
 
-              <Col span={8} style={{ margin: '10px 0' }}>
-                <FormInput
-                  name='price'
-                  label='Price'
-                  size='large'
-                  type='number'
-                />
-              </Col>
-
-              <Col span={8} style={{ margin: '10px 0' }}>
-                <FormInput
-                  name='imageUrl'
-                  label='Image Url'
-                  size='large'
-                  type='url'
-                />
-              </Col>
-
-              <Col span={8} style={{ margin: '10px 0' }}>
-                <CategoryField
-                  name='categoryId'
-                  label='Category'
-                  defaultValue={defaultValues?.categoryId}
-                />
-              </Col>
-              <Col span={8} style={{ margin: '10px 0' }}>
-                <TutorField name='courseTutorId' label='Tutor' />
-              </Col>
-
-              <Col span={8} style={{ margin: '10px 0' }}>
+              <div className='mb-4 space-y-2 md:col-span-1 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Subject
+                </label>
                 <FormSelectField
-                  name='status'
-                  label='Status'
-                  options={courseStatus}
+                  name='subjectId'
+                  options={subjects as SelectOptions[]}
+                  handleChange={(el) => setSubjectId(el)}
                 />
-              </Col>
-              <Col span={8} style={{ margin: '10px 0' }}>
-                <FormInput
-                  name='duration'
-                  label='Duration'
-                  size='large'
-                  type='text'
-                />
-              </Col>
-              <Col span={16} style={{ margin: '10px 0' }}>
-                <FormTextArea name='description' label='Description' rows={4} />
-              </Col>
-            </Row>
-          </div>
+              </div>
 
-          <Button htmlType='submit'>submit</Button>
+              <div className='mb-4 space-y-2 md:col-span-1 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Price
+                </label>
+                <FormInput name='price' size='large' type='number' />
+              </div>
+
+              <div className='mb-4 space-y-2 md:col-span-1 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Image Url
+                </label>
+                <FormInput name='imageUrl' size='large' type='url' />
+              </div>
+
+              <div className='mb-4 space-y-2 md:col-span-1 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Category
+                </label>
+                <CategoryField name='categoryId' />
+              </div>
+
+              <div className='mb-4 space-y-2 md:col-span-1 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Tutor
+                </label>
+                <TutorField
+                  name='courseTutorId'
+                  locateTutor={locateTutor ? locateTutor : ''}
+                  subjectId={subjectId ? subjectId : ''}
+                />
+              </div>
+
+              <div className='mb-4 space-y-2 md:col-span-1 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Status
+                </label>
+                <FormSelectField name='status' options={courseStatus} />
+              </div>
+
+              <div className='mb-4 space-y-2 md:col-span-1'>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Duration
+                </label>
+                <FormInput name='duration' size='large' type='text' />
+              </div>
+
+              <div className='mb-4 space-y-2 md:col-span-2 '>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Description
+                </label>
+                <FormTextArea name='description' rows={8} />
+              </div>
+            </div>
+            <Button
+              size='large'
+              className=' button-primary  block  ms-auto  rounded-md  px-6 '
+              htmlType='submit'
+            >
+              Submit
+            </Button>
+          </div>
         </Form>
       </>
     </div>
