@@ -25,7 +25,7 @@ type IDProps = {
 const Courses = ({ params }: IDProps) => {
   const { id } = params;
   const query: Record<string, any> = {};
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('Natore');
   const [formReset, setFormReset] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(12);
@@ -34,7 +34,7 @@ const Courses = ({ params }: IDProps) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [maxPrice, setMaxPrice] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<string | undefined>(undefined);
-  const [location, setLocation] = useState<string | undefined>(undefined);
+  const [location, setLocation] = useState<string | undefined>('Natore');
   const [categoryId, setCategoryId] = useState(id);
   query['location'] = location;
   query['minPrice'] = minPrice;
@@ -104,9 +104,9 @@ const Courses = ({ params }: IDProps) => {
   const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
 
   let searchComponent = null;
-  console.log(data);
-  console.log(isLoading);
-  console.log(isFetching);
+  // console.log(data);
+  // console.log(isLoading);
+  // console.log(isFetching);
 
   if (!isLoading && isError) {
     searchComponent = (
