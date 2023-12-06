@@ -14,23 +14,25 @@ const rolesRedirect: Record<string, unknown> = {
 	super_user: `${process.env.FRONTEND_URL}/super_user/`,
 };
 export async function middleware(request: NextRequest) {
+
+
 	const token = await getToken({ req: request });
 	const role = token?.role as string;
 	console.log(token, "token middleware");
 	const { pathname } = request.nextUrl;
 
 	if (!token) {
-		console.log("REAL PATH NAME", pathname);
+		// console.log("REAL PATH NAME", pathname);
 
 		if (hybridRoutes.includes(pathname)) {
 
-			console.log("pppppppppppp--", role);
-			console.log("xxxxxxxxxxx--", pathname);
+			// console.log("pppppppppppp--", role);
+			// console.log("xxxxxxxxxxx--", pathname);
 			return NextResponse.next();
 
 		}
 		if (protectedRoutes.some(route => pathname?.startsWith(route))) {
-			console.log("11111111111111------", pathname);
+			// console.log("11111111111111------", pathname);
 			return NextResponse.redirect(`${process.env.FRONTEND_URL}/login?redirect=${pathname}`);
 		}
 
@@ -50,18 +52,18 @@ export async function middleware(request: NextRequest) {
 		(role === "user" && !pathname?.startsWith("/super_admin") && !pathname?.startsWith("/admin"))
 	) {
 
-		console.log("333333333333333333333333333", pathname);
+		// console.log("333333333333333333333333333", pathname);
 		return NextResponse.next();
 	}
 
 	if (pathname === "/" && role && role in rolesRedirect) {
-		console.log("44444444444444", role);
+		// console.log("44444444444444", role);
 
 		return NextResponse.redirect(rolesRedirect[role] as string);
 	}
 
 
-	console.log("55555555555555555", pathname, role);
+	// console.log("55555555555555555", pathname, role);
 	// NextResponse.rewrite(request.
 	// NextResponse.redirect(`${process.env.FRONTEND_URL}/`);
 	return NextResponse.redirect(`${process.env.FRONTEND_URL}/login`);

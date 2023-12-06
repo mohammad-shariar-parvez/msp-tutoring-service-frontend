@@ -245,7 +245,7 @@ export const authOptions: AuthOptions = {
 				token?.accessToken,
 				process.env.JWT_SECRET!
 			);
-			console.log(verifiedToken);
+			console.log("varified token", verifiedToken);
 
 			if (!verifiedToken) {
 				console.log("token expired so new token generated");
@@ -271,7 +271,7 @@ export const authOptions: AuthOptions = {
 	},
 	session: {
 		strategy: "jwt",
-		maxAge: 24 * 60 * 60,
+		maxAge: 12 * 30 * 24 * 60 * 60,
 	},
 	jwt: {
 		secret: process.env.NEXTAUTH_SECRET,

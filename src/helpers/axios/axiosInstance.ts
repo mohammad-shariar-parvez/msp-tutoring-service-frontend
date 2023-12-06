@@ -20,6 +20,7 @@ instance.interceptors.request.use(
   async function (config) {
 
     const session = await getSession();
+    // console.log("NECT", session);
 
 
     if (session) {

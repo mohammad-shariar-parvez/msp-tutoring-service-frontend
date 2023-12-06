@@ -27,7 +27,7 @@ const HomePage = async () => {
   const session: any = await getServerSession(authOptions);
   return (
     <div>
-      <Navbar session={session} home />
+      {/* <Navbar session={session} home />
       <Banner />
       <BannerInfo />
       <Demo />
@@ -35,7 +35,7 @@ const HomePage = async () => {
       <Category />
       <Course />
       <UpcommingCourse />
-      <Info />
+      <Info /> */}
       <Review />
       <AccordianFAQ />
       <BackTop />

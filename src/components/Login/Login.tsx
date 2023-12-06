@@ -20,10 +20,10 @@ type FormValues = {
 const LoginPage = () => {
   const router = useRouter();
   const searhParams = useSearchParams().get('redirect') as string;
-  // const callbackUrl = searhParams
-  //   ? searhParams
-  //   : 'https://msp-tutoring-service.vercel.app/';
-  const callbackUrl = searhParams ? searhParams : 'http://localhost:3000/';
+  const callbackUrl = searhParams
+    ? searhParams
+    : 'https://msp-tutoring-service.vercel.app/';
+  // const callbackUrl = searhParams ? searhParams : 'http://localhost:3000/';
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {

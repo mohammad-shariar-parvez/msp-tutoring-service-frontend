@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
-import { Button, Input, Modal, message } from 'antd';
+import { Button, Empty, Input, Modal, message } from 'antd';
 import Link from 'next/link';
 import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
@@ -136,6 +136,7 @@ const CategoryPage = () => {
     setSortBy('');
     setSortOrder('');
     setSearchTerm('');
+    setSize(5);
   };
   /* 
 -------------- START-----------------------------------
@@ -164,17 +165,7 @@ const CategoryPage = () => {
             setSearchTerm(e.target.value);
           }}
         />
-        {/* <div className='space-x-2'>
-          {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button onClick={resetFilters}>
-              <ReloadOutlined />
-            </Button>
-          )}
 
-          <Link href='/admin/categories/create'>
-            <Button className=' button-primary'>Create</Button>
-          </Link>
-        </div> */}
         <div className='flex space-x-1 '>
           <Link href='/admin/categories/create'>
             <Button className='block bg-secondary     text-white '>
@@ -182,7 +173,11 @@ const CategoryPage = () => {
             </Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button onClick={resetFilters} type='primary'>
+            <Button
+              onClick={resetFilters}
+              type='primary'
+              className=' bg-sky-400'
+            >
               <ReloadOutlined />
             </Button>
           )}
@@ -201,19 +196,25 @@ const CategoryPage = () => {
         showPagination={true}
       />
       <>
-        <Modal
-          title='Category Details'
-          open={isModalOpen}
-          onCancel={handleCancel}
-          footer={null}
-        >
-          <div>{details?.title}</div>
-          <Image
-            src={details.imageUrl}
-            height={200}
-            width={200}
-            alt='details category'
-          />
+        <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
+          <div className='flex flex-col gap-4 '>
+            {details?.imageUrl ? (
+              <Image
+                src={details.imageUrl}
+                height={100}
+                width={150}
+                alt='details category'
+                className='h-auto'
+              />
+            ) : (
+              <Empty description='Image not available' />
+            )}
+
+            <div>
+              <strong className=' w-[30%] inline-block'>Title</strong>
+              <span>{details?.title}</span>
+            </div>
+          </div>
         </Modal>
       </>
     </div>
