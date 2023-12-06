@@ -1,26 +1,19 @@
 'use client';
-import { Button, Col, Row, message } from 'antd';
-import React, { useEffect, useState } from 'react';
-
+import React from 'react';
 import Image from 'next/image';
-
 import RatingReview from '@/components/ui/RatingReview';
 import CommentsSection from '@/components/ui/CommentsSection';
-
+import HTMLReactParser from 'html-react-parser';
 import BookingFormSection from '@/components/ui/BookingFormSection';
-import { usePathname, useRouter } from 'next/navigation';
 import { useCourseQuery } from '@/redux/api/courseApi';
 import RelatedCourse from '@/components/ui/RelatedCourse';
-import { useSession } from 'next-auth/react';
-import { getUserInfo, isLoggedIn } from '@/services/auth.service';
+import { Skeleton } from 'antd';
+
 type IDProps = {
   params: any;
 };
 const ServiceCourse = ({ params }: IDProps) => {
   const { id } = params;
-  const userLoggedIn = isLoggedIn();
-  const da = getUserInfo() as any;
-  const router = useRouter();
 
   const { data, isLoading } = useCourseQuery(id);
   // console.log(data);
@@ -30,28 +23,37 @@ const ServiceCourse = ({ params }: IDProps) => {
   return (
     <section className='bg-[#f3f6fd]  py-16'>
       <div className='container  '>
-        <div className=' py-8 my-8 bg-white p-4 rounded-md '>
-          <div className='grid grid-cols-1 md:grid-cols-12 gap-4 '>
-            <div className='md:col-span-2'>
-              <Image
-                src={data?.courseTutor?.imageUrl}
-                width={150}
-                height={150}
-                alt='eagle_image'
-                // className='rounded-full block mx-auto mt-5 '
-              />
-            </div>
-
-            <div className='md:col-span-8'>
-              <h1 className='mb-3   font-semibold text-2xl text-secondary '>
+        <div className='   bg-white px-4 py-8 rounded-md '>
+          <div className='grid grid-cols-1 md:grid-cols-12 gap-8 '>
+            <div className='md:col-span-2 space-y-2 '>
+              {isLoading ? (
+                <Skeleton.Image
+                  active={true}
+                  className='w-full h-auto  block'
+                  // style={{ height: 290 }}
+                />
+              ) : (
+                <Image
+                  src={data?.courseTutor?.imageUrl}
+                  width={150}
+                  height={150}
+                  alt='eagle_image'
+                  className='w-full h-auto  block rounded-md '
+                />
+              )}
+              <strong className='   block text-secondary '>
                 {courseData?.courseTutor?.firstName}{' '}
                 {courseData?.courseTutor?.middleName}{' '}
                 {courseData?.courseTutor?.lastName}
-              </h1>
+              </strong>
+            </div>
 
-              <p className='text-base font-normal text-[#212529]   m-auto space-y-4 text-justify'>
-                {courseData?.courseTutor?.bio}
-              </p>
+            <div className='md:col-span-7'>
+              <Skeleton active={true} loading={isLoading}>
+                <p className='text-base font-normal text-[#212529]   m-auto space-y-4 text-justify inline-block align-text-top'>
+                  {HTMLReactParser(courseData?.courseTutor?.bio || '')}
+                </p>
+              </Skeleton>
 
               {/* <div className='py-2'>
                   <Button
@@ -62,19 +64,24 @@ const ServiceCourse = ({ params }: IDProps) => {
                   </Button>
                 </div> */}
             </div>
-
-            <div className='md:col-span-2 '>
-              <div className=' space-y-4 text-base font-normal text-secondary   text-justify'>
-                <div className=' flex justify-between'>
-                  <strong>Experience</strong>
-                  <p>{courseData?.courseTutor?.experience}</p>
-                </div>
-                <div className=' flex justify-between items-center'>
-                  <strong>Gender</strong>
-                  <p>{courseData?.courseTutor?.gender}</p>
+            <Skeleton active={true} loading={isLoading} paragraph={{ rows: 3 }}>
+              <div className='md:col-span-3 '>
+                <div className=' space-y-3 text-base font-normal text-secondary   text-justify'>
+                  <div className=' flex justify-between'>
+                    <strong>Experience</strong>
+                    <p>{courseData?.courseTutor?.experience}</p>
+                  </div>
+                  <div className=' flex justify-between items-center'>
+                    <strong>Gender</strong>
+                    <p>{courseData?.courseTutor?.gender}</p>
+                  </div>
+                  <div className=' flex justify-between items-center'>
+                    <strong>Location</strong>
+                    <p>{courseData?.courseTutor?.location}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Skeleton>
           </div>
         </div>
         {/* Line */}
@@ -87,22 +94,35 @@ const ServiceCourse = ({ params }: IDProps) => {
 
         {/*  INFO*/}
         <div className='  divide-y  grid grid-cols-1 md:grid-cols-12 gap-8 gap-y-20 pb-16  '>
-          <div className='c md:col-span-7 '>
-            <div className='bg-white   p-4 rounded-md'>
-              <h1 className='mb-6  mt-3  text-3xl text-secondary   font-medium '>
+          <div className='c md:col-span-7  '>
+            <div className='bg-white   px-4 py-8  rounded-md'>
+              <h1 className='mb-6    text-3xl text-secondary   font-medium '>
                 Course Information
               </h1>
-              <Image
-                src={courseData?.imageUrl}
-                width={250}
-                height={200}
-                alt='eagle_image'
-                className='  object-fill    '
-              />
-
-              <p className='text-gray-500 text-base mt-4'>
-                {courseData?.description}
-              </p>
+              {isLoading ? (
+                <Skeleton.Image
+                  active={true}
+                  className='h-[200px] w-[250px]  object-fill mb-10 '
+                  // style={{ height: 290 }}
+                />
+              ) : (
+                <Image
+                  src={courseData?.imageUrl}
+                  width={250}
+                  height={200}
+                  alt='eagle_image'
+                  className='  object-fill rounded-md    '
+                />
+              )}
+              <Skeleton
+                active={true}
+                loading={isLoading}
+                paragraph={{ rows: 10 }}
+              >
+                <p className='text-gray-500 text-base mt-4 text-justify'>
+                  {HTMLReactParser(courseData?.description || '')}
+                </p>
+              </Skeleton>
             </div>
 
             <RatingReview courseId={id} />
