@@ -7,6 +7,7 @@ import { ICourse } from '@/types';
 import { FaLocationDot } from 'react-icons/fa6';
 import { locationOptions } from '@/constants/global';
 import CourseCardScalaton from './scalaton/CourseCardScalaton';
+import { FaDatabase } from 'react-icons/fa';
 
 const Course: React.FC = () => {
   const [location, setLocation] = useState('Natore');
@@ -18,13 +19,13 @@ const Course: React.FC = () => {
   };
 
   const { data, isLoading, isError, isFetching } = useCoursesQuery({
-    limit: 6,
+    limit: 8,
     location,
     status: 'RUNNING',
   });
 
   const coursesData: ICourse[] = (data?.courses || []) as ICourse[];
-  // console.log(data);
+  console.log(data);
   let searchComponent = null;
 
   if (!isLoading && isError) {
@@ -62,8 +63,8 @@ const Course: React.FC = () => {
 
   if (!isError && isFetching) {
     searchComponent = (
-      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 '>
-        {Array.from({ length: 6 }).map((_, index) => (
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
+        {Array.from({ length: 8 }).map((_, index) => (
           <CourseCardScalaton key={index} />
         ))}
       </div>
@@ -113,11 +114,7 @@ const Course: React.FC = () => {
         </button>
       </div>
       <Divider className='my-4'></Divider>
-      {/* <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
-        {courseData?.map((course: ICourse) => (
-          <CourseCard key={course.id} course={course} isLoading={isLoading} />
-        ))}
-      </div> */}
+
       {searchComponent}
     </section>
   );

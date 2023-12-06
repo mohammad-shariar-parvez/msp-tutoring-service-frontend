@@ -14,6 +14,8 @@ import Form from '../Forms/Form';
 import LocationSelector from '../Forms/LocationSelector';
 import SearchInput from '../Forms/SearchInput';
 import { useRouter } from 'next/navigation';
+import FormSelectField from '../Forms/FormSelectField';
+import { SelectOptions } from '@/types';
 const Banner = () => {
   const query: Record<string, any> = { limit: 0 };
   const [course, setCourse] = useState<string>('');
@@ -74,8 +76,8 @@ const Banner = () => {
                       className='px-[0.3px] h-6 bg-gray-300 flex-none'
                       type='vertical'
                     />
-                    <div className='font-semibold  leading-3 flex items-center justify-center flex-1 relative'>
-                      <span className=' block text-secondary'>
+                    <div className='font-semibold  leading-3 flex items-center justify-center flex-1 relative '>
+                      <span className=' block text-secondary '>
                         <FaLocationDot />
                       </span>
                       {/* <Input
@@ -87,7 +89,15 @@ const Banner = () => {
                       onChange={(e) => setLocation(e.target.value)}
                       className=' p-1 md:p-3 pl-2 w-full text-base font-medium'
                     /> */}
-                      <LocationSelector />
+                      {/* <LocationSelector /> */}
+                      <FormSelectField
+                        name='location'
+                        placeholder='Location'
+                        options={locationOptions as SelectOptions[]}
+                        bordered={false}
+                        dropDownAlign={false}
+                        suffixIcon={true}
+                      />
                     </div>
 
                     <div>

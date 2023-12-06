@@ -36,7 +36,7 @@ const CommentsSection: React.FC<CommentProps> = ({ id }) => {
   if (!isError && !isLoading && reviewData?.length <= 0) {
     searchComponent = (
       <div className=' flex justify-center items-center h-full pt-2'>
-        <Empty description='No review yet . Comment first .' />;
+        <Empty description='No review yet . Comment first ' />
       </div>
     );
   }

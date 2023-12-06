@@ -26,30 +26,35 @@ const beforeUpload = (file: RcFile) => {
 
 type ImageUploadProps = {
   name: string;
+  imageUrl: string;
+  setImageUrl: any;
+  // setImageUrl: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const UploadImage = ({ name }: ImageUploadProps) => {
+const UploadImage = ({ name, imageUrl, setImageUrl }: ImageUploadProps) => {
+  console.log(imageUrl);
+
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>();
+
   const { setValue } = useFormContext();
 
   const handleChange: UploadProps['onChange'] = (
     info: UploadChangeParam<UploadFile>
   ) => {
-    console.log(info.file.originFileObj);
-
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
+      console.log(info.file.originFileObj);
+
       setValue(name, info.file.originFileObj);
       getBase64(info.file.originFileObj as RcFile, (url) => {
         setLoading(false);
-        console.log('URL', url);
 
         setImageUrl(url);
+        console.log(url);
       });
     }
   };

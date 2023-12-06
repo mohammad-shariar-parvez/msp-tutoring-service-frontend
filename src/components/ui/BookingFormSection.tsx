@@ -34,8 +34,8 @@ const BookingFormSection: React.FC<BookingFormProps> = ({ courseId }) => {
     // console.log('STEPPR', values);
   };
   return (
-    <div className='req-demo-form p-4'>
-      <h3 className='mb-9      text-formHeader mt-3 text-center font-medium text-3xl'>
+    <div className='req-demo-form px-4 py-8'>
+      <h3 className='mb-6     text-formHeader  text-center font-medium text-3xl'>
         Book Your Course
       </h3>
 

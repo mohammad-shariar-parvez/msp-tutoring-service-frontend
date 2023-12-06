@@ -35,14 +35,14 @@ const RatingReview: React.FC<RatingReviewProps> = ({ courseId }) => {
   // console.log(courseBookingData);
 
   return (
-    <div className={`py-4  `}>
+    <div className={`py-8  `}>
       <Form submitHandler={reviewOnSubmit}>
         <FormTextArea name='review' rows={4} />
         <div className='flex justify-between items-center space-y-3 '>
           <Button
             htmlType='submit'
             disabled={!courseBookingData && true}
-            className=' bg-button-primary  text-white   px-3 mt-3  rounded-md   '
+            className=' bg-button-primary  text-white   px-3 mt-8  rounded-md   '
           >
             {!courseBookingData ? 'Pay First to Review' : 'Send Review'}
           </Button>

@@ -11,32 +11,37 @@ const NavDropDown = () => {
     []) as ICategory[];
 
   const items: MenuProps['items'] = categories
-    ? categories.map((item: { title: string }, index) => {
+    ? categories.map((category: { title: string; id: string }, index) => {
         const element = {
           key: index.toString(),
           label: (
             <span className=' text-secondary font-medium  text-base'>
-              {item.title}
+              <Link
+                href={`/categories/${category?.id}`}
+                className='no-underline text-secondary font-medium   text-sm '
+              >
+                {category.title}
+              </Link>
             </span>
           ),
         };
 
         // @ts-ignore
-        const child = item?.courses?.map((ele, courseIndex) => {
-          return {
-            key: index.toString() + courseIndex.toString(),
-            label: (
-              <Link
-                className=' text-secondary font-medium  text-base'
-                href={`/course/${ele.id}`}
-              >
-                {ele.title}
-              </Link>
-            ),
-          };
-        });
-        // @ts-ignore
-        element['children'] = child;
+        // const child = item?.courses?.map((ele, courseIndex) => {
+        //   return {
+        //     key: index.toString() + courseIndex.toString(),
+        //     label: (
+        //       <Link
+        //         className=' text-secondary font-medium  text-base'
+        //         href={`/course/${ele.id}`}
+        //       >
+        //         {ele.title}
+        //       </Link>
+        //     ),
+        //   };
+        // });
+        // // @ts-ignore
+        // element['children'] = child;
 
         return element;
       })
@@ -45,7 +50,6 @@ const NavDropDown = () => {
     <>
       <Dropdown
         placement='bottom'
-        arrow
         menu={{ items }}
         className='rounded-none hidden md:block p-4  '
         overlayStyle={{
