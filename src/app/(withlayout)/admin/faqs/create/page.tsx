@@ -16,9 +16,12 @@ const CreateFaqPage = () => {
     // console.log(values);
 
     try {
+      message.loading('Creating');
       const res = await addFaq(values);
-      if (!!res) {
-        message.success('FAQS created successfully!');
+      if (res && 'data' in res) {
+        message.success('FAQ created successfully!');
+      } else if ('error' in res) {
+        message.error('Something went wrong!');
       }
     } catch (err: any) {
       message.error(err.message);
