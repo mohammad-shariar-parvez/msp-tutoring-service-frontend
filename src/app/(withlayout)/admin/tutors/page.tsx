@@ -8,7 +8,7 @@ import {
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
 
-import { Button, Input, Modal, message } from 'antd';
+import { Button, Empty, Input, Modal, message } from 'antd';
 import Link from 'next/link';
 import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
@@ -75,9 +75,12 @@ const ServicePage = () => {
 
   const columns = [
     {
-      title: ' Name',
-      dataIndex: 'lastName',
+      title: 'First Name',
+      render: function (data: any) {
+        return data.firstName + ' ' + data.lastName;
+      },
     },
+
     {
       title: 'Location',
       dataIndex: 'location',
@@ -132,6 +135,7 @@ const ServicePage = () => {
     setSortBy('');
     setSortOrder('');
     setSearchTerm('');
+    setSize(5);
   };
 
   return (
@@ -156,12 +160,16 @@ const ServicePage = () => {
             setSearchTerm(e.target.value);
           }}
         />
-        <div>
+        <div className='space-x-2'>
           <Link href='/admin/tutors/create'>
             <Button className='button-primary'>Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button onClick={resetFilters} type='primary'>
+            <Button
+              onClick={resetFilters}
+              type='primary'
+              className='bg-sky-400'
+            >
               <ReloadOutlined />
             </Button>
           )}
@@ -180,31 +188,40 @@ const ServicePage = () => {
         showPagination={true}
       />
       <>
-        <Modal
-          title='Category Details'
-          open={isModalOpen}
-          onCancel={handleCancel}
-          footer={null}
-        >
-          <div className='flex flex-col gap-4 divide-y'>
-            <Image
-              src={details.imageUrl}
-              height={100}
-              width={100}
-              alt='details category'
-            />
-
-            <div className='flex items-center space-x-2'>
-              <h1 className='font-semibold text-lg'>{details?.firstName}</h1>
-              <h1 className='font-semibold text-lg'>{details?.middleName}</h1>
-              <h1 className='font-semibold text-lg'>{details?.lastName}</h1>
+        <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
+          <div className='flex flex-col gap-4 '>
+            {details?.imageUrl ? (
+              <Image
+                src={details.imageUrl}
+                height={100}
+                width={150}
+                alt='details category'
+                className='h-auto'
+              />
+            ) : (
+              <Empty description='Image not available' />
+            )}
+            <div>
+              <strong className=' w-[30%] inline-block'>Tutor</strong>
+              <span>
+                {details?.firstName} {details?.middleName}
+                {details?.lastName}
+              </span>
             </div>
-            <div className='flex items-center'>
-              <h1 className='font-medium text-base mr-auto'>Exprience</h1>
-
-              <h1 className='font-normal text-base '>{details?.experience}</h1>
+            <div>
+              <strong className=' w-[30%] inline-block'>Exprience</strong>
+              <span>{details?.experience}</span>
             </div>
-            <h1 className='font-light text-sm pt-2'>{details?.bio}</h1>
+
+            <div>
+              <strong className=' w-[30%] inline-block'>Location</strong>
+              <span>{details?.location}</span>
+            </div>
+
+            <div>
+              <strong className=' w-[30%] block mb-2'>Bio</strong>
+              <span>{details?.bio}</span>
+            </div>
           </div>
         </Modal>
       </>

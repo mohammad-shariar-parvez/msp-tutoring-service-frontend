@@ -122,7 +122,7 @@ const CreateTutor = () => {
                 Bio
               </label>
 
-              <FormTextArea name='bio' rows={4} />
+              <FormTextArea name='bio' rows={8} />
             </div>
           </div>
 

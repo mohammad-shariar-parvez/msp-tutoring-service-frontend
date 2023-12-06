@@ -8,16 +8,16 @@ import FormTextArea from '@/components/Forms/FormTextArea';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import { genderOptions, locationOptions } from '@/constants/global';
 import { useSubjectsQuery } from '@/redux/api/subjectApi';
-
 import { useTutorQuery, useUpdateTutorMutation } from '@/redux/api/tutorApi';
 import { SelectOptions } from '@/types';
-
-import { Button, Col, Row, message } from 'antd';
+import { Button, message } from 'antd';
+import { useEffect, useState } from 'react';
 
 const EditTutorPage = ({ params }: any) => {
   const { data: tutorData, isLoading: allloading } = useTutorQuery(params?.id);
   const [updateTutor, { isLoading }] = useUpdateTutorMutation();
 
+  const [defaultValues, setDefaultValues] = useState({});
   const { data } = useSubjectsQuery({
     limit: 100,
     page: 1,
@@ -29,20 +29,8 @@ const EditTutorPage = ({ params }: any) => {
       value: subject?.id,
     };
   });
-  const defaultSubjects = tutorData?.subjects?.map((item: any) => {
-    console.log(item.subject);
-
-    return {
-      label: item.subject?.title,
-      value: item.subject?.id,
-    };
-  });
-
-  //@ts-ignore
 
   const onSubmit = async (values: any) => {
-    console.log('submitted value', values);
-
     try {
       const res = await updateTutor({
         id: params?.id,
@@ -58,19 +46,22 @@ const EditTutorPage = ({ params }: any) => {
       console.error(err.message);
     }
   };
-  console.log(defaultSubjects);
 
-  const defaultValues = {
-    firstName: tutorData?.firstName || '',
-    middleName: tutorData?.middleName || '',
-    lastName: tutorData?.lastName || '',
-    experience: tutorData?.experience || '',
-    bio: tutorData?.bio || '',
-    imageUrl: tutorData?.imageUrl || '',
-    gender: tutorData?.gender || '',
-    location: tutorData?.location || '',
-    subjects: defaultSubjects,
-  };
+  useEffect(() => {
+    setDefaultValues({
+      firstName: tutorData?.firstName || '',
+      middleName: tutorData?.middleName || '',
+      lastName: tutorData?.lastName || '',
+      experience: tutorData?.experience || '',
+      bio: tutorData?.bio || '',
+      imageUrl: tutorData?.imageUrl || '',
+      gender: tutorData?.gender || '',
+      location: tutorData?.location || '',
+      subjects:
+        tutorData?.subjects?.map((item: any) => item?.subject?.id) || [],
+    });
+  }, [tutorData]);
+
   const base = 'admin';
   return (
     <>
@@ -80,13 +71,12 @@ const EditTutorPage = ({ params }: any) => {
           { label: 'tutors', link: `/${base}/tutors` },
         ]}
       />
-      <h1>Update Tutor</h1>
+
       <Form submitHandler={onSubmit} defaultValues={defaultValues}>
         <div className='bg-[#e6f3f9] p-4 my-2'>
           <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 '>
             Tutor information
           </h5>
-
           <div className='grid  md:grid-cols-3 gap-4'>
             <div className='mb-4 space-y-2 md:col-span-1'>
               <label className='font-bold text-base text-[#565656] mb-2'>
@@ -150,7 +140,7 @@ const EditTutorPage = ({ params }: any) => {
                 Bio
               </label>
 
-              <FormTextArea name='bio' rows={4} />
+              <FormTextArea name='bio' rows={8} />
             </div>
           </div>
 
@@ -160,7 +150,7 @@ const EditTutorPage = ({ params }: any) => {
             htmlType='submit'
             loading={isLoading}
           >
-            Create
+            Update
           </Button>
         </div>
       </Form>
