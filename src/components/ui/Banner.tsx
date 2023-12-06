@@ -80,16 +80,7 @@ const Banner = () => {
                       <span className=' block text-secondary '>
                         <FaLocationDot />
                       </span>
-                      {/* <Input
-                      name='location'
-                      type='text'
-                      placeholder='Location'
-                      value={location}
-                      bordered={false}
-                      onChange={(e) => setLocation(e.target.value)}
-                      className=' p-1 md:p-3 pl-2 w-full text-base font-medium'
-                    /> */}
-                      {/* <LocationSelector /> */}
+
                       <FormSelectField
                         name='location'
                         placeholder='Location'
@@ -101,25 +92,6 @@ const Banner = () => {
                     </div>
 
                     <div>
-                      {/* <Link
-                        href={{
-                          pathname: '/search',
-                          query: {
-                            course: course,
-                            location: location,
-                          },
-                        }}
-                        className='block no-underline  flex-none'
-                      >
-                        <button
-                          onClick={resetFilters}
-                          value='large'
-                          className='hidden md:block find-btn '
-                          type='submit'
-                        >
-                          Find Now
-                        </button>
-                      </Link> */}
                       <button
                         onClick={resetFilters}
                         value='large'
