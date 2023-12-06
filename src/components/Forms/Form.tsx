@@ -28,11 +28,14 @@ const Form = ({
   const methods = useForm<FormProps>(formConfig);
 
   const { handleSubmit, reset } = methods;
+  const watch = methods.watch();
+
+  // console.log(watch);
 
   const onSubmit = (data: any) => {
     submitHandler(data);
     if (noReset) {
-      reset();
+      // reset();
     }
   };
 

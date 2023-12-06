@@ -40,15 +40,6 @@ const LocationSelector = ({
         name='location'
         render={({ field: { value, onChange } }) => {
           return (
-            // <Select
-            //   onChange={handleChange ? handleChange : onChange}
-            //   size={size}
-            //   options={options}
-            //   value={myValue ? myValue : value}
-            //   style={{ width: '100%' }}
-            //   placeholder={placeholder}
-            //   defaultValue={defaultValue}
-            // />
             <ConfigProvider
               theme={{
                 token: {
@@ -65,8 +56,8 @@ const LocationSelector = ({
                 allowClear
                 bordered={false}
                 value={value}
-                className='  w-full text-base font-medium text-start  '
-                dropdownAlign={{ offset: [10, 20] }} // Adjust the offset as needed
+                className='  w-full   '
+                // dropdownAlign={{ offset: [10, 20] }} // Adjust the offset as needed
                 options={locationOptions}
               />
             </ConfigProvider>

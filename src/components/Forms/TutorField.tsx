@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import FormSelectField, { SelectOptions } from './FormSelectField';
 import { useTutorsQuery } from '@/redux/api/tutorApi';
 
@@ -19,11 +20,11 @@ const TutorField = ({
   // console.log(locateTutor);
   console.log('YOO', locateTutor, subjectId);
 
-  const { data, isLoading } = useTutorsQuery({
+  const { data, isLoading, refetch } = useTutorsQuery({
     limit: 100,
     page: 1,
-    location: locateTutor,
-    subjectId,
+    location: locateTutor || undefined,
+    subjectId: subjectId || undefined,
   });
   // console.log(data);
 
@@ -35,6 +36,12 @@ const TutorField = ({
       value: tutor?.id,
     };
   });
+  // console.log(data);
+  // console.log(tutorList);
+
+  useEffect(() => {
+    refetch();
+  }, [locateTutor, refetch, subjectId]);
 
   return (
     <FormSelectField

@@ -45,7 +45,6 @@ const FormMultiSelectField = ({
             placeholder={placeholder}
             allowClear
             mode='multiple'
-            defaultValue={options}
           />
         )}
       />

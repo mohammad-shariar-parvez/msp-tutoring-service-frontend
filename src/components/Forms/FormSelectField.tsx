@@ -2,7 +2,7 @@
 
 import { Select } from 'antd';
 import { useFormContext, Controller } from 'react-hook-form';
-
+import { DownOutlined } from '@ant-design/icons';
 export type SelectOptions = {
   label: string;
   value: string;
@@ -16,6 +16,9 @@ type SelectFieldProps = {
   placeholder?: string;
   label?: string;
   defaultValue?: SelectOptions;
+  bordered?: boolean;
+  suffixIcon?: boolean;
+  dropDownAlign?: boolean;
   handleChange?: (el: string) => void;
 };
 
@@ -26,6 +29,9 @@ const FormSelectField = ({
   placeholder = 'select',
   options,
   label,
+  bordered = true,
+  dropDownAlign = true,
+  suffixIcon = false,
   defaultValue,
   handleChange,
 }: SelectFieldProps) => {
@@ -49,10 +55,17 @@ const FormSelectField = ({
                 handleChange && handleChange(el);
               }}
               size={size}
+              suffixIcon={!suffixIcon ? <DownOutlined /> : null}
               options={options}
               value={value}
+              allowClear
               style={{ width: '100%' }}
               placeholder={placeholder}
+              dropdownAlign={
+                dropDownAlign ? { offset: [0, 0] } : { offset: [10, 20] }
+              }
+              bordered={bordered}
+
               // defaultValue={defaultValue}
             />
           );
