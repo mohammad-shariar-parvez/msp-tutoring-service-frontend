@@ -17,8 +17,9 @@ type IDProps = {
 };
 const SearchField = () => {
   const searchParams = useSearchParams();
-  const courseParams = searchParams.get('course');
+  const searchTermParams = searchParams.get('searchTerm');
   const locationParams = searchParams.get('location');
+  const categoryParams = searchParams.get('categoryId');
 
   const query: Record<string, any> = {};
 
@@ -28,15 +29,23 @@ const SearchField = () => {
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
 
-  const [searchTerm, setSearchTerm] = useState(
-    [courseParams, locationParams] || undefined
-  );
+  // const [searchTerm, setSearchTerm] = useState<string | undefined>(
+  //   searchTermParams || undefined
+  // );
+  // const [location, setLocation] = useState<string | undefined>(
+  //   locationParams || undefined
+  // );
+  // const [categoryId, setCategoryId] = useState<string | undefined>(
+  //   categoryParams || undefined
+  // );
   const [maxPrice, setMaxPrice] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<string | undefined>(undefined);
 
   query['minPrice'] = minPrice;
   query['maxPrice'] = maxPrice;
-  query['searchTerm'] = searchTerm;
+  query['searchTerm'] = searchTermParams;
+  query['categoryId'] = categoryParams;
+  query['location'] = locationParams;
 
   query['limit'] = size;
   query['page'] = page;
@@ -63,6 +72,7 @@ const SearchField = () => {
       setMaxPrice(e.target.value);
     }
   };
+  console.log(query);
 
   const { data, isLoading, isError, isFetching } = useCoursesQuery({
     ...query,
