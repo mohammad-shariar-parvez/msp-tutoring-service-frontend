@@ -23,22 +23,27 @@ const CreateFeedbackPage = () => {
   return (
     <>
       <UMBreadCrumb items={[{ label: `${base}`, link: `/${base}` }]} />
-      <h1> Share Your Feedback</h1>
+
       <Form submitHandler={adminOnSubmit}>
-        <div
-          style={{
-            border: '1px solid #d9d9d9',
-            borderRadius: '5px',
-            padding: '15px',
-            marginBottom: '10px',
-          }}
-        >
-          <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-            <Col span={16} style={{ margin: '10px 0' }}>
-              <FormTextArea name='description' label='Description' rows={4} />
-            </Col>
-          </Row>
-          <Button htmlType='submit'>submit</Button>
+        <div className='bg-[#e6f3f9] py-8 px-4 md:p-8 '>
+          <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 '>
+            Please give me your feedback
+          </h5>
+          <div>
+            <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
+              <Col span={16}>
+                <FormTextArea name='description' rows={4} maxLength={150} />
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  size='large'
+                  className=' button-primary  block  ms-auto  rounded-md  px-6 mt-4'
+                >
+                  Submit
+                </Button>
+              </Col>
+            </Row>
+          </div>
         </div>
       </Form>
     </>

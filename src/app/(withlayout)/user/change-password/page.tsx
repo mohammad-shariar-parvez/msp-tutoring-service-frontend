@@ -30,10 +30,10 @@ const ResetPassPage = () => {
     }
   };
 
-  const base = 'admin';
+  const base = 'user';
   return (
     <>
-      <UMBreadCrumb items={[{ label: 'admin', link: `/${base}` }]} />
+      <UMBreadCrumb items={[{ label: 'user', link: `/${base}` }]} />
 
       <Form
         submitHandler={onSubmit}
@@ -41,7 +41,6 @@ const ResetPassPage = () => {
       >
         <div
           style={{
-            border: '1px solid #d9d9d9',
             borderRadius: '5px',
             padding: '15px',
             marginBottom: '10px',
@@ -50,25 +49,36 @@ const ResetPassPage = () => {
           <h3 style={{ marginBottom: '10px' }}>Reset Password</h3>
           <Row>
             <Col xs={24} md={24} lg={6}>
-              <div style={{ margin: '5px 0' }}>
+              <div className='mb-4 space-y-2 md:col-span-1'>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  Old password
+                </label>
                 <FormInput
                   name='oldPassword'
-                  label='Old password'
                   type='password'
                   size='large'
                   required
                 />
               </div>
-              <div style={{ margin: '5px 0' }}>
+
+              <div className='mb-4 space-y-2 md:col-span-1'>
+                <label className='font-bold text-base text-[#565656] mb-2'>
+                  New password
+                </label>
                 <FormInput
                   name='newPassword'
-                  label='New password'
                   type='password'
                   size='large'
                   required
                 />
               </div>
-              <Button type='primary' htmlType='submit'>
+
+              <Button
+                type='primary'
+                htmlType='submit'
+                size='large'
+                className=' button-primary  block  ms-auto  rounded-md  px-6 '
+              >
                 Change Password
               </Button>
             </Col>
