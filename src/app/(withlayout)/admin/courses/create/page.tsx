@@ -95,6 +95,7 @@ const CreateServicePage = () => {
                 Location
               </label>
               <FormSelectField
+                size='large'
                 name='location'
                 options={locationOptions}
                 handleChange={(el) => setLocateSutor(el)}
@@ -107,6 +108,7 @@ const CreateServicePage = () => {
               </label>
               <FormSelectField
                 name='subjectId'
+                size='large'
                 label={undefined}
                 options={subjects as SelectOptions[]}
                 handleChange={(el) => setSubjectId(el)}
@@ -149,7 +151,11 @@ const CreateServicePage = () => {
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Status
               </label>
-              <FormSelectField name='status' options={courseStatus} />
+              <FormSelectField
+                size='large'
+                name='status'
+                options={courseStatus}
+              />
             </div>
 
             <div className='mb-4 space-y-2 md:col-span-1'>
@@ -163,7 +169,7 @@ const CreateServicePage = () => {
               <label className='font-bold text-base text-[#565656] mb-2'>
                 Description
               </label>
-              <FormTextArea name='description' rows={8} />
+              <FormTextArea name='description' rows={8} richText />
             </div>
           </div>
           <Button

@@ -36,14 +36,14 @@ const ProfilePage = () => {
                   width={200}
                   height={300}
                   alt='eagle_image'
-                  className=' rounded-t-lg w-full h-auto object-cover object-center  '
+                  className=' rounded-md w-full h-auto object-cover object-center  '
                 />
               ) : (
                 <Empty description='Profile image not updated ' />
               )}
             </div>
 
-            <div className='bg-white p-4 grow '>
+            <div className='bg-white p-4 grow rounded-md'>
               <div className='pb-4  '>
                 <b className='w-[30%] inline-block'>Name</b>
                 <span>
