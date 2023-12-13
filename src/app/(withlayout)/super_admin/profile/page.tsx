@@ -21,13 +21,13 @@ const ProfilePage = () => {
         <UMBreadCrumb
           items={[
             {
-              label: 'admin',
-              link: '/admin',
+              label: 'super admin',
+              link: '/super_admin',
             },
           ]}
         />
 
-        <div className=' md:max-w-2xl mt-4  mx-auto'>
+        <div className=' md:max-w-2xl mt-4  mx-auto '>
           <div className='flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 text-base font-normal '>
             <div className=''>
               {data?.profile?.profileImage ? (
@@ -39,7 +39,10 @@ const ProfilePage = () => {
                   className=' rounded-md w-full h-auto object-cover object-center  '
                 />
               ) : (
-                <Empty description='Profile image not updated ' />
+                <Empty
+                  description='Profile image not updated '
+                  className='text-base font-normal'
+                />
               )}
             </div>
 

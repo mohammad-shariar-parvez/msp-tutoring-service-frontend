@@ -41,17 +41,22 @@ const LocationSelector = ({
         render={({ field: { value, onChange } }) => {
           return (
             <ConfigProvider
-              theme={{
-                token: {
-                  fontSize: 16,
-                  fontFamily: 'Rubik, sans-serif',
-                },
-              }}
+              theme={
+                {
+                  // token: {
+                  //   fontSize: 16,
+                  //   fontFamily: 'Rubik, sans-serif',
+                  // },
+                }
+              }
             >
               <Select
-                onChange={handleChange ? handleChange : onChange}
+                onChange={(el) => {
+                  onChange(el);
+                  handleChange && handleChange(el);
+                }}
                 placeholder='Location'
-                style={{ width: 120 }}
+                style={{ width: 100 }}
                 suffixIcon={null}
                 allowClear
                 bordered={false}

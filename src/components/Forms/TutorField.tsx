@@ -46,6 +46,7 @@ const TutorField = ({
   return (
     <FormSelectField
       name={name}
+      size='large'
       label={label}
       options={tutorList as SelectOptions[]}
       defaultValue={defaultValue}

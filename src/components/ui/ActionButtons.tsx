@@ -13,11 +13,11 @@ interface ActionButtonsProps {
   onDetailsHandler?: (detailsData: any) => void;
   deleteHandler?: (deleteData: any) => void;
   onAcceptHandler?: (deleteData: any) => void;
-
   data?: any;
   editUrl?: string;
   editOption?: boolean;
   acceptBooking?: boolean;
+  disabled?: boolean;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
@@ -27,6 +27,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   editOption = true,
   data,
   editUrl,
+  disabled = false,
 }) => {
   const confirm = () => {
     deleteHandler?.(data?.id);
@@ -35,6 +36,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   return (
     <div className='flex space-x-1'>
       <Button
+        disabled={disabled}
         className={
           onDetailsHandler ? 'bg-transparent border-none ps-0 ' : 'hidden'
         }

@@ -2,34 +2,86 @@
 
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
-import { Button } from 'antd';
+import { SubmitHandler } from 'react-hook-form';
+import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
+import { useChangePasswordMutation } from '@/redux/api/authApi';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Col, Row, message } from 'antd';
+import { useRouter } from 'next/navigation';
+import { changePasswordSchema } from '@/schemas/changePassword';
+
+type FormValues = {
+  oldPassword: string;
+  newPassword: string;
+};
 
 const ResetPassPage = () => {
-  const onSubmit = async (data: any) => {
+  const [changePassword] = useChangePasswordMutation();
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
-      // console.log(data);
-    } catch (error) {
-      console.error(error);
+      const res = await changePassword(data);
+      if (!!res) {
+        message.success('Password changed successfully!');
+      }
+    } catch (err: any) {
+      console.error(err.message);
     }
   };
 
+  const base = 'super_admin';
   return (
-    <div
-      style={{ margin: '100px 0', display: 'flex', justifyContent: 'center' }}
-    >
-      <Form submitHandler={onSubmit}>
-        <h3 style={{ marginBottom: '10px' }}>Reset Password</h3>
-        <div style={{ margin: '5px 0' }}>
-          <FormInput name='oldPassword' label='Old password' type='password' />
+    <>
+      <UMBreadCrumb items={[{ label: 'super_admin', link: `/${base}` }]} />
+
+      <Form
+        submitHandler={onSubmit}
+        resolver={yupResolver(changePasswordSchema)}
+      >
+        <div className='bg-[#e6f3f9] px-4 my-2 rounded-lg py-6'>
+          <h5 className='text-xl font-semibold tracking-tight text-gray-900 mb-4 leading-none'>
+            Change Password
+          </h5>
+          <Row>
+            <div className=' md:w-1/3'>
+              <div className='mb-4 space-y-2'>
+                <label className='font-medium text-base text-[#565656] mb-2'>
+                  Old password
+                </label>
+                <FormInput
+                  name='oldPassword'
+                  type='password'
+                  size='large'
+                  required
+                />
+              </div>
+
+              <div className='mb-4 space-y-2 md:col-span-1'>
+                <label className='font-medium text-base text-[#565656] mb-2'>
+                  New password
+                </label>
+                <FormInput
+                  name='newPassword'
+                  type='password'
+                  size='large'
+                  required
+                />
+              </div>
+
+              <Button
+                type='primary'
+                htmlType='submit'
+                size='middle'
+                className=' button-primary  block  ms-auto  rounded-md   '
+              >
+                Change
+              </Button>
+            </div>
+          </Row>
         </div>
-        <div style={{ margin: '5px 0' }}>
-          <FormInput name='newPassword' label='New password' type='password' />
-        </div>
-        <Button type='primary' htmlType='submit'>
-          submit
-        </Button>
       </Form>
-    </div>
+    </>
   );
 };
 

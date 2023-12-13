@@ -13,7 +13,7 @@ const PublicLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={rubik.className}>
       <div className='bg-white'>
-        <Navbar session={session?.accessToken ? true : false} />
+        <Navbar session={session} />
 
         {children}
         <Footer />

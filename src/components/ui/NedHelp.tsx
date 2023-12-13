@@ -28,7 +28,7 @@ const NedHelp = () => {
         <h1 className='text-[21px] md:text-[40px] font-semibold text-[#333]'>
           Do you need <span className=' '>help ?</span>
         </h1>
-        <Link href={'www.google.com'} className='  block'>
+        <Link href='/contact' className='  block'>
           <button className='px-2 py-2 md:px-6 md:py-3 rounded-[25px] ring-4 md:ring-[10px] ring-white bg-[#2639ed] text-white text-sm font-semibold border-none  md:text-[17px] cursor-pointer '>
             Contact Now
           </button>

@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpSchema } from '@/schemas/signUp';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 
 type FormValues = {
   id: string;
@@ -21,10 +22,12 @@ type FormValues = {
 const SignUpPage = () => {
   const router = useRouter();
   const searhParams = useSearchParams().get('redirect') as string;
+  const [loadings, setLoadings] = useState<boolean>(false);
   const callbackUrl = searhParams
     ? searhParams
     : 'https://msp-tutoring-service.vercel.app/';
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
+    setLoadings(true);
     try {
       const result = await signIn('msp-tutoring-signup', {
         email: data.email,
@@ -34,13 +37,16 @@ const SignUpPage = () => {
       });
       console.log(result, 'result');
       if (result?.ok && !result.error) {
+        setLoadings(false);
         message.success('User Created  successfully!');
         router.refresh();
         router.push(callbackUrl, { scroll: false });
       } else {
+        setLoadings(false);
         message.error('Could not create user!');
       }
     } catch (err: any) {
+      setLoadings(false);
       console.log('sign in error', err);
 
       message.error(err?.data?.message || 'Something went wrong');
@@ -88,7 +94,13 @@ const SignUpPage = () => {
               <label className='font-semibold text-base text-[#565656] mb-4'>
                 Email
               </label>
-              <FormInput name='email' type='email' size='large' required />
+              <FormInput
+                name='email'
+                type='email'
+                size='large'
+                required
+                inputFont='font-normal'
+              />
             </div>
             <div className='mb-4 space-y-2 '>
               <label className='font-semibold text-base text-[#565656] mb-4'>
@@ -100,6 +112,7 @@ const SignUpPage = () => {
                 type='password'
                 size='large'
                 required
+                inputFont='font-normal'
               />
             </div>
             <div className='mb-4 space-y-2 '>
@@ -111,6 +124,7 @@ const SignUpPage = () => {
                 type='password'
                 size='large'
                 required
+                inputFont='font-normal'
               />
             </div>
 
@@ -118,6 +132,7 @@ const SignUpPage = () => {
               htmlType='submit'
               size='large'
               className=' block bg-[#274279] mt-8    text-white    rounded-md  px-6 '
+              loading={loadings}
             >
               Signup
             </Button>

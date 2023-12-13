@@ -23,10 +23,10 @@ const ResetPassPage = () => {
     try {
       const res = await changePassword(data);
       if (!!res) {
-        message.success('User created successfully!');
+        message.success('Password changed successfully!');
       }
     } catch (err: any) {
-      message.error(err.message);
+      console.error(err.message);
     }
   };
 
@@ -39,39 +39,45 @@ const ResetPassPage = () => {
         submitHandler={onSubmit}
         resolver={yupResolver(changePasswordSchema)}
       >
-        <div
-          style={{
-            border: '1px solid #d9d9d9',
-            borderRadius: '5px',
-            padding: '15px',
-            marginBottom: '10px',
-          }}
-        >
-          <h3 style={{ marginBottom: '10px' }}>Reset Password</h3>
+        <div className='bg-[#e6f3f9] px-4 my-2 rounded-lg py-6'>
+          <h5 className='text-xl font-semibold tracking-tight text-gray-900 mb-4 leading-none'>
+            Change Password
+          </h5>
           <Row>
-            <Col xs={24} md={24} lg={6}>
-              <div style={{ margin: '5px 0' }}>
+            <div className=' md:w-1/3'>
+              <div className='mb-4 space-y-2'>
+                <label className='font-medium text-base text-[#565656] mb-2'>
+                  Old password
+                </label>
                 <FormInput
                   name='oldPassword'
-                  label='Old password'
                   type='password'
                   size='large'
                   required
                 />
               </div>
-              <div style={{ margin: '5px 0' }}>
+
+              <div className='mb-4 space-y-2 md:col-span-1'>
+                <label className='font-medium text-base text-[#565656] mb-2'>
+                  New password
+                </label>
                 <FormInput
                   name='newPassword'
-                  label='New password'
                   type='password'
                   size='large'
                   required
                 />
               </div>
-              <Button type='primary' htmlType='submit'>
-                Change Password
+
+              <Button
+                type='primary'
+                htmlType='submit'
+                size='middle'
+                className=' button-primary  block  ms-auto  rounded-md   '
+              >
+                Change
               </Button>
-            </Col>
+            </div>
           </Row>
         </div>
       </Form>

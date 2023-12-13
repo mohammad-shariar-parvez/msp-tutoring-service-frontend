@@ -48,26 +48,28 @@ const ProfilePage = () => {
 
             <div className='bg-white p-4 grow rounded-md '>
               <div className='pb-4  '>
-                <b className='w-[30%] inline-block'>Name</b>
+                <span className='w-[30%] inline-block font-medium'>Name</span>
                 <span>
                   {data?.profile?.firstName} {data?.profile?.middleName}
                   {data?.profile?.lastName}
                 </span>
               </div>
               <div className='pb-4 '>
-                <b className='w-[30%] inline-block'>Email</b>
+                <span className='w-[30%] inline-block font-medium'>Email</span>
                 <span>{data?.profile?.useEmail}</span>
               </div>
               <div className='pb-4'>
-                <b className='w-[30%] inline-block'>Role</b>
+                <span className='w-[30%] inline-block font-medium'>Role</span>
                 <span>{data?.profile?.role}</span>
               </div>
               <div className='pb-4'>
-                <b className='w-[30%] inline-block'>Contact</b>
+                <span className='w-[30%] inline-block font-medium'>
+                  Contact
+                </span>
                 <span>{data?.profile?.contactNo}</span>
               </div>
               <div>
-                <b className='block mb-2'>Bio</b>
+                <span className='block mb-2 font-medium'>Bio</span>
                 <p>{data?.profile?.bio}</p>
               </div>
             </div>

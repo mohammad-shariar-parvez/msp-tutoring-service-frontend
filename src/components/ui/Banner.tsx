@@ -4,6 +4,8 @@ import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import { SearchOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { FaLocationDot, FaBook } from 'react-icons/fa6';
+import { IoIosSchool } from 'react-icons/io';
+import { IoSchool } from 'react-icons/io5';
 import heroImage from '../../assets/hero.webp';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 import Link from 'next/link';
@@ -16,6 +18,8 @@ import SearchInput from '../Forms/SearchInput';
 import { useRouter } from 'next/navigation';
 import FormSelectField from '../Forms/FormSelectField';
 import { SelectOptions } from '@/types';
+import { useCategoriesQuery } from '@/redux/api/category';
+import { getCategoryOptions } from '@/utils/cateoryUtils';
 const Banner = () => {
   const query: Record<string, any> = { limit: 0 };
   const [course, setCourse] = useState<string>('');
@@ -25,7 +29,9 @@ const Banner = () => {
 
   // const { control } = useFormContext();
   const { data, isLoading } = useCoursesQuery({ ...query });
-  // console.log(data);
+  const { data: categoryData } = useCategoriesQuery({ limit: 100 });
+  console.log(categoryData);
+  const categoryOptions = getCategoryOptions(categoryData?.categories);
 
   const resetFilters = () => {
     setCourse('');
@@ -38,7 +44,11 @@ const Banner = () => {
 
   const onSubmit: SubmitHandler<FormValues> = (data: any) => {
     // Handle the form data submission
-    router.push(`search?course=${data.course}&location=${data.location}`);
+    console.log(data);
+
+    router.push(
+      `search?searchTerm=${data.course}&location=${data.location}&categoryId=${data.categoryId}`
+    );
     // console.log(data);
   };
 
@@ -72,11 +82,12 @@ const Banner = () => {
                       </span>
                       <SearchInput />
                     </div>
+
                     <Divider
-                      className='px-[0.3px] h-6 bg-gray-300 flex-none'
+                      className='px-[0.3px] h-6 bg-gray-300 '
                       type='vertical'
                     />
-                    <div className='font-semibold  leading-3 flex items-center justify-center flex-1 relative '>
+                    <div className='font-semibold  leading-3 flex items-center justify-center flex-1  relative '>
                       <span className=' block text-secondary '>
                         <FaLocationDot />
                       </span>
@@ -85,6 +96,25 @@ const Banner = () => {
                         name='location'
                         placeholder='Location'
                         options={locationOptions as SelectOptions[]}
+                        bordered={false}
+                        dropDownAlign={false}
+                        suffixIcon={true}
+                      />
+                    </div>
+
+                    <Divider
+                      className='px-[0.4px] h-6 bg-gray-300  '
+                      type='vertical'
+                    />
+                    <div className='font-semibold  leading-3 flex items-center justify-center flex-1 '>
+                      <span className=' block text-secondary '>
+                        <IoSchool />
+                      </span>
+
+                      <FormSelectField
+                        name='categoryId'
+                        placeholder='Class'
+                        options={categoryOptions as SelectOptions[]}
                         bordered={false}
                         dropDownAlign={false}
                         suffixIcon={true}

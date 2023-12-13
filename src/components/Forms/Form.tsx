@@ -35,7 +35,7 @@ const Form = ({
   const onSubmit = (data: any) => {
     submitHandler(data);
     if (noReset) {
-      // reset();
+      reset();
     }
   };
 

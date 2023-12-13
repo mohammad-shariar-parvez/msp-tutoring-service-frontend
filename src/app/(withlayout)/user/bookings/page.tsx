@@ -9,7 +9,7 @@ import {
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
 import { useRouter } from 'next/navigation';
-import { Button, Input, Modal, message } from 'antd';
+import { Button, Input, Modal, Popconfirm, message } from 'antd';
 import Link from 'next/link';
 import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
@@ -25,6 +25,7 @@ import FormTimePicker from '@/components/Forms/FormTimePicker';
 import Form from '@/components/Forms/Form';
 import FormDatePicker from '@/components/Forms/FormDatePicker';
 import { useInitialPaymentMutation } from '@/redux/api/paymentApi';
+import ActionButtons from '@/components/ui/ActionButtons';
 
 const BookingsPage = () => {
   const router = useRouter();
@@ -156,25 +157,25 @@ const BookingsPage = () => {
       title: 'Action',
       render: function (data: any) {
         return (
-          <>
-            {data?.payment?.paymentStatus === 'PAID' ? (
-              <Button
-                onClick={() => deleteHandler(data?.id)}
-                type='primary'
-                disabled={true}
-              >
-                <DeleteOutlined />
-              </Button>
-            ) : (
-              <Button
-                onClick={() => deleteHandler(data?.id)}
-                type='primary'
-                danger
-              >
-                <DeleteOutlined />
-              </Button>
-            )}
-          </>
+          // <>
+
+          //     <Button
+          //       onClick={() => deleteHandler(data?.id)}
+          //       type='primary'
+          //       disabled={
+          //         data?.payment?.paymentStatus === 'PAID' ? true : false
+          //       }
+          //       danger={data?.payment?.paymentStatus === 'PAID' ? false : true}
+          //     >
+          //       <DeleteOutlined />
+          //     </Button>
+          // </>
+          <ActionButtons
+            data={data}
+            editOption={false}
+            deleteHandler={deleteHandler}
+            disabled={data?.payment?.paymentStatus === 'PAID' ? true : false}
+          />
         );
       },
     },

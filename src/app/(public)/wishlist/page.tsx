@@ -10,14 +10,17 @@ const WishList = () => {
   const { courses } = useAppSelector((state) => state.wishList);
 
   return (
-    <section className='container '>
-      <h1>My wishlist</h1>
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
+    <section className='container pb-32 pt-16'>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4  '>
         {courses?.map((course: ICourse) => (
           <CourseCard isDelete key={course.id} course={course} />
         ))}
       </div>
-      {courses.length == 0 ? <Empty description='No courses found' /> : null}
+      {courses.length == 0 ? (
+        <div className='flex justify-center items-center ]  '>
+          <Empty className='block' description='No courses found' />
+        </div>
+      ) : null}
     </section>
   );
 };

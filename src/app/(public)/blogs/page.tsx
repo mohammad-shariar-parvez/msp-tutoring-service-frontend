@@ -60,7 +60,7 @@ const SearchField = () => {
             ))}
           </div>
         ) : (
-          <Empty description='No courses found' />
+          <Empty description='No Blogs found' />
         )}
       </div>
       <div className='flex justify-end pt-12 '>

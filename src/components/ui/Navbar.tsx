@@ -160,7 +160,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
                     <li className='    p-4   hidden  md:block  '>
                       <Link
                         className='   text-secondary md:font-medium  text-lg'
-                        href='/blogs'
+                        href='/contact'
                       >
                         Contact
                       </Link>

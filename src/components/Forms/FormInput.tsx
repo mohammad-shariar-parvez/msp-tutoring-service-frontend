@@ -15,6 +15,7 @@ interface IInput {
   label?: string;
   required?: boolean;
   bordered?: boolean;
+  inputFont?: string;
 }
 
 const FormInput = ({
@@ -28,6 +29,7 @@ const FormInput = ({
   label,
   required,
   bordered = true,
+  inputFont = 'font-medium',
 }: IInput) => {
   const {
     control,
@@ -68,6 +70,7 @@ const FormInput = ({
               {...field}
               value={value ? value : field.value}
               bordered={bordered}
+              className={inputFont}
             />
           )
         }

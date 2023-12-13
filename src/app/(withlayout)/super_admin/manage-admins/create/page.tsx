@@ -12,8 +12,10 @@ const CreateUser = () => {
   const adminOnSubmit = async (values: any) => {
     try {
       const res = await addUser({ ...values, ...{ role: 'admin' } });
-      if (!!res) {
-        message.success('User created successfully!');
+      if (res && 'data' in res) {
+        message.success('Admin created successfully!');
+      } else if ('error' in res) {
+        message.error('Something went wrong!');
       }
     } catch (err: any) {
       message.error(err.message);
@@ -29,29 +31,32 @@ const CreateUser = () => {
           { label: 'manage-admins', link: `/${base}/manage-admins` },
         ]}
       />
-      <h1>Create Admin</h1>
       <Form submitHandler={adminOnSubmit}>
-        <div
-          style={{
-            border: '1px solid #d9d9d9',
-            borderRadius: '5px',
-            padding: '15px',
-            marginBottom: '10px',
-          }}
-        >
-          <p style={{ fontSize: '18px', fontWeight: '500', margin: '5px 0px' }}>
-            Service information
-          </p>
-          <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-            <Col span={8} style={{ margin: '10px 0' }}>
-              <FormInput name='email' label='Email' size='large' />
-            </Col>
-          </Row>
-          <Button htmlType='submit'>submit</Button>
+        <div className='bg-[#e6f3f9] px-4 my-2 rounded-lg py-6'>
+          <h5 className='text-xl font-semibold tracking-tight text-gray-900 mb-4 leading-none'>
+            Create Admin
+          </h5>
+          <div className=' md:w-1/3'>
+            <div className='mb-4 space-y-2'>
+              <label className='font-medium text-base text-[#565656] mb-2'>
+                Email
+              </label>
+              <FormInput
+                name='email'
+                size='large'
+                required
+                type='email'
+                inputFont='font-normal'
+              />
+            </div>
+          </div>
+          <Button className='button-primary mb-2' htmlType='submit'>
+            create
+          </Button>
           <div className='flex items-center space-x-3'>
-            <p className='py-2 text-red-400'>Admin Default password is: </p>
+            <p className=' text-red-400'>User Default password is: </p>
 
-            <span className='font-bold'>pass123</span>
+            <span className='font-medium'>123456</span>
           </div>
         </div>
       </Form>

@@ -15,11 +15,10 @@ import ErrorMessage from '@/components/ui/atoms/Error';
 type IDProps = {
   params: any;
 };
-const SearchField = () => {
-  const searchParams = useSearchParams();
-  const searchTermParams = searchParams.get('searchTerm');
-  const locationParams = searchParams.get('location');
-  const categoryParams = searchParams.get('categoryId');
+
+const SearchField = ({ searchParams }: any) => {
+  const { searchTerm, location, categoryId } = searchParams;
+  console.log(searchTerm, location, categoryId);
 
   const query: Record<string, any> = {};
 
@@ -29,24 +28,17 @@ const SearchField = () => {
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
 
-  // const [searchTerm, setSearchTerm] = useState<string | undefined>(
-  //   searchTermParams || undefined
-  // );
-  // const [location, setLocation] = useState<string | undefined>(
-  //   locationParams || undefined
-  // );
-  // const [categoryId, setCategoryId] = useState<string | undefined>(
-  //   categoryParams || undefined
-  // );
   const [maxPrice, setMaxPrice] = useState<string | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<string | undefined>(undefined);
 
   query['minPrice'] = minPrice;
   query['maxPrice'] = maxPrice;
-  query['searchTerm'] = searchTermParams;
-  query['categoryId'] = categoryParams;
-  query['location'] = locationParams;
-
+  // query['searchTerm'] = searchTermParams;
+  // query['categoryId'] = categoryParams;
+  // query['location'] = locationParams;
+  query['searchTerm'] = searchTerm;
+  query['categoryId'] = categoryId;
+  query['location'] = location;
   query['limit'] = size;
   query['page'] = page;
   query['sortBy'] = sortBy;

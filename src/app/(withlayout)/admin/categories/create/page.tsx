@@ -35,7 +35,7 @@ const CreateCategoryPage = () => {
 
       <Form submitHandler={onSubmit}>
         <div className='bg-[#e6f3f9] p-4 my-2'>
-          <h5 className='text-xl font-bold tracking-tight text-gray-900 mb-4 '>
+          <h5 className='text-xl font-semibold tracking-tight text-gray-900 mb-4 '>
             Create Category
           </h5>
           <div className=' md:w-1/3'>

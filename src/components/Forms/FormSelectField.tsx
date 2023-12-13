@@ -1,6 +1,6 @@
 'use client';
 
-import { Select } from 'antd';
+import { ConfigProvider, Select } from 'antd';
 import { useFormContext, Controller } from 'react-hook-form';
 import { DownOutlined } from '@ant-design/icons';
 export type SelectOptions = {
@@ -24,7 +24,7 @@ type SelectFieldProps = {
 
 const FormSelectField = ({
   name,
-  size = 'large',
+  size,
 
   placeholder = 'select',
   options,
@@ -49,25 +49,36 @@ const FormSelectField = ({
           // console.log('On change', onChange);
 
           return (
-            <Select
-              onChange={(el) => {
-                onChange(el);
-                handleChange && handleChange(el);
-              }}
-              size={size}
-              suffixIcon={!suffixIcon ? <DownOutlined /> : null}
-              options={options}
-              value={value}
-              allowClear
-              style={{ width: '100%' }}
-              placeholder={placeholder}
-              dropdownAlign={
-                dropDownAlign ? { offset: [0, 0] } : { offset: [10, 20] }
+            <ConfigProvider
+              theme={
+                {
+                  // token: {
+                  //   fontSize: 16,
+                  //   fontFamily: 'Rubik, sans-serif',
+                  // },
+                }
               }
-              bordered={bordered}
+            >
+              <Select
+                onChange={(el) => {
+                  onChange(el);
+                  handleChange && handleChange(el);
+                }}
+                size={size}
+                suffixIcon={!suffixIcon ? <DownOutlined /> : null}
+                options={options}
+                value={value}
+                allowClear
+                style={{ width: '100%' }}
+                placeholder={placeholder}
+                dropdownAlign={
+                  dropDownAlign ? { offset: [0, 0] } : { offset: [10, 20] }
+                }
+                bordered={bordered}
 
-              // defaultValue={defaultValue}
-            />
+                // defaultValue={defaultValue}
+              />
+            </ConfigProvider>
           );
         }}
       />

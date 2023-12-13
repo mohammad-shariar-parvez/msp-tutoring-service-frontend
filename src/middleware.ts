@@ -3,15 +3,16 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
-const hybridRoutes = ["/login", "/register", "/", "/categories"];
-// const publicRoutes = ["/", "/categories"];
+const hybridRoutes = ["/login", "/register", "/", "/categories", "/about",
+	"/contact"];
+const strictRoutes = ["/login", "/register"];
 
-const protectedRoutes = ["/course", "/blogs"];
+const protectedRoutes = ["/course", "/blogs", "/payments"];
 
 const rolesRedirect: Record<string, unknown> = {
 	admin: `${process.env.FRONTEND_URL}/admin/`,
 	user: `${process.env.FRONTEND_URL}/`,
-	super_user: `${process.env.FRONTEND_URL}/super_user/`,
+	super_admin: `${process.env.FRONTEND_URL}/super_admin/`,
 };
 export async function middleware(request: NextRequest) {
 
@@ -21,55 +22,45 @@ export async function middleware(request: NextRequest) {
 	console.log(token, "token middleware");
 	const { pathname } = request.nextUrl;
 
+	if (token) {
+		if (strictRoutes.includes(pathname)) {
+			return NextResponse.redirect(`${process.env.FRONTEND_URL}`);
+		}
+	}
+
 	if (!token) {
-		// console.log("REAL PATH NAME", pathname);
 
 		if (hybridRoutes.includes(pathname)) {
-
-			// console.log("pppppppppppp--", role);
-			// console.log("xxxxxxxxxxx--", pathname);
 			return NextResponse.next();
-
 		}
 		if (protectedRoutes.some(route => pathname?.startsWith(route))) {
-			// console.log("11111111111111------", pathname);
 			return NextResponse.redirect(`${process.env.FRONTEND_URL}/login?redirect=${pathname}`);
 		}
 
 		// redirect(`/login?redirect=${pathname}`);
-
 		// return NextResponse.redirect(`${process.env.FRONTEND_URL}/login`);
 	}
 
-
-
-
-	console.log(role, "role middleware");
 	if (
-
 		(role === "admin" && pathname?.startsWith("/admin")) ||
 		(role === "super_admin" && pathname?.startsWith("/super_admin")) ||
 		(role === "user" && !pathname?.startsWith("/super_admin") && !pathname?.startsWith("/admin"))
 	) {
-
-		// console.log("333333333333333333333333333", pathname);
 		return NextResponse.next();
 	}
 
-	if (pathname === "/" && role && role in rolesRedirect) {
-		// console.log("44444444444444", role);
-
+	if ((role === "admin" && !pathname?.startsWith("/admin")) || (role === "super_admin" && !pathname?.startsWith("/super_admin"))) {
 		return NextResponse.redirect(rolesRedirect[role] as string);
 	}
 
+	if (pathname === "/" && role && role in rolesRedirect) {
+		return NextResponse.redirect(rolesRedirect[role] as string);
+	}
 
-	// console.log("55555555555555555", pathname, role);
 	// NextResponse.rewrite(request.
 	// NextResponse.redirect(`${process.env.FRONTEND_URL}/`);
 	return NextResponse.redirect(`${process.env.FRONTEND_URL}/login`);
 
-	//so d
-	// return NextResponse.redirect("http://localhost:3000");
 }
 
 // See "Matching Paths" below to learn more
@@ -79,11 +70,16 @@ export const config = {
 		"/",
 		"/login",
 		"/register",
+		"/about",
+		"/contact",
+
 		// "/admin",
 		"/course/:page*",
 		"/blogs/:page*",
 		//admin routes
 		"/admin/:page*",
+		"/user/:page*",
+
 		//super_admin routes
 		"/super_admin/:page*",
 	],

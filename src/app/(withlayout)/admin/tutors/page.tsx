@@ -75,7 +75,7 @@ const ServicePage = () => {
 
   const columns = [
     {
-      title: 'First Name',
+      title: 'Name',
       render: function (data: any) {
         return data.firstName + ' ' + data.lastName;
       },

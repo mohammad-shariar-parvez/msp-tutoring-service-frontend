@@ -29,6 +29,7 @@ const CategoryField = ({ name, label, defaultValue }: CategoryFieldProps) => {
     <FormSelectField
       name={name}
       label={label}
+      size='large'
       options={categoryList as SelectOptions[]}
       defaultValue={defaultValue}
     />

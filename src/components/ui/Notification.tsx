@@ -68,7 +68,7 @@ const Notification = () => {
               >
                 <DeleteOutlined
                   // onClick={removeWishList}
-                  className=' cursor-pointer   text-red-500 '
+                  className=' cursor-pointer   text-red-500 hover:text-red-700 '
                 />
               </button>
             </div>
@@ -102,7 +102,7 @@ const Notification = () => {
       <Badge
         size='small'
         count={data?.meta?.total}
-        style={{ padding: '4px 2px', marginRight: '4px' }}
+        style={{ padding: '0px 0px', marginRight: '10px', marginTop: '19px' }}
       >
         <BellOutlined className=' text-lg cursor-pointer p-1 mx-0 px-0 text-pink-600' />
       </Badge>

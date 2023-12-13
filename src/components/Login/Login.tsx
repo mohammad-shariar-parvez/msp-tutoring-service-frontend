@@ -1,5 +1,5 @@
 'use client';
-import { Button, Divider, message } from 'antd';
+import { Alert, Button, Divider, Tag, message, Typography } from 'antd';
 import loginImage from '../../assets/login.png';
 import Image from 'next/image';
 import { GithubOutlined, GoogleOutlined } from '@ant-design/icons';
@@ -11,7 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '@/schemas/login';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-
+import { useState } from 'react';
+const { Paragraph } = Typography;
 type FormValues = {
   id: string;
   password: string;
@@ -20,12 +21,14 @@ type FormValues = {
 const LoginPage = () => {
   const router = useRouter();
   const searhParams = useSearchParams().get('redirect') as string;
+  const [loadings, setLoadings] = useState<boolean>(false);
   const callbackUrl = searhParams
     ? searhParams
     : 'https://msp-tutoring-service.vercel.app/';
   // const callbackUrl = searhParams ? searhParams : 'http://localhost:3000/';
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
+    setLoadings(true);
     try {
       const result = await signIn('msp-tutoring-signin', {
         email: data.email,
@@ -35,13 +38,16 @@ const LoginPage = () => {
       });
 
       if (result?.ok && !result.error) {
-        message.success('User Created  successfully!');
+        setLoadings(false);
+        message.success('User Logged in  successfully!');
         router.refresh();
         router.push(callbackUrl, { scroll: false });
       } else {
+        setLoadings(false);
         message.error('Password is incorrect!');
       }
     } catch (err: any) {
+      setLoadings(false);
       console.log('looogin in error', err);
 
       message.error(err?.data?.message || 'Something went wrong');
@@ -50,12 +56,12 @@ const LoginPage = () => {
 
   const githubHandler = async () => {
     await signIn('github', {
-      callbackUrl: callbackUrl || 'http://localhost:3000/',
+      callbackUrl: callbackUrl || 'https://msp-tutoring-service.vercel.app/',
     });
   };
   const googleHandler = async () => {
     await signIn('google', {
-      callbackUrl: callbackUrl || 'http://localhost:3000/',
+      callbackUrl: callbackUrl || 'https://msp-tutoring-service.vercel.app/',
     });
   };
 
@@ -86,10 +92,36 @@ const LoginPage = () => {
 
           <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
             <div className='mb-4 space-y-2 '>
+              <div className='bg-[#EAEAEA] mb-4 rounded-md p-2 '>
+                <Paragraph className='text-sm mb-[6px] select-all' copyable>
+                  superadmin@example.com
+                </Paragraph>
+
+                <Paragraph className='text-sm mb-[6px] select-all' copyable>
+                  admin@example.com
+                </Paragraph>
+                <Paragraph className=' text-sm mb-[6px] select-all' copyable>
+                  user@example.com
+                </Paragraph>
+                <span className='text-sm font-medium'>password:</span>
+                <Paragraph
+                  className=' text-sm mb-1 select-all inline-block ms-2'
+                  copyable
+                >
+                  123456
+                </Paragraph>
+              </div>
               <label className='font-semibold text-base text-[#565656] mb-4'>
                 Email
               </label>
-              <FormInput name='email' type='email' size='large' required />
+
+              <FormInput
+                name='email'
+                type='email'
+                size='large'
+                required
+                inputFont='font-normal'
+              />
             </div>
             <div className='mb-4 space-y-2 '>
               <label className='font-semibold text-base text-[#565656] mb-4'>
@@ -100,11 +132,12 @@ const LoginPage = () => {
                 name='password'
                 type='password'
                 size='large'
+                inputFont='font-normal'
                 required
               />
             </div>
 
-            <div className='text-right no-underline'>
+            <div className='text-right no-underline '>
               <Link
                 className='no-underline text-base text-blue-600'
                 href='/forgot-password'
@@ -117,6 +150,7 @@ const LoginPage = () => {
               htmlType='submit'
               size='large'
               className=' block bg-[#274279] mt-8    text-white    rounded-md  px-6 '
+              loading={loadings}
             >
               Login
             </Button>

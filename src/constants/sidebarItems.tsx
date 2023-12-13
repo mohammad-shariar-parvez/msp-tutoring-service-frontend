@@ -8,6 +8,9 @@ import {
   NotificationOutlined,
   HomeOutlined,
 } from '@ant-design/icons';
+import { FaUsersGear } from 'react-icons/fa6';
+import { TbBrandBooking } from 'react-icons/tb';
+import { MdOutlineFeedback } from 'react-icons/md';
 import Link from 'next/link';
 import { USER_ROLE } from './role';
 export const sidebarItems = (role: string) => {
@@ -94,12 +97,12 @@ export const sidebarItems = (role: string) => {
 
     {
       label: <Link href={`/${role}/manage-admins`}>Manage Admin</Link>,
-      icon: <TableOutlined />,
+      icon: <FaUsersGear />,
       key: `/${role}/manage-admins`,
     },
     {
       label: <Link href={`/${role}/manage-users`}>Manage User</Link>,
-      icon: <TableOutlined />,
+      icon: <FaUsersGear />,
       key: `/${role}/user`,
     },
   ];
@@ -108,12 +111,12 @@ export const sidebarItems = (role: string) => {
     ...defaultSidebarItems,
     {
       label: <Link href={`/${role}/bookings`}>Bookings</Link>,
-      icon: <TableOutlined />,
+      icon: <TbBrandBooking />,
       key: `/${role}/bookings`,
     },
     {
       label: <Link href={`/${role}/feedback`}>Feedback</Link>,
-      icon: <TableOutlined />,
+      icon: <MdOutlineFeedback />,
       key: `/${role}/feedback`,
     },
     {

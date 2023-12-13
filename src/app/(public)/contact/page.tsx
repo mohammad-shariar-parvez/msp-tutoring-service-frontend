@@ -20,12 +20,15 @@ const gazipurLocation: Location = {
   lat: 23.9997558, // Replace with the actual latitude for Gazipur
   lng: 90.4173629, // Replace with the actual longitude for Gazipur
 };
-
+//ISSUE - process.env not working
 const Map = () => {
   return (
     <section className='container pb-32 mt-16 mx-auto '>
       <div className=''>
-        <LoadScript googleMapsApiKey={process.env.GOOGLE_API_KEY as string}>
+        <LoadScript
+          // googleMapsApiKey={`${process.env.GOOGLE_API_KEY}`}
+          googleMapsApiKey={'AIzaSyCFtxcenbj7IFAbULylvZ1ViAeY7jvDKfY'}
+        >
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={natoreLocation}
@@ -36,7 +39,7 @@ const Map = () => {
           </GoogleMap>
         </LoadScript>
         {/* <div className='grid grid-cols-1 md:grid-cols-2 py-16  gap-y-10 md:gap-x-28   text-secondary '> */}
-        <div className=' py-16  md:flex justify-between items-center  text-secondary md:space-x-28 space-y-8  '>
+        <div className=' py-16  md:flex justify-between items-center  text-secondary md:space-x-28 space-y-8 md:space-y-0 '>
           <div className=' space-y-3 text-base font-normal   text-justify flex-1 '>
             <h6 className='text-xl pb-2 '>Natore Office</h6>
             <div className=' flex justify-between'>

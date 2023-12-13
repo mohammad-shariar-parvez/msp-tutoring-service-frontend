@@ -4,7 +4,7 @@ import { DeleteOutlined, ReloadOutlined } from '@ant-design/icons';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
 import UMTable from '@/components/ui/UMTable';
 
-import { Button, Input, message } from 'antd';
+import { Button, Empty, Input, Modal, Popconfirm, message } from 'antd';
 
 import { useState } from 'react';
 import ActionBar from '@/components/ui/ActionBar';
@@ -17,16 +17,20 @@ import {
   useUsersQuery,
 } from '@/redux/api/userApi';
 import Link from 'next/link';
+import ActionButtons from '@/components/ui/ActionButtons';
+import Image from 'next/image';
 
 const ManageUsersPage = () => {
   const query: Record<string, any> = { role: 'admin' };
+  const [deleteUser] = useDeleteUserMutation();
 
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [deleteUser] = useDeleteUserMutation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [details, setDetails] = useState<any>({});
 
   query['limit'] = size;
   query['page'] = page;
@@ -52,31 +56,33 @@ const ManageUsersPage = () => {
     try {
       //   console.log(data);
       const res = await deleteUser(id);
-      if (res) {
-        message.success('User Deleted successfully');
+      if (res && 'data' in res) {
+        message.success('User Deleted successfully!');
+      } else if ('error' in res) {
+        message.error('Something went wrong!');
       }
     } catch (err: any) {
       //   console.error(err.message);
       message.error(err.message);
     }
   };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const columns = [
-    {
-      title: 'User ID',
-      dataIndex: 'id',
-      sorter: true,
-    },
+    // {
+    //   title: ' Name',
+    //   render: function (data: any) {
+    //     return data.firstName + ' ' + data.lastName;
+    //   },
+    // },
     {
       title: 'Email',
       dataIndex: 'email',
       sorter: true,
     },
-    {
-      title: 'Role',
-      dataIndex: 'role',
-      sorter: true,
-    },
+
     {
       title: 'CreatedAt',
       dataIndex: 'createdAt',
@@ -90,22 +96,23 @@ const ManageUsersPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type='primary'
-              danger
-              style={{
-                margin: '0px 5px',
-              }}
-            >
-              <DeleteOutlined />
-            </Button>
+            <ActionButtons
+              data={data}
+              onDetailsHandler={onDetailsHandler}
+              deleteHandler={deleteHandler}
+              editOption={false}
+            />
           </>
         );
       },
     },
   ];
+  const onDetailsHandler = (values: any) => {
+    // console.log(values);
 
+    setIsModalOpen(true);
+    setDetails(values);
+  };
   const onPaginationChange = (page: number, pageSize: number) => {
     // console.log('Page:', page, 'PageSize:', pageSize);
     setPage(page);
@@ -129,35 +136,35 @@ const ManageUsersPage = () => {
       <UMBreadCrumb
         items={[
           {
-            label: 'admin',
-            link: '/admin',
+            label: 'Super Admin',
+            link: '/super-admin',
           },
         ]}
       />
 
-      <ActionBar title='Booking List'>
+      <ActionBar title='Admin List'>
         <Input
           type='text'
           size='large'
           placeholder='Search...'
-          style={{
-            width: '20%',
-          }}
+          className='w-64'
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
         />
-        <div>
+        <div className='space-x-2'>
           <Link href='/super_admin/manage-admins/create'>
-            <Button type='primary'>Create</Button>
+            <Button className='button-primary' type='primary'>
+              Create
+            </Button>
           </Link>
 
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
               onClick={resetFilters}
               type='primary'
-              style={{ margin: '0px 5px' }}
+              className='bg-sky-400'
             >
               <ReloadOutlined />
             </Button>
@@ -176,6 +183,52 @@ const ManageUsersPage = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+      <>
+        <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
+          <div className='flex flex-col gap-4 '>
+            {details?.imageUrl ? (
+              <Image
+                src={details.imageUrl}
+                height={100}
+                width={150}
+                alt='details category'
+                className='h-auto'
+              />
+            ) : (
+              <Empty description='Image not available' />
+            )}
+            <div>
+              <strong className=' w-[30%] inline-block'>Name</strong>
+              <span>
+                {details?.profile?.firstName} {details?.profile?.middleName}
+                {details?.profile?.lastName}
+              </span>
+            </div>
+            <div>
+              <strong className=' w-[30%] inline-block'>ID</strong>
+              <span>{details?.id}</span>
+            </div>
+            <div>
+              <strong className=' w-[30%] inline-block'>Email</strong>
+              <span>{details?.email}</span>
+            </div>
+            <div>
+              <strong className=' w-[30%] inline-block'>Exprience</strong>
+              <span>{details?.role}</span>
+            </div>
+
+            <div>
+              <strong className=' w-[30%] inline-block'>Contact No</strong>
+              <span>{details?.profile?.contactNo}</span>
+            </div>
+
+            <div>
+              <strong className=' w-[30%] block mb-2'>Bio</strong>
+              <span>{details?.profile?.bio}</span>
+            </div>
+          </div>
+        </Modal>
+      </>
     </div>
   );
 };
