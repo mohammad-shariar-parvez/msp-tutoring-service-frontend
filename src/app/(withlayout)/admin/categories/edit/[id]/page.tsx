@@ -23,11 +23,11 @@ const EditCategoryPage = ({ params }: IDProps) => {
   const onSubmit = async (values: { title: string; imageUrl: string }) => {
     message.loading('Updating.....');
     try {
-      //   console.log(data);
+     
       await updateCategory({ id, body: values }).unwrap();
       message.success('Category updated successfully');
     } catch (err: any) {
-      //   console.error(err.message);
+      
       message.error(err.message);
     }
   };

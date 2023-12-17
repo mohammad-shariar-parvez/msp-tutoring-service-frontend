@@ -15,7 +15,7 @@ const CreateServicePage = () => {
   const [addBlog] = useAddBlogMutation();
 
   const adminOnSubmit = async (values: any) => {
-    // console.log(values);
+
 
     try {
       const res = await addBlog({ ...values });
