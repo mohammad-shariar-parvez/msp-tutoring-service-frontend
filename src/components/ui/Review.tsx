@@ -9,13 +9,15 @@ import { useReviewsQuery } from '@/redux/api/reviewApi';
 
 export default function Review() {
   const { data } = useReviewsQuery({ limit: 12 });
+  console.log(data);
+
   const reviewData = data?.reviews;
 
   return (
-    <section>
-      <div className=' container text-center mb-32   border   rounded-lg      shadow-md shadow-blue-100   '>
+    <section className=' py-16 mb-32  text-secondary'>
+      <div className=' container text-center    rounded-lg       '>
         <h1 className=' sub-title  text-center '>User Reviews</h1>
-        <div className='pb-16'>
+        <div className=''>
           <Swiper
             spaceBetween={30}
             slidesPerView={1}

@@ -10,7 +10,7 @@ interface CommentsCardProps {
 
 const CommentsCard: React.FC<CommentsCardProps> = ({ review }) => {
   return (
-    <div className='py-4 pt-2'>
+    <div className='pb-4 pt-2'>
       <div className='flex  justify-between items-start mb-2 '>
         <div className='flex space-x-2 '>
           {review?.user.profile?.imageUrl ? (
@@ -25,7 +25,11 @@ const CommentsCard: React.FC<CommentsCardProps> = ({ review }) => {
             <Avatar shape='square' size='default' icon={<UserOutlined />} />
           )}
 
-          <h3 className=' pb-3'>{review?.user.profile?.firstName}</h3>
+          <p className=' pb-3 font-medium'>
+            {review?.user.profile?.firstName
+              ? review?.user.profile?.firstName
+              : 'User'}
+          </p>
         </div>
 
         <div>
@@ -33,7 +37,7 @@ const CommentsCard: React.FC<CommentsCardProps> = ({ review }) => {
         </div>
       </div>
       <p className='text-gray-500'>{review?.review}</p>
-      <hr className='bg-gray-100 my-4  ' />
+      {/* <hr className='bg-gray-100 my-4  ' /> */}
     </div>
   );
 };

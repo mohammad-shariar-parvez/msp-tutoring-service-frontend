@@ -13,7 +13,7 @@ const CreateCategoryPage = () => {
   const [addCategory] = useAddCategoryMutation();
 
   const onSubmit = async (data: any) => {
-    // console.log(data);
+    console.log(data);
     message.loading('Creating.....');
     try {
       await addCategory(data);

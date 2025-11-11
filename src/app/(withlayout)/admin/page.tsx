@@ -11,7 +11,6 @@ import {
 } from '@ant-design/icons';
 import { Col, Row, Space, Spin } from 'antd';
 
-import VChart from '@/components/ui/VChart';
 import { useCoursesQuery } from '@/redux/api/courseApi';
 
 const ProfilePage = () => {
@@ -139,7 +138,6 @@ const ProfilePage = () => {
       </div>
       <Row>
         <Col xs={24} md={24} lg={12}>
-          {/* <VChart /> */}
         </Col>
       </Row>
     </div>

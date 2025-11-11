@@ -7,7 +7,6 @@ import FormSelectField from '@/components/Forms/FormSelectField';
 import FormTextArea from '@/components/Forms/FormTextArea';
 import TutorField from '@/components/Forms/TutorField';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import UploadFreeImage from '@/components/ui/UploadFreeIMage';
 import { locationOptions, courseStatus } from '@/constants/global';
 import { useAddCourseMutation } from '@/redux/api/courseApi';
 import { useSubjectsQuery } from '@/redux/api/subjectApi';

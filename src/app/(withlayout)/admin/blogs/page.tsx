@@ -54,18 +54,15 @@ const ServicePage = () => {
 
   const blogs = data?.blogs;
   const meta = data?.meta;
-  // console.log(blogs);
 
   const deleteHandler = async (id: string) => {
     message.loading('Deleting.....');
     try {
-      //   console.log(data);
       const res = await deleteBlogs(id);
       if (res) {
         message.success('Blogs Deleted successfully');
       }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

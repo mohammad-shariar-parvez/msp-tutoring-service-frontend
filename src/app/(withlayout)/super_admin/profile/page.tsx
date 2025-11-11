@@ -1,6 +1,5 @@
 'use client';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import VChart from '@/components/ui/VChart';
 import { useAddProfileMutation, useProfileQuery } from '@/redux/api/profile';
 import { Col, Row, Card, Button, Empty } from 'antd';
 import Image from 'next/image';

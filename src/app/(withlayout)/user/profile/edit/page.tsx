@@ -13,8 +13,10 @@ import {
   useUpdateProfileMutation,
 } from '@/redux/api/profile';
 import { Button, Col, Row, message } from 'antd';
+import { useRouter } from 'next/navigation';
 
 const CreateFacultyPage = () => {
+  const router = useRouter();
   const { data } = useProfileQuery(undefined);
   const [updateProfile] = useUpdateProfileMutation();
 
@@ -24,6 +26,7 @@ const CreateFacultyPage = () => {
       const res = await updateProfile({ body: values });
       if (!!res) {
         message.success('Profile updated successfully!');
+        router.push('/user/profile');
       }
     } catch (err: any) {
       console.error(err.message);
@@ -42,7 +45,6 @@ const CreateFacultyPage = () => {
   return (
     <>
       <UMBreadCrumb items={[{ label: 'profile', link: `/profile` }]} />
-      <h1>Create Faculty</h1>
       <Form submitHandler={adminOnSubmit} defaultValues={defaultValues}>
         {/* faculty information */}
         <div
@@ -54,7 +56,7 @@ const CreateFacultyPage = () => {
           }}
         >
           <p style={{ fontSize: '18px', fontWeight: '500', margin: '5px 0px' }}>
-            Faculty information
+            Profile information
           </p>
           <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
             <Col span={6} style={{ margin: '10px 0' }}>

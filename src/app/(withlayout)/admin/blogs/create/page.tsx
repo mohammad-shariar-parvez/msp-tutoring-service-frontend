@@ -1,7 +1,5 @@
 'use client';
 import React, { useState, useRef, useMemo, useEffect } from 'react';
-import JoditEditor from 'jodit-react';
-
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import FormSelectField from '@/components/Forms/FormSelectField';

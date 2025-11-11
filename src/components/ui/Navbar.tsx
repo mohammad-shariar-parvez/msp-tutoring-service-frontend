@@ -10,6 +10,7 @@ import {
   Dropdown,
   Space,
   MenuProps,
+  message,
 } from 'antd';
 import { IoMdHome } from 'react-icons/io';
 import { HomeOutlined } from '@ant-design/icons';
@@ -41,6 +42,7 @@ const Navbar = ({ session, home = false }: Record<string, any>) => {
     // console.log('handle');
 
     signOut();
+    message.success('Logout Successfully');
     // await router.push('/login');
   };
 

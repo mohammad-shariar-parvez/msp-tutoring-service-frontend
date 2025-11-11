@@ -1,5 +1,5 @@
 import { IReview } from '@/types';
-import { Avatar } from 'antd';
+import { Avatar, Rate } from 'antd';
 import Image from 'next/image';
 import React from 'react';
 import { UserOutlined } from '@ant-design/icons';
@@ -13,7 +13,7 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ reviewData }) => {
   return (
-    <div className='  py-14   flex flex-col items-center    space-y-8   '>
+    <div className='  py-14   flex flex-col items-center  rounded-lg   space-y-8 bg-[#E8F3FD] p-4 '>
       {/* <Image
         src={'/person_3.jpg.webp'}
         height={99}
@@ -24,13 +24,13 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ reviewData }) => {
       {reviewData?.user.profile?.imageUrl ? (
         <Image
           src={reviewData?.user.profile?.imageUrl}
-          width={40}
-          height={40}
+          width={50}
+          height={50}
           alt='eagle_image'
           className=''
         />
       ) : (
-        <Avatar size={64} icon={<UserOutlined />} />
+        <Avatar size={74} icon={<UserOutlined />} />
       )}
 
       <div className='text-center space-y-2'>
@@ -42,6 +42,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ reviewData }) => {
         <p className=' text-base text-gray-700 font-medium  '>
           {reviewData.review}
         </p>
+        <Rate
+          allowHalf
+          disabled
+          defaultValue={reviewData.rating}
+          className='text-base   inline-block w-full '
+        />
       </div>
     </div>
   );

@@ -52,7 +52,7 @@ const CommentsSection: React.FC<CommentProps> = ({ id }) => {
     ));
   }
   return (
-    <div className=' bg-white mb-8 pb-8 p-4 rounded-md'>
+    <div className=' bg-white mb-8 pb-8 p-4 rounded-md '>
       <h1 className='mb-6  mt-3  text-3xl text-secondary   font-medium  '>
         User Reviews
       </h1>

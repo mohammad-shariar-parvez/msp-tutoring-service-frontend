@@ -25,8 +25,7 @@ export const categoryApi = baseApi.injectEndpoints({
 			query: (data) => ({
 				url: CATEGORY_URL,
 				method: "POST",
-				data,
-				contentType: "multipart/form-data",
+				data
 			}),
 			invalidatesTags: [tagTypes.category],
 		}),

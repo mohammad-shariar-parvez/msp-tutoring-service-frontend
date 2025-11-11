@@ -24,6 +24,8 @@ const BookingFormSection: React.FC<BookingFormProps> = ({ courseId }) => {
   ];
   const handleBookingSubmit = async (values: any) => {
     try {
+      console.log("*********",values);
+      
       const res = await addBooking({ ...values, courseId });
       if (!!res) {
         message.success('Booking Completed successfully!');

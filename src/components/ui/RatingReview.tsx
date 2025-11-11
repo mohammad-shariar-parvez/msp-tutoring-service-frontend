@@ -32,7 +32,7 @@ const RatingReview: React.FC<RatingReviewProps> = ({ courseId }) => {
   const { data } = useBookingByCourseIdQuery(courseId);
   //@ts-ignore
   const courseBookingData = data?.courseBooking?.data?.id;
-  // console.log(courseBookingData);
+  console.log("9999999999999",courseBookingData);
 
   return (
     <div className={`py-8  `}>

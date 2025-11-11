@@ -19,10 +19,11 @@ const FormDatePicker = ({
 }: UMDatePikerProps) => {
   const { control, setValue } = useFormContext();
 
-  const handleOnChange: DatePickerProps['onChange'] = (date, dateString) => {
-    onChange ? onChange(date, dateString) : null;
-    setValue(name, date);
-  };
+const handleOnChange: DatePickerProps['onChange'] = (date, dateString) => {
+  const singleDateString = Array.isArray(dateString) ? dateString[0] : dateString;
+  if (onChange) onChange(date, singleDateString);
+  setValue(name, date);
+};
 
   return (
     <div>

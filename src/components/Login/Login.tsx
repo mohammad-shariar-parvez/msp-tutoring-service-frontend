@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 import { Alert, Button, Divider, Tag, message, Typography } from 'antd';
 import loginImage from '../../assets/login.png';
 import Image from 'next/image';
@@ -11,21 +12,23 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '@/schemas/login';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+
 const { Paragraph } = Typography;
+
 type FormValues = {
   id: string;
   password: string;
 };
 
-const LoginPage = () => {
+// Separate component that uses useSearchParams
+const LoginForm = () => {
   const router = useRouter();
-  const searhParams = useSearchParams().get('redirect') as string;
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') as string;
   const [loadings, setLoadings] = useState<boolean>(false);
-  const callbackUrl = searhParams
-    ? searhParams
-    : 'https://msp-tutoring-service.vercel.app/';
-  // const callbackUrl = searhParams ? searhParams : 'http://localhost:3000/';
+  
+  const callbackUrl = redirect || 'http://localhost:3000/';
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     setLoadings(true);
@@ -34,12 +37,11 @@ const LoginPage = () => {
         email: data.email,
         password: data.password,
         redirect: false,
-        // callbackUrl: "/",
       });
 
       if (result?.ok && !result.error) {
         setLoadings(false);
-        message.success('User Logged in  successfully!');
+        message.success('User Logged in successfully!');
         router.refresh();
         router.push(callbackUrl, { scroll: false });
       } else {
@@ -48,26 +50,26 @@ const LoginPage = () => {
       }
     } catch (err: any) {
       setLoadings(false);
-      console.log('looogin in error', err);
-
+      console.log('login error', err);
       message.error(err?.data?.message || 'Something went wrong');
     }
   };
 
   const githubHandler = async () => {
     await signIn('github', {
-      callbackUrl: callbackUrl || 'https://msp-tutoring-service.vercel.app/',
+      callbackUrl: callbackUrl || 'http://localhost:3000/',
     });
   };
+
   const googleHandler = async () => {
     await signIn('google', {
-      callbackUrl: callbackUrl || 'https://msp-tutoring-service.vercel.app/',
+      callbackUrl: callbackUrl || 'http://localhost:3000/',
     });
   };
 
   return (
-    <section className='container  flex justify-center items-center h-screen '>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-8 '>
+    <section className='container flex justify-center items-center h-screen'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
         <Image
           src={loginImage}
           width={500}
@@ -78,11 +80,11 @@ const LoginPage = () => {
         <div className='mt-8'>
           <h1 className='text-4xl font-medium mb-5'>Join in MSP Toring</h1>
           <h2 className='text-left mb-4'>
-            <span className='text-lg text-slate-600 font-normal  '>
+            <span className='text-lg text-slate-600 font-normal'>
               Study with MSP Tutoring and grow your skills{' '}
               <Divider type='vertical' />
               <Link
-                className='no-underline  font-semibold hover:underline hover:decoration-2 text-blue-600'
+                className='no-underline font-semibold hover:underline hover:decoration-2 text-blue-600'
                 href='/signup'
               >
                 Sign up
@@ -91,8 +93,8 @@ const LoginPage = () => {
           </h2>
 
           <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
-            <div className='mb-4 space-y-2 '>
-              <div className='bg-[#EAEAEA] mb-4 rounded-md p-2 '>
+            <div className='mb-4 space-y-2'>
+              <div className='bg-[#EAEAEA] mb-4 rounded-md p-2'>
                 <Paragraph className='text-sm mb-[6px] select-all' copyable>
                   superadmin@example.com
                 </Paragraph>
@@ -100,12 +102,12 @@ const LoginPage = () => {
                 <Paragraph className='text-sm mb-[6px] select-all' copyable>
                   admin@example.com
                 </Paragraph>
-                <Paragraph className=' text-sm mb-[6px] select-all' copyable>
+                <Paragraph className='text-sm mb-[6px] select-all' copyable>
                   user@example.com
                 </Paragraph>
                 <span className='text-sm font-medium'>password:</span>
                 <Paragraph
-                  className=' text-sm mb-1 select-all inline-block ms-2'
+                  className='text-sm mb-1 select-all inline-block ms-2'
                   copyable
                 >
                   123456
@@ -123,7 +125,7 @@ const LoginPage = () => {
                 inputFont='font-normal'
               />
             </div>
-            <div className='mb-4 space-y-2 '>
+            <div className='mb-4 space-y-2'>
               <label className='font-semibold text-base text-[#565656] mb-4'>
                 Password
               </label>
@@ -137,7 +139,7 @@ const LoginPage = () => {
               />
             </div>
 
-            <div className='text-right no-underline '>
+            <div className='text-right no-underline'>
               <Link
                 className='no-underline text-base text-blue-600'
                 href='/forgot-password'
@@ -149,7 +151,7 @@ const LoginPage = () => {
             <Button
               htmlType='submit'
               size='large'
-              className=' block bg-[#274279] mt-8    text-white    rounded-md  px-6 '
+              className='block bg-[#274279] mt-8 text-white rounded-md px-6'
               loading={loadings}
             >
               Login
@@ -166,6 +168,15 @@ const LoginPage = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+// Main component with Suspense boundary
+const LoginPage = () => {
+  return (
+    <Suspense fallback={<div className='flex justify-center items-center h-screen'>Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 };
 

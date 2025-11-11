@@ -1,6 +1,8 @@
+'use client';
+import dynamic from 'next/dynamic';
 import { Input } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
-import ReactQuill, { Quill } from 'react-quill';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 type TextAreaProps = {
   name: string;
@@ -22,11 +24,6 @@ const FormTextArea = ({
   richText = false,
 }: TextAreaProps) => {
   const { control } = useFormContext();
-  var quill = new Quill('#editor', {
-    modules: {
-      toolbar: false,
-    },
-  });
   // const modules = {
   //   toolbar: richText ? true : false,
   // };

@@ -1,6 +1,5 @@
 'use client';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
-import VChart from '@/components/ui/VChart';
 import { useAddProfileMutation, useProfileQuery } from '@/redux/api/profile';
 import { Col, Row, Card, Button, Empty } from 'antd';
 import Image from 'next/image';
@@ -75,7 +74,7 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className='flex  justify-end mt-4'>
-            <Link href='/admin/profile/edit/'>
+            <Link href='/user/profile/edit/'>
               <Button className=' bg-secondary     text-white '>
                 Update Profile
               </Button>

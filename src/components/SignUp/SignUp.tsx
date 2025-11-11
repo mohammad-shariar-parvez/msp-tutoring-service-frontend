@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 import { Button, Divider, message } from 'antd';
 import loginImage from '../../assets/login.png';
 import Image from 'next/image';
@@ -12,20 +13,22 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpSchema } from '@/schemas/signUp';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 type FormValues = {
   id: string;
   password: string;
 };
 
-const SignUpPage = () => {
+// Separate component that uses useSearchParams
+const SignUpForm = () => {
   const router = useRouter();
-  const searhParams = useSearchParams().get('redirect') as string;
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') as string;
   const [loadings, setLoadings] = useState<boolean>(false);
-  const callbackUrl = searhParams
-    ? searhParams
-    : 'https://msp-tutoring-service.vercel.app/';
+  
+  const callbackUrl = redirect || 'http://localhost:3000/';
+
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     setLoadings(true);
     try {
@@ -33,12 +36,11 @@ const SignUpPage = () => {
         email: data.email,
         password: data.password,
         redirect: false,
-        // callbackUrl: "/",
       });
       console.log(result, 'result');
       if (result?.ok && !result.error) {
         setLoadings(false);
-        message.success('User Created  successfully!');
+        message.success('User Created successfully!');
         router.refresh();
         router.push(callbackUrl, { scroll: false });
       } else {
@@ -48,25 +50,25 @@ const SignUpPage = () => {
     } catch (err: any) {
       setLoadings(false);
       console.log('sign in error', err);
-
       message.error(err?.data?.message || 'Something went wrong');
     }
   };
 
   const githubHandler = async () => {
     await signIn('github', {
-      callbackUrl: callbackUrl || 'https://msp-tutoring-service.vercel.app/',
+      callbackUrl: callbackUrl || 'http://localhost:3000/',
     });
   };
+
   const googleHandler = async () => {
     await signIn('google', {
-      callbackUrl: callbackUrl || 'https://msp-tutoring-service.vercel.app/',
+      callbackUrl: callbackUrl || 'http://localhost:3000/',
     });
   };
 
   return (
-    <section className='container  flex justify-center items-center h-screen '>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-8 '>
+    <section className='container flex justify-center items-center h-screen'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
         <Image
           src={loginImage}
           width={500}
@@ -77,11 +79,11 @@ const SignUpPage = () => {
         <div className='mt-8'>
           <h1 className='text-4xl font-medium mb-5'>Join in MSP Toring</h1>
           <h2 className='text-left mb-4'>
-            <span className='text-lg text-slate-600 font-normal  '>
+            <span className='text-lg text-slate-600 font-normal'>
               Study with MSP Tutoring and grow your skills{' '}
               <Divider type='vertical' />
               <Link
-                className='no-underline  font-semibold hover:underline hover:decoration-2 text-blue-600'
+                className='no-underline font-semibold hover:underline hover:decoration-2 text-blue-600'
                 href='/login'
               >
                 Log in
@@ -90,7 +92,7 @@ const SignUpPage = () => {
           </h2>
 
           <Form submitHandler={onSubmit} resolver={yupResolver(signUpSchema)}>
-            <div className='mb-4 space-y-2 '>
+            <div className='mb-4 space-y-2'>
               <label className='font-semibold text-base text-[#565656] mb-4'>
                 Email
               </label>
@@ -102,11 +104,10 @@ const SignUpPage = () => {
                 inputFont='font-normal'
               />
             </div>
-            <div className='mb-4 space-y-2 '>
+            <div className='mb-4 space-y-2'>
               <label className='font-semibold text-base text-[#565656] mb-4'>
                 Password
               </label>
-
               <FormInput
                 name='password'
                 type='password'
@@ -115,9 +116,9 @@ const SignUpPage = () => {
                 inputFont='font-normal'
               />
             </div>
-            <div className='mb-4 space-y-2 '>
+            <div className='mb-4 space-y-2'>
               <label className='font-semibold text-base text-[#565656] mb-4'>
-                Password
+                Confirm Password
               </label>
               <FormInput
                 name='confirmPassword'
@@ -131,7 +132,7 @@ const SignUpPage = () => {
             <Button
               htmlType='submit'
               size='large'
-              className=' block bg-[#274279] mt-8    text-white    rounded-md  px-6 '
+              className='block bg-[#274279] mt-8 text-white rounded-md px-6'
               loading={loadings}
             >
               Signup
@@ -148,19 +149,16 @@ const SignUpPage = () => {
           </div>
         </div>
       </div>
-
-      <div>
-        {/* <GoogleOutlined
-          onClick={() =>
-            signIn('google', {
-              callbackUrl:
-                router.query.callbackUrl ||
-                'https://msp-pc-builder.vercel.app/',
-            })
-          }
-        /> */}
-      </div>
     </section>
+  );
+};
+
+// Main component with Suspense boundary
+const SignUpPage = () => {
+  return (
+    <Suspense fallback={<div className='flex justify-center items-center h-screen'>Loading...</div>}>
+      <SignUpForm />
+    </Suspense>
   );
 };
 

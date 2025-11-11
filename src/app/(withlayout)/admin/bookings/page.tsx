@@ -110,10 +110,6 @@ const BookingsPage = () => {
 
   /* SEND notification to socket.io */
   const onAcceptHandler = (userId: string, course: string, values: any) => {
-    // console.log(userId);
-    // console.log(course);
-    // console.log(values);
-
     updateBooking(values);
     const x = addNotification({
       userId,
