@@ -30,7 +30,7 @@ export const bookingApi = baseApi.injectEndpoints({
 			invalidatesTags: [tagTypes.booking],
 		}),
 
-		// get single department by id
+		// get single department by id 
 		booking: build.query({
 			query: (id) => ({
 				url: `${BOOKINGS_URL}/${id}`,
